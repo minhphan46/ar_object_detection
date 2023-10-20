@@ -1,6 +1,10 @@
 import {
   ViroARScene,
   ViroText,
+  ViroNode,
+  ViroScene,
+  Viro3DObject,
+  Viro360Image,
   ViroTrackingState,
   ViroTrackingReason,
   ViroARSceneNavigator,
@@ -25,16 +29,38 @@ function HelloWorldSceneAr(): JSX.Element {
 
   return (
     <ViroARScene onTrackingUpdated={onInitialized}>
-      <ViroText
+      {/* <ViroText
         text={text}
         scale={[0.5, 0.5, 0.5]}
         position={[0, 0, -5]}
         style={styles.helloWorldTextStyle}
-      />
+      /> */}
+      {/* <Viro360Image source={require('./assets/landscape.jpeg')} /> */}
+      
+      <OBJTest></OBJTest>
     </ViroARScene>
   );
 }
-
+const OBJTest = () => {
+  return (
+    // <ViroText
+    //     text={"Hello askdjjhalskdhasldhsa"}
+    //     scale={[0.5, 0.5, 0.5]}
+    //     position={[0, 0, -1]}
+    //     style={styles.helloWorldTextStyle}
+    //   />
+    <>
+<ViroNode position={[0, 0, -1]} scale={[0.5, 0.5, 0.5]}>
+        <ViroText style={styles.helloWorldTextStyle} text="Text A" position={[0, 0, 1]}  />
+         
+      </ViroNode>
+      <ViroNode position={[0, 0, -2 ]} scale={[1, 1, 1]}>
+          <ViroText style={styles.helloWorldTextStyle} text="Text B" />
+        </ViroNode> 
+    </>
+    
+  )
+}
 function App(): JSX.Element {
   return (
     <ViroARSceneNavigator
@@ -56,7 +82,7 @@ const styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Arial',
     fontSize: 30,
-    color: '#ffffff',
+    color: 'red',
     textAlignVertical: 'center',
     textAlign: 'center',
   },

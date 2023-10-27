@@ -1,10 +1,12 @@
 import {
     ViroARImageMarker,
     ViroARTrackingTargets,
+    ViroText,
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import { View } from 'react-native';
 import bohucImages from './bohuc_images';
+import {StyleSheet} from 'react-native';
 
 function BohucDetection(): JSX.Element {
     const modelName = 'bohuc';
@@ -36,16 +38,42 @@ function BohucDetection(): JSX.Element {
       setTargetDataCreated(true);
     }, []);
 
-    function _onFoundCan(evt: any) {
-        console.log(`Found Object ${modelName}`, evt);
+    const [isFoundOnject, setIsFoundOnject] = useState(false);
+
+
+    function _onFoundObject(evt: any) {
+      console.log(`Found Object ${modelName}`, evt);
+      // if (!isFoundOnject) {
+      //     console.log(`Found Object ${modelName}`, evt);
+      //     setIsFoundOnject(true)
+      // }
+    }
+
+    function _onLostObject(evt: any) {
+      if (isFoundOnject) {
+          console.log(`Found lose ${modelName}`, evt);
+          setIsFoundOnject(false)
+      }
     }
 
     const renderList = () => {
       const listItems = [];
       for (let i = 0; i < 25; i++) {
         listItems.push(
-          <ViroARImageMarker key={`${modelName}${i}`} target={`${modelName}${i + 1}`} onAnchorFound={_onFoundCan}>
-            
+          <ViroARImageMarker 
+            key={`${modelName}${i}`} 
+            target={`${modelName}${i + 1}`} 
+            onAnchorFound={_onFoundObject} 
+            onAnchorUpdated={_onFoundObject}
+            onAnchorRemoved={_onLostObject}>
+             {<ViroText
+                text={modelName}
+                scale={[0.2, 0.2, 0.2]}
+                position={[0, 0, 0]}
+                rotation={[90, 180, 180]}
+                style={styles.modelNameTextStyle} 
+                />
+             }
           </ViroARImageMarker>
         );
       }
@@ -58,5 +86,15 @@ function BohucDetection(): JSX.Element {
       </View>
     );
 };
+
+const styles = StyleSheet.create({
+  modelNameTextStyle: {
+    fontFamily: 'Arial',
+    fontSize: 30,
+    color: 'blue',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+  },
+});
   
 export default BohucDetection;

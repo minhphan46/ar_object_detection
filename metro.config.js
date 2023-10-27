@@ -36,6 +36,7 @@ module.exports = (async () => {
     'bin',
     'arobject',
     'gif',
+    'mp4',
   ];
 
   return mergeConfig(defaultConfig, {

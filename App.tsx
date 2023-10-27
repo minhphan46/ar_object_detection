@@ -1,17 +1,16 @@
 import {
   ViroARSceneNavigator,
 } from '@viro-community/react-viro';
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
-import HelloWorldSceneAr from './src/helloworld';
-import DetectLabel from './src/detect_label';
+import DetectObject from './src/detect_object';
 
 function App(): JSX.Element {
   return (
     <ViroARSceneNavigator
       autofocus={true}
       initialScene={{
-        scene: () => <DetectLabel />,
+        scene: () => <DetectObject />,
       }}
       style={styles.rootContainer}
     />
@@ -23,13 +22,6 @@ export default App;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-  },
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: 'red',
-    textAlignVertical: 'center',
-    textAlign: 'center',
   },
 });
 

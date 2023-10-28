@@ -1,6 +1,8 @@
 import {
+  Viro3DObject,
     ViroARImageMarker,
     ViroARTrackingTargets,
+    ViroMaterials,
     ViroText,
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
@@ -18,6 +20,12 @@ function BohucDetection(): JSX.Element {
         physicalWidth: number;
       };
     }
+    
+    ViroMaterials.createMaterials({
+      blue: {
+        diffuseTexture: require('../../assets/images/mocks/anime.jpg'),
+      },
+    });
     
     const targetData: TargetData = {};
     const [targetDataCreated, setTargetDataCreated] = useState(false);
@@ -56,6 +64,39 @@ function BohucDetection(): JSX.Element {
       }
     }
 
+    function TextModel () : JSX.Element {
+      return (
+        <ViroText
+          text={modelName}
+          scale={[0.2, 0.2, 0.2]}
+          position={[0, 0, 0]}
+          rotation={[90, 180, 180]}
+          style={styles.modelNameTextStyle} 
+        />
+      );
+    }
+
+    function ObjectModel () : JSX.Element {
+      return (
+          <Viro3DObject
+            position={[0,0,0]}
+            source={require("../../assets/model/can.obj")}
+            type="OBJ"
+            scale={[0.2, 0.2, 0.2]}
+            rotation={[0, 90, 0]}
+            materials={['blue']}
+            dragPlane={{
+                planeNormal: [0, 0, 0],
+                planePoint: [0, 0, -2],
+                maxDistance: 5,
+            }}
+            onDrag={(event) => console.log("Drag Event: bottle", event)}
+          />
+      );
+    }
+
+    
+
     const renderList = () => {
       const listItems = [];
       for (let i = 0; i < 25; i++) {
@@ -66,13 +107,8 @@ function BohucDetection(): JSX.Element {
             onAnchorFound={_onFoundObject} 
             onAnchorUpdated={_onFoundObject}
             onAnchorRemoved={_onLostObject}>
-             {<ViroText
-                text={modelName}
-                scale={[0.2, 0.2, 0.2]}
-                position={[0, 0, 0]}
-                rotation={[90, 180, 180]}
-                style={styles.modelNameTextStyle} 
-                />
+             {
+              <TextModel/>
              }
           </ViroARImageMarker>
         );

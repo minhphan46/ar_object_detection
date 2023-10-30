@@ -54,6 +54,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     if (isFoundOnject) {
     }
     setIsFoundOnject(false);
+    setIndexImageFound(-1);
     console.log(`Lost Object ${props.modelName}`, evt);
   }
 

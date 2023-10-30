@@ -3,14 +3,14 @@ import {
 } from '@viro-community/react-viro';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import DetectObject from './src/detect_object';
+import ObjectDetectScreen from './src/object_detect_screen';
 
 function App(): JSX.Element {
   return (
     <ViroARSceneNavigator
       autofocus={true}
       initialScene={{
-        scene: () => <DetectObject />,
+        scene: () => <ObjectDetectScreen />,
       }}
       style={styles.rootContainer}
     />

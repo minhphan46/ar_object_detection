@@ -7,11 +7,14 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import { View } from 'react-native';
-import bohucImages from './bohuc_images';
 import {StyleSheet} from 'react-native';
 
-function BohucDetection(): JSX.Element {
-    const modelName = 'bohuc';
+type ModelDetectionProps = {
+  name: string;
+  images:  Record<string, any>;
+}
+
+function ModelDetection(props: ModelDetectionProps): JSX.Element {
 
     interface TargetData {
       [key: string]: {
@@ -23,7 +26,7 @@ function BohucDetection(): JSX.Element {
     
     ViroMaterials.createMaterials({
       blue: {
-        diffuseTexture: require('../../assets/images/mocks/anime.jpg'),
+        diffuseTexture: require('../assets/images/mocks/anime.jpg'),
       },
     });
     
@@ -32,9 +35,9 @@ function BohucDetection(): JSX.Element {
 
     useEffect(() => {
       // Sử dụng mảng imagePaths để tạo targetData
-      Object.keys(bohucImages).forEach((key, i) => {
-          targetData[`${modelName}${i + 1}`] = {
-              source: bohucImages[key],
+      Object.keys(props.images).forEach((key, i) => {
+          targetData[`${props.name}${i + 1}`] = {
+              source: props.images[key],
               orientation: "Up",
               physicalWidth: 0.25, // real-world width in meters
           };
@@ -50,7 +53,7 @@ function BohucDetection(): JSX.Element {
 
 
     function _onFoundObject(evt: any) {
-      console.log(`Found Object ${modelName}`, evt);
+      console.log(`Found Object ${props.name}`, evt);
       // if (!isFoundOnject) {
       //     console.log(`Found Object ${modelName}`, evt);
       //     setIsFoundOnject(true)
@@ -59,7 +62,7 @@ function BohucDetection(): JSX.Element {
 
     function _onLostObject(evt: any) {
       if (isFoundOnject) {
-          console.log(`Found lose ${modelName}`, evt);
+          console.log(`Found lose ${props.name}`, evt);
           setIsFoundOnject(false)
       }
     }
@@ -67,7 +70,7 @@ function BohucDetection(): JSX.Element {
     function TextModel () : JSX.Element {
       return (
         <ViroText
-          text={modelName}
+          text={props.name}
           scale={[0.2, 0.2, 0.2]}
           position={[0, 0, 0]}
           rotation={[90, 180, 180]}
@@ -80,7 +83,7 @@ function BohucDetection(): JSX.Element {
       return (
           <Viro3DObject
             position={[0,0,0]}
-            source={require("../../assets/model/can.obj")}
+            source={require("../assets/model/can.obj")}
             type="OBJ"
             scale={[0.2, 0.2, 0.2]}
             rotation={[0, 90, 0]}
@@ -102,8 +105,8 @@ function BohucDetection(): JSX.Element {
       for (let i = 0; i < 25; i++) {
         listItems.push(
           <ViroARImageMarker 
-            key={`${modelName}${i}`} 
-            target={`${modelName}${i + 1}`} 
+            key={`${props.name}${i}`} 
+            target={`${props.name}${i + 1}`} 
             onAnchorFound={_onFoundObject} 
             onAnchorUpdated={_onFoundObject}
             onAnchorRemoved={_onLostObject}>
@@ -133,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
   
-export default BohucDetection;
+export default ModelDetection;

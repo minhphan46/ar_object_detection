@@ -8,6 +8,7 @@ function DetectObject(): JSX.Element {
   return (
     <ViroARScene>
       <ObjectDetectionPage modelName={'coca'} images={CocaImages} />
+      <ObjectDetectionPage modelName={'bohuc'} images={bohucImages} />
     </ViroARScene>
   );
 }

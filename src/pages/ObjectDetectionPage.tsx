@@ -42,7 +42,10 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   const [isFoundOnject, setIsFoundOnject] = useState(false);
 
   function _onFoundObject(evt: any) {
-    console.log(`Found Object ${props.modelName}`, evt);
+    if (!isFoundOnject) {
+      console.log(`Found Object ${props.modelName}`, evt);
+      setIsFoundOnject(true);
+    }
   }
 
   function _onLostObject(evt: any) {
@@ -61,7 +64,8 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
           target={`${props.modelName}${i + 1}`}
           onAnchorFound={_onFoundObject}
           onAnchorUpdated={_onFoundObject}
-          onAnchorRemoved={_onLostObject}>
+          onAnchorRemoved={_onLostObject}
+          >
           <ObjectText modelName={props.modelName} />
         </ViroARImageMarker>,
       );

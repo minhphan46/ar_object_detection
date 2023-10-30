@@ -9,6 +9,7 @@ import ObjectText from '../components/ObjectText';
 type ObjectDetectionProps = {
   modelName: string;
   images: Record<string, any>;
+  color: string;
 };
 
 function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
@@ -66,7 +67,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
           onAnchorUpdated={_onFoundObject}
           onAnchorRemoved={_onLostObject}
           >
-          <ObjectText modelName={props.modelName} />
+          <ObjectText modelName={props.modelName} color={props.color}/>
         </ViroARImageMarker>,
       );
     }

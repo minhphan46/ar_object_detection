@@ -7,8 +7,8 @@ import CocaImages from './utils/coca_images';
 function DetectObject(): JSX.Element {
   return (
     <ViroARScene>
-      <ObjectDetectionPage modelName={'coca'} images={CocaImages} />
-      <ObjectDetectionPage modelName={'bohuc'} images={bohucImages} />
+      <ObjectDetectionPage modelName={'coca'} images={CocaImages} color='red'/>
+      <ObjectDetectionPage modelName={'bohuc'} images={bohucImages} color='yellow'/>
     </ViroARScene>
   );
 }

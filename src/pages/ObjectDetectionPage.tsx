@@ -5,11 +5,14 @@ import {
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import ObjectText from '../components/ObjectText';
+import ObjectCardInfo from '../components/ObjectCardInfo';
 
 type ObjectDetectionProps = {
   modelName: string;
+  description: string;
   images: Record<string, any>;
   color: string;
+  imageLogo: any;
 };
 
 function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
@@ -22,6 +25,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   }
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);
+  const [isFoundOnject, setIsFoundOnject] = useState(false);
 
   useEffect(() => {
     const targetData: TargetData = {};
@@ -40,37 +44,54 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     setTargetDataCreated(true);
   }, [props.images, props.modelName]);
 
-  const [isFoundOnject, setIsFoundOnject] = useState(false);
-
-  function _onFoundObject(evt: any) {
-    if (!isFoundOnject) {
-      console.log(`Found Object ${props.modelName}`, evt);
-      setIsFoundOnject(true);
-    }
+  function _onFoundObject(evt: any, id: number) {
+    console.log(`Found Object ${props.modelName} ${id}`, evt);
+    setIsFoundOnject(!isFoundOnject);
+    setIndexImageFound(id);
   }
 
   function _onLostObject(evt: any) {
     if (isFoundOnject) {
-      console.log(`Found lose ${props.modelName}`, evt);
-      setIsFoundOnject(false);
     }
+    setIsFoundOnject(false);
+    setIndexImageFound(0);
+    console.log(`Lost Object ${props.modelName}`, evt);
   }
+
+  const [indexImageFound, setIndexImageFound] = useState<number>(0);
 
   const renderList = () => {
     const listItems = [];
-    for (let i = 0; i < Object.keys(props.images).length; i++) {
+    console.log(`check ${isFoundOnject}`);
+
+    if (indexImageFound === 0) {
+      for (let i = 0; i < Object.keys(props.images).length; i++) {
+        listItems.push(
+          <ViroARImageMarker
+            key={`${props.modelName}${i}`}
+            target={`${props.modelName}${i + 1}`}
+            onAnchorFound={() => _onFoundObject(props.modelName, i)}
+            onAnchorRemoved={_onLostObject}
+          />,
+        );
+      }
+    } else {
       listItems.push(
         <ViroARImageMarker
-          key={`${props.modelName}${i}`}
-          target={`${props.modelName}${i + 1}`}
-          onAnchorFound={_onFoundObject}
-          onAnchorUpdated={_onFoundObject}
-          onAnchorRemoved={_onLostObject}
-          >
-          <ObjectText modelName={props.modelName} color={props.color}/>
+          key={`${props.modelName}${indexImageFound}`}
+          target={`${props.modelName}${indexImageFound + 1}`}
+          onAnchorRemoved={_onLostObject}>
+          {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
+          <ObjectCardInfo
+            modelName={props.modelName}
+            color={props.color}
+            image={props.imageLogo}
+            description={props.description}
+          />
         </ViroARImageMarker>,
       );
     }
+
     return listItems;
   };
 

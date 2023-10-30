@@ -1,31 +1,24 @@
 import {
   ViroARImageMarker,
   ViroARTrackingTargets,
-  ViroMaterials,
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import ObjectText from '../components/ObjectText';
 
-type BohucDetectionProps = {
+type ObjectDetectionProps = {
   modelName: string;
   images: Record<string, any>;
 };
 
-function ObjectDetectionPage(props: BohucDetectionProps): JSX.Element {
+function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   interface TargetData {
     [key: string]: {
-      source: any; // You can specify the correct type for 'source' here
+      source: any;
       orientation: string;
       physicalWidth: number;
     };
   }
-
-  ViroMaterials.createMaterials({
-    blue: {
-      diffuseTexture: require('../../assets/images/mocks/anime.jpg'),
-    },
-  });
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);
 

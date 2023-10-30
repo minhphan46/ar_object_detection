@@ -1,7 +1,16 @@
-import {Viro3DObject} from '@viro-community/react-viro';
+import {
+  ViroMaterials,
+  Viro3DObject,
+} from '@viro-community/react-viro';
 import React from 'react';
 
 function Object3D() {
+  ViroMaterials.createMaterials({
+    blue: {
+      diffuseTexture: require('../../assets/images/mocks/anime.jpg'),
+    },
+  });
+
   return (
     <Viro3DObject
       position={[0, 0, 0]}

@@ -54,18 +54,15 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     if (isFoundOnject) {
     }
     setIsFoundOnject(false);
-    setIndexImageFound(0);
     console.log(`Lost Object ${props.modelName}`, evt);
   }
 
-  const [indexImageFound, setIndexImageFound] = useState<number>(0);
+  const [indexImageFound, setIndexImageFound] = useState<number>(-1);
 
   const renderList = () => {
     const listItems = [];
-    console.log(`check ${isFoundOnject}`);
-
-    if (indexImageFound === 0) {
-      for (let i = 0; i < Object.keys(props.images).length; i++) {
+    for (let i = 0; i < Object.keys(props.images).length; i++) {
+      if (i !== indexImageFound)
         listItems.push(
           <ViroARImageMarker
             key={`${props.modelName}${i}`}
@@ -74,8 +71,11 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             onAnchorRemoved={_onLostObject}
           />,
         );
-      }
-    } else {
+    }
+
+    console.log(`index ${indexImageFound}`);
+
+    if (indexImageFound !== -1) {
       listItems.push(
         <ViroARImageMarker
           key={`${props.modelName}${indexImageFound}`}

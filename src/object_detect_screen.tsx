@@ -3,7 +3,7 @@ import {
 } from '@viro-community/react-viro';
 import React from 'react';
 import ModelDetection from './model_detection';
-import bohucImages from './bohuc/bohuc_images';
+import bohucImages from './utils/bohuc_images';
 
 function ObjectDetectScreen(): JSX.Element {
     return (

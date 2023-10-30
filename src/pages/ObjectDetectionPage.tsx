@@ -54,7 +54,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
 
   const renderList = () => {
     const listItems = [];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < Object.keys(props.images).length; i++) {
       listItems.push(
         <ViroARImageMarker
           key={`${props.modelName}${i}`}

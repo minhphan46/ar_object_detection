@@ -12,6 +12,9 @@ npm install
 
 # OR using Yarn
 yarn install
+
+# if you cant install, try:
+npm install --legacy-peer-deps
 ```
 
 ## Step 2: Start your Application
@@ -35,9 +38,9 @@ To add new model to project:
 3. Create new folder in `src/images` folder. Example: `src/models/bohuc`
 4. Create file: `{your_model}_images.tsx` to define your model's images url. Example: `src/models/bohuc/bohuc_images.tsx`\
    I recommend you use chatGpt to generate url, you can follow my format in this file.
-5. Create file: `{your_model}_detection.tsx`. Example: `src/models/bohuc/bohuc_detection.tsx`\
-   Copy my example file, change modelName variable and Images file path.
-6. In decect_object.tsx file, import your `{your_model}_detection.tsx` file and add your component inside <ViroARScene>
+5. In object_detect_screen.tsx file, import your `{your_model}_images.tsx` file.
+6. Add `<ModelDetection>` component with your model's name and images inside `<ViroARScene>`\
+   Example: `<ModelDetection name='bohuc' images={bohucImages}/>`
 
 Rebuild your project to see the result.
 

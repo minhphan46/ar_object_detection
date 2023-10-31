@@ -1,4 +1,9 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).\
+We use [**Viro library**](https://github.com/viromedia/viro) that detects and displays images and objects in real-time, presenting lifelike 3D models through augmented reality (AR)🕶️
+
+# Video Preview
+
+<img align="center" width="200" alt="UIApp" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDcyenVpOWc0M3J2MDc0aHJ3cXlhbGtwc3RuNGQ5bWd6dG90eGd3cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Vughf1JwX0aGMjAsop/giphy.gif">
 
 # Getting Started
 

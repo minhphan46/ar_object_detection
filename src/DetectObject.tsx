@@ -3,6 +3,7 @@ import React from 'react';
 import ObjectDetectionPage from './pages/ObjectDetectionPage';
 import bohucImages from './utils/bohuc_images';
 import CocaImages from './utils/coca_images';
+import CafeImages from './utils/cafe_image';
 
 function DetectObject(): JSX.Element {
   return (
@@ -20,6 +21,13 @@ function DetectObject(): JSX.Element {
         images={bohucImages}
         color="yellow"
         imageLogo={require('../assets/images/bohuc/bohuc.jpg')}
+      />
+      <ObjectDetectionPage
+        modelName={'Cà phê'}
+        description={'Cà phê sữa highlands coffee'}
+        images={CafeImages}
+        color="brown"
+        imageLogo={require('../assets/images/cafe/cafe.jpg')}
       />
     </ViroARScene>
   );

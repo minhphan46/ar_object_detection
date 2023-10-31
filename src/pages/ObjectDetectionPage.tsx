@@ -87,13 +87,13 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             key={`${props.modelName}${indexImageFound}`}
             target={`${props.modelName}${indexImageFound + 1}`}
             onAnchorRemoved={_onLostObject}>
-            <ObjectText modelName={props.modelName} color={props.color} />
-            {/* <ObjectCardInfo
+            {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
+            <ObjectCardInfo
               modelName={props.modelName}
               color={props.color}
               image={props.imageLogo}
               description={props.description}
-            /> */}
+            />
           </ViroARImageMarker>,
         );
       }

@@ -21,10 +21,12 @@ function App(): JSX.Element {
       <View
         style={{
           position: 'absolute',
-          left: 0,
+          left: 20,
           right: 0,
-          bottom: 77,
+          bottom: 30,
           alignItems: 'center',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
         }}>
         <TouchableHighlight
           style={styles.buttons}

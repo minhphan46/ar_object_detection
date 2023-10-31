@@ -4,6 +4,7 @@ import ObjectDetectionPage from './pages/ObjectDetectionPage';
 import bohucImages from './utils/bohuc_images';
 import CocaImages from './utils/coca_images';
 import CafeImages from './utils/cafe_image';
+import PepsiImages from './utils/pepsi_images';
 
 function DetectObject(): JSX.Element {
   return (
@@ -28,6 +29,13 @@ function DetectObject(): JSX.Element {
         images={CafeImages}
         color="brown"
         imageLogo={require('../assets/images/cafe/cafe.jpg')}
+      />
+      <ObjectDetectionPage
+        modelName={'Pepsi'}
+        description={'Pepsi không calo'}
+        images={PepsiImages}
+        color="black"
+        imageLogo={require('../assets/images/pepsi/pepsi.jpg')}
       />
     </ViroARScene>
   );

@@ -3,7 +3,7 @@ We use [**Viro library**](https://github.com/viromedia/viro) that detects and di
 
 # Video Preview
 
-<img align="center" width="200" alt="UIApp" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDcyenVpOWc0M3J2MDc0aHJ3cXlhbGtwc3RuNGQ5bWd6dG90eGd3cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Vughf1JwX0aGMjAsop/giphy.gif">
+<img align="center" width="200" alt="UIApp" src="./assets/videos/detect_object.gif">
 
 # Getting Started
 

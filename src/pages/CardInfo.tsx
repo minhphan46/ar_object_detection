@@ -154,16 +154,27 @@ export default function CardInfo() {
                 />
               </ViroFlexView>
               <ViroFlexView style={styles.contentContainer}>
-                <ViroText
-                  text={
-                    '10.600 vnd jsndjnsjdn aaaaaaa ggggg fff hshdbd jjjh jjn'
-                  }
-                  maxLines={4}
-                  style={styles.textTitle}
-                  textLineBreakMode={'None'}
-                  textClipMode={'None'}
+                <ViroFlexView
                   scale={[0.2, 0.2, 0.2]}
-                />
+                  style={{
+                    flex: 1,
+                    width: 0,
+                    height: 0.2,
+                    alignItems: 'stretch',
+                    justifyContent: 'center',
+                  }}>
+                  <ViroText
+                    width={2}
+                    text={
+                      '10.600 vnd jsndjnsjdn aaaaaaa ggggg fff hshdbd jjjh jjn'
+                    }
+                    maxLines={4}
+                    style={styles.textTitle}
+                    textLineBreakMode={'CharWrap'}
+                    textClipMode={'None'}
+                    // scale={[0.2, 0.2, 0.2]}
+                  />
+                </ViroFlexView>
               </ViroFlexView>
             </ViroFlexView>
           </ViroFlexView>

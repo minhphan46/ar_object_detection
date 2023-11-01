@@ -1,11 +1,11 @@
 import {ViroARScene} from '@viro-community/react-viro';
 import React from 'react';
-import ObjectDetectionPage from './pages/ObjectDetectionPage';
-import bohucImages from './utils/bohuc_images';
-import CocaImages from './utils/coca_images';
-import CafeImages from './utils/cafe_image';
-import PepsiImages from './utils/pepsi_images';
-import BidaoImages from './utils/bidao_image';
+import ObjectDetectionPage from '../pages/ObjectDetectionPage';
+import bohucImages from '../utils/bohuc_images';
+import CocaImages from '../utils/coca_images';
+import CafeImages from '../utils/cafe_image';
+import PepsiImages from '../utils/pepsi_images';
+import BidaoImages from '../utils/bidao_image';
 
 function DetectObject(): JSX.Element {
   return (
@@ -15,35 +15,35 @@ function DetectObject(): JSX.Element {
         description={'Đây là lon Coca Cola'}
         images={CocaImages}
         color="red"
-        imageLogo={require('../assets/images/coca/coca.jpg')}
+        imageLogo={require('../../assets/images/coca/coca.jpg')}
       />
       <ObjectDetectionPage
         modelName={'Bò húc'}
         description={'Nước tăng lực redbull'}
         images={bohucImages}
         color="yellow"
-        imageLogo={require('../assets/images/bohuc/bohuc.jpg')}
+        imageLogo={require('../../assets/images/bohuc/bohuc.jpg')}
       />
       <ObjectDetectionPage
         modelName={'Cà phê'}
         description={'Cà phê sữa highlands coffee'}
         images={CafeImages}
         color="brown"
-        imageLogo={require('../assets/images/cafe/cafe.jpg')}
+        imageLogo={require('../../assets/images/cafe/cafe.jpg')}
       />
-      {/* <ObjectDetectionPage
+      <ObjectDetectionPage
         modelName={'Pepsi'}
         description={'Pepsi không calo'}
         images={PepsiImages}
         color="black"
-        imageLogo={require('../assets/images/pepsi/pepsi.jpg')}
-      /> */}
+        imageLogo={require('../../assets/images/pepsi/pepsi.jpg')}
+      />
       <ObjectDetectionPage
         modelName={'Bí đao'}
         description={'Trà bí đao Wonderfarm'}
         images={BidaoImages}
         color="green"
-        imageLogo={require('../assets/images/bidao/bidao.jpg')}
+        imageLogo={require('../../assets/images/bidao/bidao.jpg')}
       />
     </ViroARScene>
   );

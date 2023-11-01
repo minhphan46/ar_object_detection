@@ -1,65 +1,40 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
-import DetectObject from './src/DetectObject';
+import DetectObject from './src/components/DetectObject';
+import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
+import WebViewPage from './src/pages/WebVievPage';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+
+export type RootStackParamList = {
+  ViroScene: undefined;
+  WebView: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
-  function _onResetScene() {
-    console.log(`onReset`);
-  }
-
   return (
-    <View style={styles.outer}>
-      <ViroARSceneNavigator
-        autofocus={true}
-        initialScene={{
-          scene: DetectObject,
-        }}
-        style={styles.rootContainer}
-      />
-
-      <View
-        style={{
-          position: 'absolute',
-          left: 20,
-          right: 0,
-          bottom: 30,
-          alignItems: 'center',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}>
-        <TouchableHighlight
-          style={styles.buttons}
-          onPress={_onResetScene}
-          underlayColor={'#00000000'}>
-          <Image
-            source={require('./assets/images/mocks/btn_mode_objects.png')}
-          />
-        </TouchableHighlight>
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="ViroScene"
+          component={ViroARSceneScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="WebView"
+          component={WebViewPage}
+          options={{title: 'Webview Page'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  outer: {
-    flex: 1,
-  },
-  rootContainer: {
-    flex: 1,
-  },
-  buttons: {
-    height: 80,
-    width: 80,
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: '#00000000',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ffffff00',
-  },
-});

@@ -57,12 +57,12 @@ export default function ObjectCardInfo(props: ObjectCardInfoProps) {
                 style={styles.textStyle}
               />
 
-              <ViroAnimatedImage
+              {/* <ViroAnimatedImage
                 height={0.1}
                 width={0.1}
                 loop={true}
                 source={require('../../assets/images/mocks/tweet.gif')}
-              />
+              /> */}
             </ViroFlexView>
           </ViroFlexView>
         </ViroNode>

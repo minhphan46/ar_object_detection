@@ -5,6 +5,7 @@ import bohucImages from './utils/bohuc_images';
 import CocaImages from './utils/coca_images';
 import CafeImages from './utils/cafe_image';
 import PepsiImages from './utils/pepsi_images';
+import BidaoImages from './utils/bidao_image';
 
 function DetectObject(): JSX.Element {
   return (
@@ -30,12 +31,19 @@ function DetectObject(): JSX.Element {
         color="brown"
         imageLogo={require('../assets/images/cafe/cafe.jpg')}
       />
-      <ObjectDetectionPage
+      {/* <ObjectDetectionPage
         modelName={'Pepsi'}
         description={'Pepsi không calo'}
         images={PepsiImages}
         color="black"
         imageLogo={require('../assets/images/pepsi/pepsi.jpg')}
+      /> */}
+      <ObjectDetectionPage
+        modelName={'Bí đao'}
+        description={'Trà bí đao Wonderfarm'}
+        images={BidaoImages}
+        color="green"
+        imageLogo={require('../assets/images/bidao/bidao.jpg')}
       />
     </ViroARScene>
   );

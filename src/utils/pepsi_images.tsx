@@ -23,15 +23,6 @@ const PepsiImages: Record<string, any> = {
   image22: require('../../assets/images/pepsi/pepsi22.jpg'),
   image23: require('../../assets/images/pepsi/pepsi23.jpg'),
   image24: require('../../assets/images/pepsi/pepsi24.jpg'),
-  image25: require('../../assets/images/pepsi/pepsi25.jpg'),
-  image26: require('../../assets/images/pepsi/pepsi26.jpg'),
-  image27: require('../../assets/images/pepsi/pepsi27.jpg'),
-  image28: require('../../assets/images/pepsi/pepsi28.jpg'),
-  image29: require('../../assets/images/pepsi/pepsi29.jpg'),
-  image30: require('../../assets/images/pepsi/pepsi30.jpg'),
-  image31: require('../../assets/images/pepsi/pepsi31.jpg'),
-  image32: require('../../assets/images/pepsi/pepsi32.jpg'),
-  image33: require('../../assets/images/pepsi/pepsi33.jpg'),
 };
 
 export default PepsiImages;

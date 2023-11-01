@@ -8,11 +8,11 @@ function DetectObject(): JSX.Element {
   return (
     <ViroARScene>
       <ObjectDetectionPage
-        modelName={'CoCaCola'}
-        description={'Đây là lon Coca Cola'}
+        modelName={'CoCa Cola'}
+        description={'Đây_là_lon_Coca_Cola'}
         images={CocaImages}
         color="red"
-        imageLogo={require('../assets/images/coca/coca.jpg')}
+        imageLogo={require('../assets/images/coca/coca.png')}
       />
       <ObjectDetectionPage
         modelName={'Bò húc'}

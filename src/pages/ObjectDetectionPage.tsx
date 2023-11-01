@@ -4,8 +4,8 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import ObjectText from '../components/ObjectText';
 import ObjectCardInfo from '../components/ObjectCardInfo';
+import CardInfo from './CardInfo';
 
 type ObjectDetectionProps = {
   modelName: string;
@@ -83,12 +83,14 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
           target={`${props.modelName}${indexImageFound + 1}`}
           onAnchorRemoved={_onLostObject}>
           {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
-          <ObjectCardInfo
+          {/* <ObjectCardInfo
             modelName={props.modelName}
             color={props.color}
             image={props.imageLogo}
             description={props.description}
-          />
+          /> */}
+
+          <CardInfo />
         </ViroARImageMarker>,
       );
     }

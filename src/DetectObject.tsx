@@ -14,13 +14,13 @@ function DetectObject(): JSX.Element {
         color="red"
         imageLogo={require('../assets/images/coca/coca.jpg')}
       />
-      <ObjectDetectionPage
+      {/* <ObjectDetectionPage
         modelName={'Bò húc'}
         description={'Nước tăng lực redbull'}
         images={bohucImages}
         color="yellow"
         imageLogo={require('../assets/images/bohuc/bohuc.jpg')}
-      />
+      /> */}
     </ViroARScene>
   );
 }

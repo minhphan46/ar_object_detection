@@ -51,8 +51,6 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   }
 
   function _onLostObject(evt: any) {
-    if (isFoundOnject) {
-    }
     setIsFoundOnject(false);
     console.log(`Lost Object ${props.modelName}`, evt);
   }

@@ -8,7 +8,7 @@ import {
   ViroNode,
 } from '@viro-community/react-viro';
 import {StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 type ObjectCardInfoProps = {
   modelName: string;

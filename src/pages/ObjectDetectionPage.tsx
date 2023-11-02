@@ -4,8 +4,7 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import ObjectCardInfo from '../components/ObjectCardInfo';
-import CardInfo from './CardInfo';
+import ObjectInfoCard from '../components/ObjectInfoCard';
 
 type ObjectDetectionProps = {
   modelName: string;
@@ -90,7 +89,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             description={props.description}
           /> */}
 
-          <CardInfo />
+          <ObjectInfoCard />
         </ViroARImageMarker>,
       );
     }

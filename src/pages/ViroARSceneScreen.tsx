@@ -1,11 +1,11 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
-import DetectObject from '../components/DetectObject';
+import DetectObject from './DetectObject';
 
 function ViroARSceneScreen(): JSX.Element {
   function _onResetScene() {
-    console.log(`onReset`);
+    console.log('onReset');
     //navigation.navigate('YourScreen', {id: 2});
     //props.navigation.push('WebView');
   }
@@ -20,16 +20,7 @@ function ViroARSceneScreen(): JSX.Element {
         style={styles.rootContainer}
       />
 
-      <View
-        style={{
-          position: 'absolute',
-          left: 20,
-          right: 0,
-          bottom: 30,
-          alignItems: 'center',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}>
+      <View style={styles.fab3DButton}>
         <TouchableHighlight
           style={styles.buttons}
           onPress={_onResetScene}
@@ -63,5 +54,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ffffff00',
+  },
+  fab3DButton: {
+    position: 'absolute',
+    left: 20,
+    right: 0,
+    bottom: 30,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });

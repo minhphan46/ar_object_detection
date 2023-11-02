@@ -70,7 +70,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     const listItems = [];
     try {
       for (let i = 0; i < Object.keys(props.images).length; i++) {
-        if (i !== indexImageFound)
+        if (i !== indexImageFound) {
           listItems.push(
             <ViroARImageMarker
               key={`${props.modelName}${i}`}
@@ -79,6 +79,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
               onAnchorRemoved={_onLostObject}
             />,
           );
+        }
       }
 
       console.log(`index ${indexImageFound}`);

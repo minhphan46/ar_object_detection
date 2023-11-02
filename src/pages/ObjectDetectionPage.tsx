@@ -4,8 +4,7 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import ObjectText from '../components/ObjectText';
-import ObjectCardInfo from '../components/ObjectCardInfo';
+import ObjectInfoCard from '../components/ObjectInfoCard';
 
 type ObjectDetectionProps = {
   modelName: string;
@@ -13,6 +12,9 @@ type ObjectDetectionProps = {
   images: Record<string, any>;
   color: string;
   imageLogo: any;
+  productType: string;
+  price: string;
+  url: string;
 };
 
 function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
@@ -25,7 +27,8 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   }
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);
-  const [isFoundOnject, setIsFoundOnject] = useState(false);
+  const [indexImageFound, setIndexImageFound] = useState<number>(-1);
+  const [indexOld, setIndexOld] = useState<number>(-1);
 
   useEffect(() => {
     const targetData: TargetData = {};
@@ -45,51 +48,69 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   }, [props.images, props.modelName]);
 
   function _onFoundObject(evt: any, id: number) {
-    console.log(`Found Object ${props.modelName} ${id}`, evt);
-    setIsFoundOnject(!isFoundOnject);
-    setIndexImageFound(id);
+    try {
+      console.log(
+        `Found Object ${props.modelName} ${id} , indexOld ${indexOld}`,
+        evt,
+      );
+      setIndexImageFound(() => id);
+      setIndexOld(indexImageFound);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function _onLostObject(evt: any) {
-    setIsFoundOnject(false);
+    setIndexImageFound(-1);
+    setIndexOld(indexImageFound);
     console.log(`Lost Object ${props.modelName}`, evt);
   }
 
-  const [indexImageFound, setIndexImageFound] = useState<number>(-1);
-
   const renderList = () => {
     const listItems = [];
-    for (let i = 0; i < Object.keys(props.images).length; i++) {
-      if (i !== indexImageFound)
+    try {
+      for (let i = 0; i < Object.keys(props.images).length; i++) {
+        if (i !== indexImageFound)
+          listItems.push(
+            <ViroARImageMarker
+              key={`${props.modelName}${i}`}
+              target={`${props.modelName}${i + 1}`}
+              onAnchorFound={() => _onFoundObject(props.modelName, i)}
+              onAnchorRemoved={_onLostObject}
+            />,
+          );
+      }
+
+      console.log(`index ${indexImageFound}`);
+
+      if (indexImageFound !== -1 && indexOld !== indexImageFound) {
         listItems.push(
           <ViroARImageMarker
-            key={`${props.modelName}${i}`}
-            target={`${props.modelName}${i + 1}`}
-            onAnchorFound={() => _onFoundObject(props.modelName, i)}
-            onAnchorRemoved={_onLostObject}
-          />,
+            key={`${props.modelName}${indexImageFound}`}
+            target={`${props.modelName}${indexImageFound + 1}`}
+            onAnchorRemoved={_onLostObject}>
+            {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
+            {/* <ObjectCardInfo
+              modelName={props.modelName}
+              color={props.color}
+              image={props.imageLogo}
+              description={props.description}
+            /> */}
+            <ObjectInfoCard
+              modelName={props.modelName}
+              color={props.color}
+              image={props.imageLogo}
+              description={props.description}
+              productType={props.productType}
+              price={props.price}
+              url={props.url}
+            />
+          </ViroARImageMarker>,
         );
+      }
+    } catch (err) {
+      console.log(err);
     }
-
-    console.log(`index ${indexImageFound}`);
-
-    if (indexImageFound !== -1) {
-      listItems.push(
-        <ViroARImageMarker
-          key={`${props.modelName}${indexImageFound}`}
-          target={`${props.modelName}${indexImageFound + 1}`}
-          onAnchorRemoved={_onLostObject}>
-          {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
-          <ObjectCardInfo
-            modelName={props.modelName}
-            color={props.color}
-            image={props.imageLogo}
-            description={props.description}
-          />
-        </ViroARImageMarker>,
-      );
-    }
-
     return listItems;
   };
 

@@ -8,7 +8,7 @@ import {
   ViroNode,
 } from '@viro-community/react-viro';
 import {StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 type ObjectCardInfoProps = {
   modelName: string;
@@ -57,12 +57,12 @@ export default function ObjectCardInfo(props: ObjectCardInfoProps) {
                 style={styles.textStyle}
               />
 
-              <ViroAnimatedImage
+              {/* <ViroAnimatedImage
                 height={0.1}
                 width={0.1}
                 loop={true}
                 source={require('../../assets/images/mocks/tweet.gif')}
-              />
+              /> */}
             </ViroFlexView>
           </ViroFlexView>
         </ViroNode>

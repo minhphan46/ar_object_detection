@@ -1,23 +1,8 @@
-import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import Ui3DObject from './src/3D_ui_object';
+import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
 
 function App(): JSX.Element {
-  return (
-    <ViroARSceneNavigator
-      autofocus={true}
-      initialScene={{
-        scene: Ui3DObject,
-      }}
-    />
-  );
+  return <ViroARSceneScreen />;
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-  },
-});

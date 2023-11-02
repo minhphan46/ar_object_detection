@@ -12,6 +12,9 @@ type ObjectDetectionProps = {
   images: Record<string, any>;
   color: string;
   imageLogo: any;
+  productType: string;
+  price: string;
+  url: string;
 };
 
 function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
@@ -93,7 +96,15 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
               image={props.imageLogo}
               description={props.description}
             /> */}
-            <ObjectInfoCard/>
+            <ObjectInfoCard
+              modelName={props.modelName}
+              color={props.color}
+              image={props.imageLogo}
+              description={props.description}
+              productType={props.productType}
+              price={props.price}
+              url={props.url}
+            />
           </ViroARImageMarker>,
         );
       }

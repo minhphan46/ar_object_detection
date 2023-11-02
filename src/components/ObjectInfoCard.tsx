@@ -6,9 +6,39 @@ import {
   ViroNode,
   ViroText,
 } from '@viro-community/react-viro';
-import {StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
 
-export default function ObjectInfoCard() {
+type ObjectCardInfoProps = {
+  modelName: string;
+  color: string;
+  image: any;
+  description: string;
+  productType: string;
+  price: string;
+  url: string;
+};
+
+const showAlert = () =>
+  Alert.alert(
+    'Alert Title',
+    'My Alert Msg',
+    [
+      {
+        text: 'Cancel',
+        onPress: () => Alert.alert('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () =>
+        Alert.alert(
+          'This alert was dismissed by tapping outside of the alert dialog.',
+        ),
+    },
+  );
+
+export default function ObjectInfoCard(props: ObjectCardInfoProps) {
   return (
     <ViroNode key={'card'}>
       <ViroNode
@@ -18,14 +48,15 @@ export default function ObjectInfoCard() {
           run: true,
         }}>
         <ViroFlexView
+          onClick={showAlert}
           style={styles.cardContainer}
           width={0.8}
           height={0.4}
           rotation={[-90, 0, 0]}>
           <ViroImage
-            height={0.2}
+            height={0.15}
             width={0.1}
-            source={require('../../assets/images/coca/coca.png')}
+            source={props.image}
             style={styles.imageContainer}
           />
           <ViroFlexView style={styles.informationContainer}>
@@ -51,7 +82,7 @@ export default function ObjectInfoCard() {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={'Nước ngọt Coca lon 320ml'}
+                    text={props.modelName}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -83,7 +114,7 @@ export default function ObjectInfoCard() {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={'Coca Cola (Mỹ)'}
+                    text={props.description}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -115,7 +146,7 @@ export default function ObjectInfoCard() {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={'Nước ngọt'}
+                    text={props.productType}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -145,7 +176,7 @@ export default function ObjectInfoCard() {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={'10.600 vnd'}
+                    text={props.price}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}

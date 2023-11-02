@@ -19,8 +19,8 @@ export function getZPosition(canType: CanType) {
   switch (canType) {
     case CanType.can250:
     case CanType.can320:
-      return -10;
+      return -1;
     case CanType.can310:
-      return -5;
+      return -2;
   }
 }

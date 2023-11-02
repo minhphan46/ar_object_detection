@@ -15,21 +15,13 @@ import {ViroPinchState} from '@viro-community/react-viro/dist/components/Types/V
 import {JSXElementConstructor, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CanType, getCanSource, getZPosition} from './enum/3D_can_enum';
+import Object3D from './components/Object3D';
 type ObjectProps = {
   brandLabel: any;
   canType: CanType;
 };
 
-ViroAnimations.registerAnimations({
-  loopRotate: {
-    properties: {
-      rotateY: '+=45',
-    },
-    duration: 1000,
-  },
-});
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'HelveticaNeue-Medium',
     fontSize: 18,
@@ -46,37 +38,14 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-function Ui3DObject(props: ObjectProps): JSX.Element {
+
+function Ui3DObject(): JSX.Element {
   ViroMaterials.createMaterials({
-    label: {
-      lightingModel: 'Blinn',
-      diffuseColor: 'rgba(171,171,171,1)',
-      diffuseTexture: props.brandLabel,
-      specularTexture: props.brandLabel,
-      writesToDepthBuffer: true,
-      readsFromDepthBuffer: true,
+    ddd: {
+      diffuseTexture: require('../assets/images/pepsi_label.jpg'),
+      specularTexture: require('../assets/images/pepsi_label.jpg'),
     },
   });
-  const positionz = getZPosition(props.canType);
-  const [z, setZPosition] = useState(positionz);
-  const [onTap, setOnTap] = useState(true);
-  function scaleCanObject(
-    pinchState: ViroPinchState,
-    scaleFactor: number,
-  ): void {
-    console.log(scaleFactor);
-    if (scaleFactor < 3) {
-      setZPosition(z + scaleFactor);
-
-      setOnTap(false);
-    }
-
-    if (pinchState == 3) {
-      setZPosition(positionz);
-      setOnTap(true);
-    }
-  }
-
   return (
     <ViroARScene style={styles.container}>
       <ViroSkyBox
@@ -90,7 +59,7 @@ function Ui3DObject(props: ObjectProps): JSX.Element {
         }}
       />
       <ViroOrbitCamera
-        position={[0, 0, z]}
+        position={[0, 0, 1]}
         active={true}
         focalPoint={[0, 0, 0]}
       />
@@ -98,15 +67,10 @@ function Ui3DObject(props: ObjectProps): JSX.Element {
 
       <ViroAmbientLight color="#aaaaaa" />
 
-      <ViroNode position={[0, 0, -1]}>
-        <Viro3DObject
-          source={getCanSource(props.canType)}
-          materials={['label']}
-          type="OBJ"
-          animation={{name: 'loopRotate', run: true, loop: onTap}}
-          onPinch={scaleCanObject}
-        />
-      </ViroNode>
+      <Object3D
+        brandLabel={require('../assets/images/pepsi_label.jpg')}
+        canType={CanType.can310}
+      />
     </ViroARScene>
   );
 }

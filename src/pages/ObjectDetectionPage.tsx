@@ -100,28 +100,6 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     } catch (err) {
       console.log(err);
     }
-
-    console.log(`index ${indexImageFound}`);
-
-    if (indexImageFound !== -1) {
-      listItems.push(
-        <ViroARImageMarker
-          key={`${props.modelName}${indexImageFound}`}
-          target={`${props.modelName}${indexImageFound + 1}`}
-          onAnchorRemoved={_onLostObject}>
-          {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
-          {/* <ObjectCardInfo
-            modelName={props.modelName}
-            color={props.color}
-            image={props.imageLogo}
-            description={props.description}
-          /> */}
-
-          <ObjectInfoCard />
-        </ViroARImageMarker>,
-      );
-    }
-
     return listItems;
   };
 

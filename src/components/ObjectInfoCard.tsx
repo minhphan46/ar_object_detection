@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ViroAnimations,
   ViroFlexView,
   ViroImage,
   ViroNode,
@@ -10,23 +11,24 @@ import {StyleSheet} from 'react-native';
 export default function ObjectInfoCard() {
   return (
     <ViroNode key={'card'}>
-      <ViroNode position={[0.4, -0.1, -0.1]}>
+      <ViroNode
+        position={[0.1, 0, 0]}
+        animation={{
+          name: 'animateImage',
+          run: true,
+        }}>
         <ViroFlexView
           style={styles.cardContainer}
-          width={1.3}
-          height={0.6}
-          rotation={[-90, 0, 0]}
-          transformBehaviors={['billboard']}>
+          width={0.8}
+          height={0.4}
+          rotation={[-90, 0, 0]}>
           <ViroImage
-            height={0.4}
-            width={0.4}
+            height={0.2}
+            width={0.1}
             source={require('../../assets/images/coca/coca.png')}
             style={styles.imageContainer}
           />
-
-          <ViroFlexView
-            style={styles.informationContainer}
-            transformBehaviors={['billboard']}>
+          <ViroFlexView style={styles.informationContainer}>
             {/* product name */}
             <ViroFlexView style={styles.rowInfoContainer}>
               <ViroFlexView style={styles.labelContainer}>
@@ -159,18 +161,31 @@ export default function ObjectInfoCard() {
   );
 }
 
+ViroAnimations.registerAnimations({
+  animateImage: {
+    properties: {
+      positionX: 0.05,
+      positionZ: -0.4,
+      positionY: -0.1,
+      opacity: 1.0,
+    },
+    easing: 'Bounce',
+    duration: 300,
+  },
+});
+
 const styles = StyleSheet.create({
   cardContainer: {
     padding: 0.01,
     flexDirection: 'row',
   },
   imageContainer: {
-    flex: 0.4,
+    flex: 0.2,
     padding: 0.001,
     flexDirection: 'row',
   },
   informationContainer: {
-    flex: 0.6,
+    flex: 0.8,
     paddingHorizontal: 0.04,
     textAlign: 'left',
     flexDirection: 'column',
@@ -204,7 +219,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 12,
     flexWrap: 'wrap',
     textAlign: 'left',
   },

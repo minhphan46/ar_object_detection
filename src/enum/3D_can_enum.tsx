@@ -19,8 +19,30 @@ export function getZPosition(canType: CanType) {
   switch (canType) {
     case CanType.can250:
     case CanType.can320:
-      return -1;
+      return -8;
     case CanType.can310:
+      return -1;
+  }
+}
+
+export function getYPosition(canType: CanType) {
+  switch (canType) {
+    case CanType.can250:
+      return -1;
+    case CanType.can320:
       return -2;
+    case CanType.can310:
+      return -0.5;
+  }
+}
+
+export function getZoomInObject(canType: CanType) {
+  switch (canType) {
+    case CanType.can250:
+      return -2;
+    case CanType.can320:
+      return -6;
+    case CanType.can310:
+      return 0;
   }
 }

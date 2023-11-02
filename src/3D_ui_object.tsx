@@ -11,15 +11,9 @@ import {
   ViroSkyBox,
   ViroText,
 } from '@viro-community/react-viro';
-import {ViroPinchState} from '@viro-community/react-viro/dist/components/Types/ViroEvents';
-import {JSXElementConstructor, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {CanType, getCanSource, getZPosition} from './enum/3D_can_enum';
+import {StyleSheet} from 'react-native';
+import {CanType} from './enum/3D_can_enum';
 import Object3D from './components/Object3D';
-type ObjectProps = {
-  brandLabel: any;
-  canType: CanType;
-};
 
 const styles = StyleSheet.create({
   textStyle: {
@@ -69,7 +63,7 @@ function Ui3DObject(): JSX.Element {
 
       <Object3D
         brandLabel={require('../assets/images/pepsi_label.jpg')}
-        canType={CanType.can310}
+        canType={CanType.can320}
       />
     </ViroARScene>
   );

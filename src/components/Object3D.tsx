@@ -5,7 +5,13 @@ import {
   ViroAnimations,
 } from '@viro-community/react-viro';
 import React, {useState} from 'react';
-import {CanType, getCanSource, getZPosition} from '../enum/3D_can_enum';
+import {
+  CanType,
+  getCanSource,
+  getYPosition,
+  getZPosition,
+  getZoomInObject,
+} from '../enum/3D_can_enum';
 import {ViroPinchState} from '@viro-community/react-viro/dist/components/Types/ViroEvents';
 
 type ObjectProps = {
@@ -32,10 +38,10 @@ function Object3D(props: ObjectProps) {
     console.log(pinchState);
     if (pinchState === 2) {
       if (scaleFactor > 1) {
-        setZPosition(0);
+        setZPosition(getZoomInObject(props.canType));
         setRotate(false);
       } else {
-        setZPosition(-2);
+        setZPosition(getZPosition(props.canType));
       }
     }
 
@@ -57,7 +63,7 @@ function Object3D(props: ObjectProps) {
 
   return (
     <ViroNode
-      position={[0, 0, z]}
+      position={[0, getYPosition(props.canType), z]}
       onClickState={(stateValue, position, source) => {
         console.log('ClickState', stateValue, position, source);
         if (stateValue == 1) {

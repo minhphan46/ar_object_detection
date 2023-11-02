@@ -1,6 +1,6 @@
 import {ViroARScene} from '@viro-community/react-viro';
 import React from 'react';
-import ObjectDetectionPage from '../pages/ObjectDetectionPage';
+import ObjectDetectionPage from './ObjectDetectionPage';
 import {ObjectMap} from '../utils/object_map';
 
 function DetectObject(): JSX.Element {

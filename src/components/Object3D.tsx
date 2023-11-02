@@ -1,7 +1,4 @@
-import {
-  ViroMaterials,
-  Viro3DObject,
-} from '@viro-community/react-viro';
+import {ViroMaterials, Viro3DObject} from '@viro-community/react-viro';
 import React from 'react';
 
 function Object3D() {

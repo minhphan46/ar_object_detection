@@ -3,12 +3,11 @@ import {
   ViroMaterials,
   ViroImage,
   ViroFlexView,
-  ViroAnimatedImage,
   ViroAnimations,
   ViroNode,
 } from '@viro-community/react-viro';
 import {StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 
 type ObjectCardInfoProps = {
   modelName: string;
@@ -18,8 +17,6 @@ type ObjectCardInfoProps = {
 };
 
 export default function ObjectCardInfo(props: ObjectCardInfoProps) {
-  const [runAnimation, setRunAnimation] = useState(true);
-
   function getARScene(): JSX.Element {
     return (
       <ViroNode key="card">
@@ -28,7 +25,7 @@ export default function ObjectCardInfo(props: ObjectCardInfoProps) {
           position={[0.4, 0, 0]}
           animation={{
             name: 'animateImage',
-            run: runAnimation,
+            run: true,
           }}>
           <ViroFlexView
             rotation={[-90, 0, 0]}

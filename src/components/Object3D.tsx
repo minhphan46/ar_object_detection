@@ -7,8 +7,6 @@ import {
 import React, {useState} from 'react';
 import {CanType, getCanSource, getZPosition} from '../enum/3D_can_enum';
 import {ViroPinchState} from '@viro-community/react-viro/dist/components/Types/ViroEvents';
-import {Viro3DPoint} from '@viro-community/react-viro/dist/components/Types/ViroUtils';
-import {ImageSourcePropType} from 'react-native';
 
 type ObjectProps = {
   brandLabel: any;

@@ -39,11 +39,15 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
       'Bạn muốn xem sản phẩm này ở đâu?',
       [
         {
+          text: 'Hủy',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
           text: '3D',
           onPress: () => handleShow3D(),
           style: 'default',
         },
-
         {
           text: 'BHX',
           onPress: () => handleUrl(),

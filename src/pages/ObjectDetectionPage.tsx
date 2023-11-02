@@ -4,8 +4,7 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import ObjectText from '../components/ObjectText';
-import ObjectCardInfo from '../components/ObjectCardInfo';
+import ObjectInfoCard from '../components/ObjectInfoCard';
 
 type ObjectDetectionProps = {
   modelName: string;
@@ -88,17 +87,39 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             target={`${props.modelName}${indexImageFound + 1}`}
             onAnchorRemoved={_onLostObject}>
             {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
-            <ObjectCardInfo
+            {/* <ObjectCardInfo
               modelName={props.modelName}
               color={props.color}
               image={props.imageLogo}
               description={props.description}
-            />
+            /> */}
+            <ObjectInfoCard/>
           </ViroARImageMarker>,
         );
       }
     } catch (err) {
       console.log(err);
+    }
+
+    console.log(`index ${indexImageFound}`);
+
+    if (indexImageFound !== -1) {
+      listItems.push(
+        <ViroARImageMarker
+          key={`${props.modelName}${indexImageFound}`}
+          target={`${props.modelName}${indexImageFound + 1}`}
+          onAnchorRemoved={_onLostObject}>
+          {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
+          {/* <ObjectCardInfo
+            modelName={props.modelName}
+            color={props.color}
+            image={props.imageLogo}
+            description={props.description}
+          /> */}
+
+          <ObjectInfoCard />
+        </ViroARImageMarker>,
+      );
     }
 
     return listItems;

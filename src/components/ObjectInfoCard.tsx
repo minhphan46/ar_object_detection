@@ -6,7 +6,7 @@ import {
   ViroNode,
   ViroText,
 } from '@viro-community/react-viro';
-import {Alert, StyleSheet} from 'react-native';
+import {Alert, StyleSheet, Linking} from 'react-native';
 
 type ObjectCardInfoProps = {
   modelName: string;
@@ -18,27 +18,44 @@ type ObjectCardInfoProps = {
   url: string;
 };
 
-const showAlert = () =>
-  Alert.alert(
-    'Alert Title',
-    'My Alert Msg',
-    [
-      {
-        text: 'Cancel',
-        onPress: () => Alert.alert('Cancel Pressed'),
-        style: 'cancel',
-      },
-    ],
-    {
-      cancelable: true,
-      onDismiss: () =>
-        Alert.alert(
-          'This alert was dismissed by tapping outside of the alert dialog.',
-        ),
-    },
-  );
-
 export default function ObjectInfoCard(props: ObjectCardInfoProps) {
+  function handleUrl() {
+    Linking.canOpenURL(props.url).then(supported => {
+      if (supported) {
+        Linking.openURL(props.url);
+      } else {
+        console.log("Don't know how to open URI: " + props.url);
+      }
+    });
+  }
+
+  function handleShow3D() {
+    console.log('3D');
+  }
+
+  const showAlert = () =>
+    Alert.alert(
+      props.modelName,
+      'Bạn muốn xem sản phẩm này ở đâu?',
+      [
+        {
+          text: '3D',
+          onPress: () => handleShow3D(),
+          style: 'default',
+        },
+
+        {
+          text: 'BHX',
+          onPress: () => handleUrl(),
+          style: 'default',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+
   return (
     <ViroNode key={'card'}>
       <ViroNode

@@ -1,12 +1,6 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import React, {useState} from 'react';
-import {
-  Image,
-  Linking,
-  StyleSheet,
-  TouchableHighlight,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
 import DetectObject from '../components/DetectObject';
 
 function ViroARSceneScreen(): JSX.Element {
@@ -14,18 +8,6 @@ function ViroARSceneScreen(): JSX.Element {
     console.log(`onReset`);
     //navigation.navigate('YourScreen', {id: 2});
     //props.navigation.push('WebView');
-  }
-  let url =
-    'https://www.bachhoaxanh.com/nuoc-tra/tra-bi-dao-wonderfarm-lon-310ml-loc-6';
-
-  function handleClick() {
-    Linking.canOpenURL(url).then(supported => {
-      if (supported) {
-        Linking.openURL(url);
-      } else {
-        console.log("Don't know how to open URI: " + url);
-      }
-    });
   }
 
   return (
@@ -50,7 +32,7 @@ function ViroARSceneScreen(): JSX.Element {
         }}>
         <TouchableHighlight
           style={styles.buttons}
-          onPress={handleClick}
+          onPress={_onResetScene}
           underlayColor={'#00000000'}>
           <Image
             source={require('../../assets/images/mocks/btn_mode_objects.png')}

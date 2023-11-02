@@ -1,25 +1,31 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import React, {useState} from 'react';
-import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
-import DetectObject from '../components/DetectObject';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../App';
+  Image,
+  Linking,
+  StyleSheet,
+  TouchableHighlight,
+  View,
+} from 'react-native';
+import DetectObject from '../components/DetectObject';
 
-type ViroARScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  'ViroScene'
->;
-
-const ViroARSceneScreen: React.FC<ViroARScreenProps> = props => {
+function ViroARSceneScreen(): JSX.Element {
   function _onResetScene() {
     console.log(`onReset`);
     //navigation.navigate('YourScreen', {id: 2});
-    props.navigation.push('WebView');
+    //props.navigation.push('WebView');
+  }
+  let url =
+    'https://www.bachhoaxanh.com/nuoc-tra/tra-bi-dao-wonderfarm-lon-310ml-loc-6';
+
+  function handleClick() {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Don't know how to open URI: " + url);
+      }
+    });
   }
 
   return (
@@ -44,7 +50,7 @@ const ViroARSceneScreen: React.FC<ViroARScreenProps> = props => {
         }}>
         <TouchableHighlight
           style={styles.buttons}
-          onPress={_onResetScene}
+          onPress={handleClick}
           underlayColor={'#00000000'}>
           <Image
             source={require('../../assets/images/mocks/btn_mode_objects.png')}
@@ -53,7 +59,7 @@ const ViroARSceneScreen: React.FC<ViroARScreenProps> = props => {
       </View>
     </View>
   );
-};
+}
 
 export default ViroARSceneScreen;
 

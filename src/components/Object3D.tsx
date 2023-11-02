@@ -25,7 +25,7 @@ ViroAnimations.registerAnimations({
 function Object3D(props: ObjectProps) {
   const positionz = getZPosition(props.canType);
   const [z, setZPosition] = useState(positionz);
-  const [onTap, setOnTap] = useState(true);
+  const [isRotate, setRotate] = useState(true);
   function scaleCanObject(
     pinchState: ViroPinchState,
     scaleFactor: number,
@@ -33,15 +33,17 @@ function Object3D(props: ObjectProps) {
     console.log(scaleFactor);
     console.log(pinchState);
     if (pinchState === 2) {
-      if (scaleFactor < 2) {
+      if (scaleFactor > 1) {
         setZPosition(0);
-        setOnTap(false);
+        setRotate(false);
+      } else {
+        setZPosition(-2);
       }
     }
 
-    if (pinchState == 3) {
+    if (pinchState === 3) {
       // setZPosition(positionz);
-      setOnTap(true);
+      setRotate(true);
     }
   }
   ViroMaterials.createMaterials({
@@ -55,27 +57,25 @@ function Object3D(props: ObjectProps) {
     },
   });
 
-  function onTouch(
-    touchState: any,
-    touchPos: Viro3DPoint,
-    source: ImageSourcePropType,
-  ): void {
-    if (touchState == 1) {
-      setOnTap(false);
-    }
-    if (touchState == 3) {
-      setOnTap(true);
-    }
-  }
-
   return (
-    <ViroNode position={[0, 0, z]}>
+    <ViroNode
+      position={[0, 0, z]}
+      onClickState={(stateValue, position, source) => {
+        console.log('ClickState', stateValue, position, source);
+        if (stateValue == 1) {
+          setRotate(false);
+          // Click Down
+        }
+        if (stateValue == 2) {
+          setRotate(true);
+          // Click Up
+        }
+      }}>
       <Viro3DObject
-        onTouch={onTouch}
         source={getCanSource(props.canType)}
         materials={['label']}
         type="OBJ"
-        animation={{name: 'loopRotate', run: true, loop: onTap}}
+        animation={{name: 'loopRotate', run: true, loop: isRotate}}
         onPinch={scaleCanObject}
       />
     </ViroNode>

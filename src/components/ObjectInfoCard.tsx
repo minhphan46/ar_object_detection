@@ -41,15 +41,15 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
         {
           text: 'Hủy',
           onPress: () => {},
-          style: 'cancel',
+          style: 'destructive',
         },
         {
-          text: '3D',
+          text: 'Xem 3D',
           onPress: () => handleShow3D(),
           style: 'default',
         },
         {
-          text: 'BHX',
+          text: 'Bách hóa xanh',
           onPress: () => handleUrl(),
           style: 'default',
         },
@@ -221,7 +221,7 @@ ViroAnimations.registerAnimations({
       positionY: -0.1,
       opacity: 1.0,
     },
-    easing: 'Bounce',
+    easing: 'Linear',
     duration: 300,
   },
 });

@@ -15,6 +15,7 @@ type ObjectDetectionProps = {
   productType: string;
   price: string;
   url: string;
+  handleClick: () => void;
 };
 
 function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
@@ -105,6 +106,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
               productType={props.productType}
               price={props.price}
               url={props.url}
+              handleClick={props.handleClick}
             />
           </ViroARImageMarker>,
         );

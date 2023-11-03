@@ -16,6 +16,7 @@ type ObjectCardInfoProps = {
   productType: string;
   price: string;
   url: string;
+  handleClick: () => void;
 };
 
 export default function ObjectInfoCard(props: ObjectCardInfoProps) {
@@ -30,7 +31,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
   }
 
   function handleShow3D() {
-    console.log('3D');
+    props.handleClick();
   }
 
   const showAlert = () =>

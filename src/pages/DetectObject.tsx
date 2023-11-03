@@ -2,8 +2,14 @@ import {ViroARScene} from '@viro-community/react-viro';
 import React from 'react';
 import ObjectDetectionPage from './ObjectDetectionPage';
 import {ObjectMap} from '../utils/object_map';
+import Ui3DObject from './3D_ui_object';
 
-function DetectObject(): JSX.Element {
+function DetectObject(props: {sceneNavigator: {scene: any}[]}) {
+  const handleClick = () => {
+    console.log('nav 3D');
+    props.sceneNavigator.push({scene: Ui3DObject});
+  };
+
   return (
     <ViroARScene>
       {Object.keys(ObjectMap).map(key => (
@@ -17,6 +23,7 @@ function DetectObject(): JSX.Element {
           productType={ObjectMap[key].productType}
           price={ObjectMap[key].price}
           url={ObjectMap[key].url}
+          handleClick={handleClick}
         />
       ))}
     </ViroARScene>

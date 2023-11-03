@@ -2,7 +2,7 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import React from 'react';
 import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
 import DetectObject from './DetectObject';
-import Ui3DObject from './3D_ui_object';
+import Ui3DObject from './3DUiObject';
 
 function ViroARSceneScreen(): JSX.Element {
   function _onResetScene() {

@@ -11,7 +11,7 @@ import {
   getYPosition,
   getZPosition,
   getZoomInObject,
-} from '../enum/3D_can_enum';
+} from '../enum/3DCanEnum';
 import {ViroPinchState} from '@viro-community/react-viro/dist/components/Types/ViroEvents';
 
 type ObjectProps = {

@@ -2,7 +2,7 @@ import {ViroARScene} from '@viro-community/react-viro';
 import React from 'react';
 import ObjectDetectionPage from './ObjectDetectionPage';
 import {ObjectMap} from '../utils/object_map';
-import Ui3DObject from './3D_ui_object';
+import Ui3DObject from './3DUiObject';
 
 function DetectObject(props: {sceneNavigator: {scene: any}[]}) {
   const handleClick = () => {

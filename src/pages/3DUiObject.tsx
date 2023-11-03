@@ -12,7 +12,7 @@ import {
   ViroText,
 } from '@viro-community/react-viro';
 import {StyleSheet} from 'react-native';
-import {CanType} from '../enum/3D_can_enum';
+import {CanType} from '../enum/3DCanEnum';
 import Object3D from '../components/Object3D';
 
 const Ui3DObject = (props: {sceneNavigator: {scene: any}[]}) => {

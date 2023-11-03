@@ -1,9 +1,17 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import React from 'react';
-import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import DetectObject from './DetectObject';
 import Ui3DObject from './3DUiObject';
 import NavigationPage from './NavigationPage';
+import CompassObject from '../components/CompassObject';
 
 function ViroARSceneScreen(): JSX.Element {
   function _onResetScene() {
@@ -23,6 +31,10 @@ function ViroARSceneScreen(): JSX.Element {
         }}
         style={styles.rootContainer}
       />
+
+      <View style={styles.fab3DButton}>
+        <CompassObject />
+      </View>
 
       {/* <View style={styles.fab3DButton}>
         <TouchableHighlight

@@ -61,6 +61,10 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     }
   }
 
+  function _onUpdatedObject(evt: any) {
+    console.log(`Updated Object`, evt);
+  }
+
   function _onLostObject(evt: any) {
     setIndexImageFound(-1);
     setIndexOld(indexImageFound);
@@ -90,7 +94,8 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
           <ViroARImageMarker
             key={`${props.modelName}${indexImageFound}`}
             target={`${props.modelName}${indexImageFound + 1}`}
-            onAnchorRemoved={_onLostObject}>
+            onAnchorRemoved={_onLostObject}
+            onAnchorUpdated={_onUpdatedObject}>
             {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
             {/* <ObjectCardInfo
               modelName={props.modelName}

@@ -1,35 +1,57 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import {
+  Viro3DObject,
   ViroARScene,
-  ViroText,
-  ViroTrackingState,
+  ViroMaterials,
 } from '@viro-community/react-viro';
 
-const NavigationPage = () => {
-  const [text, setText] = useState('Initializing AR...');
+function NavigationPage(): JSX.Element {
+  const initPosition = {x: 0, y: -1, z: 0};
+  const productPosition = {x: 0, y: -0.5, z: -11};
+
+  function getArrowModel() {
+    const arrowModels = [];
+
+    for (let i = 1; i <= 10; i++) {
+      arrowModels.push(
+        <Viro3DObject
+          key={i}
+          source={require('../../assets/model/arrow.obj')}
+          type="OBJ"
+          materials={['blue']}
+          position={[initPosition.x, initPosition.y, initPosition.z - i]}
+          scale={[0.05, 0.05, 0.05]}
+          rotation={[0, 0, 90]}
+        />,
+      );
+    }
+    return arrowModels;
+  }
 
   return (
     <ViroARScene>
-      <ViroText
-        text={text}
-        scale={[0.5, 0.5, 0.5]}
-        position={[0, 0, -1]}
-        style={styles.helloWorldTextStyle}
+      {getArrowModel()}
+      <Viro3DObject
+        key={'object find'}
+        source={require('../../assets/model/can.obj')}
+        type="OBJ"
+        materials={['label']}
+        position={[productPosition.x, productPosition.y, productPosition.z]}
+        scale={[1, 1, 1]}
+        rotation={[0, 0, 0]}
       />
     </ViroARScene>
   );
-};
+}
 
 export default NavigationPage;
 
-var styles = StyleSheet.create({
-  f1: {flex: 1},
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
+ViroMaterials.createMaterials({
+  blue: {
+    diffuseColor: 'rgba(11, 127, 171, 1)',
+  },
+  label: {
+    diffuseColor: 'rgba(196, 77, 86, 1)',
   },
 });

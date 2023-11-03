@@ -17,14 +17,14 @@ function ViroARSceneScreen(): JSX.Element {
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
-          //scene: NavigationPage
-          scene: () => DetectObject({sceneNavigator: []}),
+          scene: NavigationPage,
+          //scene: () => DetectObject({sceneNavigator: []}),
           //scene: () => Ui3DObject({sceneNavigator: []}),
         }}
         style={styles.rootContainer}
       />
 
-      <View style={styles.fab3DButton}>
+      {/* <View style={styles.fab3DButton}>
         <TouchableHighlight
           style={styles.buttons}
           onPress={_onResetScene}
@@ -33,7 +33,7 @@ function ViroARSceneScreen(): JSX.Element {
             source={require('../../assets/images/mocks/btn_mode_objects.png')}
           />
         </TouchableHighlight>
-      </View>
+      </View> */}
     </View>
   );
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import {Image, StyleSheet, TouchableHighlight, View} from 'react-native';
 import DetectObject from './DetectObject';
 import Ui3DObject from './3DUiObject';
+import NavigationPage from './NavigationPage';
 
 function ViroARSceneScreen(): JSX.Element {
   function _onResetScene() {
@@ -16,6 +17,7 @@ function ViroARSceneScreen(): JSX.Element {
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
+          //scene: NavigationPage
           scene: () => DetectObject({sceneNavigator: []}),
           //scene: () => Ui3DObject({sceneNavigator: []}),
         }}

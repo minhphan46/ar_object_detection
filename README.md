@@ -45,8 +45,7 @@ To add new model to project:
 3. Create file: `{your_model}_images.tsx` in `utils` folder to define your model's images url. Example: `src/utils/bohuc_images.tsx`\
    I recommend you use chatGpt to generate url, you can follow my format in this file.
 4. In `DetectObject.tsx` file, import your `{your_model}_images.tsx` file.
-5. Add `<ModelDetection>` component with your model's name and images inside `<ViroARScene>`\
-   Example: `<ModelDetection name='bohuc' images={bohucImages}/>`
+5. Add your model's infomations and images inside `utils/object_map` file.
 
 Rebuild your project to see the result.
 

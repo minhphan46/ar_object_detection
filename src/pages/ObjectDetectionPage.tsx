@@ -61,14 +61,11 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     }
   }
 
-  function _onUpdatedObject(evt: any) {
-    console.log(`Updated Object`, evt);
-  }
+  function _onUpdatedObject(evt: any) {}
 
   function _onLostObject(evt: any) {
     setIndexImageFound(-1);
     setIndexOld(indexImageFound);
-    console.log(`Lost Object ${props.modelName}`, evt);
   }
 
   const renderList = () => {
@@ -86,8 +83,6 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
           );
         }
       }
-
-      console.log(`index ${indexImageFound}`);
 
       if (indexImageFound !== -1 && indexOld !== indexImageFound) {
         listItems.push(

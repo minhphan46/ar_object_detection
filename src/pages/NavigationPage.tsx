@@ -1,114 +1,64 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   Viro3DObject,
   ViroARScene,
   ViroMaterials,
   ViroNode,
 } from '@viro-community/react-viro';
-// Import react-native-sensors
-import {magnetometer} from 'react-native-sensors';
-import {
-  getRad2deg,
-  getDirection,
-  getNewPosition,
-} from '../services/get_angle_service';
-import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import {useAppSelector} from '../store/store';
 
 function NavigationPage(): JSX.Element {
-  // Define a state variable to store the direction
-  const initPosition = {x: 0, y: -1, z: 0};
-  const [productPosition, setProductPosition] = useState({
-    x: 0,
-    y: -0.5,
-    z: 10,
-  });
-  const [appAngle, setAppAngle] = useState(0);
-  const [isGetAngle, setIsGetAngle] = useState(false);
+  const {objectPosition} = useAppSelector(state => state.direction);
 
-  // Define an effect hook to subscribe to the magnetometer data
-  useEffect(() => {
-    // Set up a subscription to the magnetometer data
-    const subscription = magnetometer.subscribe(({x, y}) => {
-      // Calculate the angle of the device based on the x and y values
-      let angle = Math.atan2(y, x);
-      // Convert the angle from radians to degrees
-      //angle = getRad2deg(angle);
-      // Adjust the angle to match the compass directions
-      //angle += initAngle;
-      // if (angle > 360) {
-      //   angle -= 360;
-      // }
-      // Update the direction state variable with the angle
-      if (!isGetAngle) {
-        // appAngle = -angle;
-        console.log(isGetAngle);
-        if (angle > 0) setAppAngle(angle - 1);
-        else setAppAngle(angle + 1);
-        setIsGetAngle(true);
-      }
-    });
-    setProductPosition(getNewPosition(productPosition, appAngle));
-    console.log(`Angle Found ${appAngle}`);
-    console.log(`Out position ${productPosition.x + ' ' + productPosition.z}`);
-    // Return a cleanup function to unsubscribe from the magnetometer data
-    return () => subscription.unsubscribe();
-  }, [appAngle, productPosition]);
-
-  console.log(
-    'New position: ' +
-      productPosition.x +
-      ' ' +
-      productPosition.y +
-      ' ' +
-      productPosition.z,
-  );
   return (
     <ViroARScene>
-      {isGetAngle && (
-        <>
-          {getArrowModels()}
-          <ViroNode
-            position={[productPosition.x, productPosition.y, productPosition.z]}
-            onClickState={(stateValue, position, source) => {
-              console.log('ClickState', stateValue, position, source);
-            }}>
-            <Viro3DObject
-              key={Date.now.toString()}
-              source={require('../../assets/model/can.obj')}
-              type="OBJ"
-              materials={['label']}
-              scale={[1, 1, 1]}
-              rotation={[0, 0, 0]}
-            />
-          </ViroNode>
-        </>
-      )}
+      <GetArrowModels
+        x={objectPosition.x}
+        y={objectPosition.y}
+        z={objectPosition.z}
+      />
+      <ViroNode
+        position={[objectPosition.x, objectPosition.y, objectPosition.z]}
+        onClickState={(stateValue, position, source) => {
+          console.log('ClickState', stateValue, position, source);
+        }}>
+        <Viro3DObject
+          key={Date.now.toString()}
+          source={require('../../assets/model/can.obj')}
+          type="OBJ"
+          materials={['label']}
+          scale={[1, 1, 1]}
+          rotation={[0, 0, 0]}
+        />
+      </ViroNode>
     </ViroARScene>
   );
+}
 
-  function getArrowModels() {
-    const arrowModels = [];
+type GetArrowModelsProps = {
+  x: number;
+  y: number;
+  z: number;
+};
 
-    for (let i = 1; i <= 10; i++) {
-      arrowModels.push(
+function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
+  const {x, z} = props;
+
+  return (
+    <>
+      {[...Array(10)].map((_, i) => {
         <Viro3DObject
           key={i}
           source={require('../../assets/model/ball.obj')}
           type="OBJ"
           materials={['blue']}
-          position={[
-            (productPosition.x / 10) * (i + 1),
-            -1,
-            (productPosition.z / 10) * (i + 1),
-          ]}
+          position={[(x / 10) * (i + 1), -1, (z / 10) * (i + 1)]}
           scale={[0.02, 0.02, 0.02]}
           rotation={[0, 0, -90]}
-        />,
-      );
-    }
-    return arrowModels;
-  }
+        />;
+      })}
+    </>
+  );
 }
 
 export default NavigationPage;

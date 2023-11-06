@@ -6,7 +6,6 @@ import Ui3DObject from './3DUiObject';
 
 function DetectObject(props: {sceneNavigator: {scene: any}[]}) {
   const handleClick = () => {
-    console.log('nav 3D');
     props.sceneNavigator.push({scene: Ui3DObject});
   };
 

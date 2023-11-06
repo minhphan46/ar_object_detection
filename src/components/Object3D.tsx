@@ -34,8 +34,6 @@ function Object3D(props: ObjectProps) {
     pinchState: ViroPinchState,
     scaleFactor: number,
   ): void {
-    console.log(scaleFactor);
-    console.log(pinchState);
     if (pinchState === 2) {
       if (scaleFactor > 1) {
         setZPosition(getZoomInObject(props.canType));
@@ -65,12 +63,11 @@ function Object3D(props: ObjectProps) {
     <ViroNode
       position={[0, getYPosition(props.canType), z]}
       onClickState={(stateValue, position, source) => {
-        console.log('ClickState', stateValue, position, source);
-        if (stateValue == 1) {
+        if (stateValue === 1) {
           setRotate(false);
           // Click Down
         }
-        if (stateValue == 2) {
+        if (stateValue === 2) {
           setRotate(true);
           // Click Up
         }

@@ -4,6 +4,8 @@ We use [**Viro library**](https://github.com/viromedia/viro) that detects and di
 # Video Preview
 
 <img align="center" width="200" alt="UIApp" src="./assets/videos/detect_object.gif">
+<img align="center" width="200" alt="direction" src="./assets/videos/direction.gif">
+<img align="center" width="200" alt="card" src="./assets/images/mocks/bohuc_card.jpg">
 
 # Getting Started
 
@@ -40,11 +42,10 @@ To add new model to project:
 
 1. Create new folder in `assets/images` folder. Example: `assets/images/bohuc`
 2. Add labels images of your model in this folder. Example: `assets/images/bohuc/bohuc1.jpg`
-4. Create file: `{your_model}_images.tsx` in `utils` folder to define your model's images url. Example: `src/utils/bohuc_images.tsx`\
+3. Create file: `{your_model}_images.tsx` in `utils` folder to define your model's images url. Example: `src/utils/bohuc_images.tsx`\
    I recommend you use chatGpt to generate url, you can follow my format in this file.
-5. In `DetectObject.tsx` file, import your `{your_model}_images.tsx` file.
-6. Add `<ModelDetection>` component with your model's name and images inside `<ViroARScene>`\
-   Example: `<ModelDetection name='bohuc' images={bohucImages}/>`
+4. In `DetectObject.tsx` file, import your `{your_model}_images.tsx` file.
+5. Add your model's infomations and images inside `utils/object_map` file.
 
 Rebuild your project to see the result.
 

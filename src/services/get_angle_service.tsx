@@ -1,8 +1,14 @@
-import {magnetometer} from 'react-native-sensors';
 // Import react-native-sensors
+
+import {ObjectPosition} from '../store/slices/direction_slice';
+
 // Define a function that converts radians to degrees
 function getRad2deg(rad: number) {
   return (rad * 180) / Math.PI;
+}
+
+function convertDeg2Rad(deg: number) {
+  return (deg * Math.PI) / 180;
 }
 
 // Define a function that returns a compass direction based on an angle
@@ -39,4 +45,29 @@ function getNewPosition(oldPosition: any, angle: number) {
   return newPosition;
 }
 
-export {getRad2deg, getDirection, getNewPosition};
+function getObjectPosition(
+  oldPosition: ObjectPosition,
+  angle: number,
+): ObjectPosition {
+  let newPosition = oldPosition;
+
+  console.log('angle ', angle);
+
+  newPosition.x =
+    oldPosition.x * Math.cos(angle) - oldPosition.z * Math.sin(angle);
+
+  newPosition.z =
+    oldPosition.z * Math.sin(angle) + oldPosition.z * Math.cos(angle);
+
+  console.log('postion ', newPosition);
+
+  return newPosition;
+}
+
+export {
+  getRad2deg,
+  convertDeg2Rad,
+  getDirection,
+  getNewPosition,
+  getObjectPosition,
+};

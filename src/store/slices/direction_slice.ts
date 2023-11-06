@@ -44,16 +44,15 @@ export const DirectionSlice = createSlice({
       state,
       action: PayloadAction<{heading: number; accuracy: number}>,
     ) => {
+      const {heading, accuracy} = action.payload;
+      const rad = convertDeg2Rad(heading);
       if (!state.isFindPositionObject) {
-        const {heading, accuracy} = action.payload;
-        const rad = convertDeg2Rad(heading);
         const newObjectPosition = getObjectPosition(state.objectPosition, rad);
-        state.direction = {...state.direction, heading, accuracy, rad};
         state.objectPosition = {...state.objectPosition, ...newObjectPosition};
         state.isFindPositionObject = true;
         console.log('direction', state.objectPosition);
-      } else {
       }
+      state.direction = {...state.direction, heading, accuracy, rad};
     },
   },
 });

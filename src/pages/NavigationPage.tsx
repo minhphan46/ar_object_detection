@@ -30,26 +30,6 @@ function NavigationPage(): JSX.Element {
   const [isGetAngle, setIsGetAngle] = useState(false);
   const initAngle = 130;
 
-  // function getArrowModels() {
-  //   const arrowModels = [];
-  //   console.log('asdadasdasdasdasdassdassdas');
-
-  //   for (let i = 1; i <= 10; i++) {
-  //     arrowModels.push(
-  //       <Viro3DObject
-  //         key={i}
-  //         source={require('../../assets/model/arrow.obj')}
-  //         type="OBJ"
-  //         materials={['blue']}
-  //         position={[initPosition.x, initPosition.y, initPosition.z - i]}
-  //         scale={[0.05, 0.05, 0.05]}
-  //         rotation={[0, 0, 90]}
-  //       />,
-  //     );
-  //   }
-  //   return arrowModels;
-  // }
-
   // Define an effect hook to subscribe to the magnetometer data
   useEffect(() => {
     // Set up a subscription to the magnetometer data
@@ -68,21 +48,28 @@ function NavigationPage(): JSX.Element {
         // appAngle = -angle;
         console.log(isGetAngle);
         setAppAngle(angle);
-        setProductPosition(getNewPosition(productPosition, appAngle));
-        console.log(`=================================angle ${angle}`);
-        console.log(
-          `=================================product ${
-            productPosition.x + ' ' + productPosition.z
-          }`,
-        );
         setIsGetAngle(true);
       }
     });
+    setProductPosition(getNewPosition(productPosition, appAngle));
+    console.log(`=================================angle ${appAngle}`);
+    console.log(
+      `=================================product ${
+        productPosition.x + ' ' + productPosition.z
+      }`,
+    );
     // Return a cleanup function to unsubscribe from the magnetometer data
     return () => subscription.unsubscribe();
   }, [appAngle, productPosition]);
 
-  console.log(productPosition.x + ' ' + productPosition.z);
+  console.log(
+    'New position: ' +
+      productPosition.x +
+      ' ' +
+      productPosition.y +
+      ' ' +
+      productPosition.z,
+  );
   return (
     <ViroARScene>
       {/* {getArrowModels()} */}
@@ -104,6 +91,26 @@ function NavigationPage(): JSX.Element {
       )}
     </ViroARScene>
   );
+
+  // function getArrowModels() {
+  //   const arrowModels = [];
+  //   console.log('asdadasdasdasdasdassdassdas');
+
+  //   for (let i = 1; i <= 10; i++) {
+  //     arrowModels.push(
+  //       <Viro3DObject
+  //         key={i}
+  //         source={require('../../assets/model/arrow.obj')}
+  //         type="OBJ"
+  //         materials={['blue']}
+  //         position={[initPosition.x, initPosition.y, initPosition.z - i]}
+  //         scale={[0.05, 0.05, 0.05]}
+  //         rotation={[0, 0, 90]}
+  //       />,
+  //     );
+  //   }
+  //   return arrowModels;
+  // }
 }
 
 export default NavigationPage;

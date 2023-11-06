@@ -4,6 +4,7 @@ import {
   Viro3DObject,
   ViroARScene,
   ViroMaterials,
+  ViroNode,
 } from '@viro-community/react-viro';
 // Import react-native-sensors
 import {magnetometer} from 'react-native-sensors';
@@ -16,11 +17,17 @@ import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 function NavigationPage(): JSX.Element {
   const initPosition = {x: 0, y: -1, z: 0};
-  let productPosition = {x: 0, y: -0.5, z: -11};
+  //let productPosition = {x: 0, y: -0.5, z: -11};
+  const [productPosition, setProductPosition] = useState({
+    x: 0,
+    y: -0.5,
+    z: -11,
+  });
   // Define a state variable to store the direction
-  let appAngle = 0;
-  let isGetAngle = false;
-  //const [isGetAngle, setIsGetAngle] = useState(false);
+  //let appAngle = 0;
+  const [appAngle, setAppAngle] = useState(0);
+  //let isGetAngle = false;
+  const [isGetAngle, setIsGetAngle] = useState(false);
   const initAngle = 130;
 
   // function getArrowModels() {
@@ -53,43 +60,48 @@ function NavigationPage(): JSX.Element {
       //angle = getRad2deg(angle);
       // Adjust the angle to match the compass directions
       //angle += initAngle;
-      if (angle > 360) {
-        angle -= 360;
-      }
+      // if (angle > 360) {
+      //   angle -= 360;
+      // }
       // Update the direction state variable with the angle
       if (!isGetAngle) {
-        appAngle = -angle;
-        console.log(`=================================direction ${appAngle}`);
-        productPosition = getNewPosition(productPosition, appAngle);
+        // appAngle = -angle;
+        console.log(isGetAngle);
+        setAppAngle(angle);
+        setProductPosition(getNewPosition(productPosition, appAngle));
+        console.log(`=================================angle ${angle}`);
         console.log(
           `=================================product ${
-            productPosition.x +
-            ' ' +
-            productPosition.y +
-            ' ' +
-            productPosition.z
+            productPosition.x + ' ' + productPosition.z
           }`,
         );
-        isGetAngle = true;
-        //setIsGetAngle(true);
+        setIsGetAngle(true);
       }
     });
     // Return a cleanup function to unsubscribe from the magnetometer data
     return () => subscription.unsubscribe();
-  }, []);
+  }, [appAngle, productPosition]);
 
+  console.log(productPosition.x + ' ' + productPosition.z);
   return (
     <ViroARScene>
       {/* {getArrowModels()} */}
-      <Viro3DObject
-        key={Date.now.toString()}
-        source={require('../../assets/model/can.obj')}
-        type="OBJ"
-        materials={['label']}
-        position={[productPosition.x, productPosition.y, productPosition.z]}
-        scale={[1, 1, 1]}
-        rotation={[0, 0, 0]}
-      />
+      {isGetAngle && (
+        <ViroNode
+          position={[productPosition.x, productPosition.y, productPosition.z]}
+          onClickState={(stateValue, position, source) => {
+            console.log('ClickState', stateValue, position, source);
+          }}>
+          <Viro3DObject
+            key={Date.now.toString()}
+            source={require('../../assets/model/can.obj')}
+            type="OBJ"
+            materials={['label']}
+            scale={[2, 2, 2]}
+            rotation={[0, 0, 0]}
+          />
+        </ViroNode>
+      )}
     </ViroARScene>
   );
 }

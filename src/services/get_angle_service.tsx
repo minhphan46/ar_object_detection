@@ -8,28 +8,31 @@ function getRad2deg(rad: number) {
 // Define a function that returns a compass direction based on an angle
 function getDirection(angle: number) {
   if (angle >= 22.5 && angle < 67.5) {
-    return 'NE';
+    return 'Đông Bắc';
   } else if (angle >= 67.5 && angle < 112.5) {
-    return 'E';
+    return 'Đông';
   } else if (angle >= 112.5 && angle < 157.5) {
-    return 'SE';
+    return 'Đông Nam';
   } else if (angle >= 157.5 && angle < 202.5) {
-    return 'S';
+    return 'Nam';
   } else if (angle >= 202.5 && angle < 247.5) {
-    return 'SW';
+    return 'Tây Nam';
   } else if (angle >= 247.5 && angle < 292.5) {
-    return 'W';
+    return 'Tây';
   } else if (angle >= 292.5 && angle < 337.5) {
-    return 'NW';
+    return 'Tây Bắc';
   } else {
-    return 'N';
+    return 'Bắc';
   }
 }
 
 function getNewPosition(oldPosition: any, angle: number) {
   let newPosition = oldPosition;
+  console.log('x truoc ' + newPosition.x);
   newPosition.x =
     oldPosition.x * Math.cos(angle) - oldPosition.z * Math.sin(angle);
+  console.log('x sau ' + newPosition.x);
+
   newPosition.z =
     oldPosition.z * Math.sin(angle) + oldPosition.z * Math.cos(angle);
 

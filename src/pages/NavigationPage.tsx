@@ -16,19 +16,15 @@ import {
 import {get} from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 function NavigationPage(): JSX.Element {
+  // Define a state variable to store the direction
   const initPosition = {x: 0, y: -1, z: 0};
-  //let productPosition = {x: 0, y: -0.5, z: -11};
   const [productPosition, setProductPosition] = useState({
     x: 0,
     y: -0.5,
-    z: -11,
+    z: 10,
   });
-  // Define a state variable to store the direction
-  //let appAngle = 0;
   const [appAngle, setAppAngle] = useState(0);
-  //let isGetAngle = false;
   const [isGetAngle, setIsGetAngle] = useState(false);
-  const initAngle = 130;
 
   // Define an effect hook to subscribe to the magnetometer data
   useEffect(() => {
@@ -47,17 +43,14 @@ function NavigationPage(): JSX.Element {
       if (!isGetAngle) {
         // appAngle = -angle;
         console.log(isGetAngle);
-        setAppAngle(angle);
+        if (angle > 0) setAppAngle(angle - 1);
+        else setAppAngle(angle + 1);
         setIsGetAngle(true);
       }
     });
     setProductPosition(getNewPosition(productPosition, appAngle));
-    console.log(`=================================angle ${appAngle}`);
-    console.log(
-      `=================================product ${
-        productPosition.x + ' ' + productPosition.z
-      }`,
-    );
+    console.log(`Angle Found ${appAngle}`);
+    console.log(`Out position ${productPosition.x + ' ' + productPosition.z}`);
     // Return a cleanup function to unsubscribe from the magnetometer data
     return () => subscription.unsubscribe();
   }, [appAngle, productPosition]);
@@ -72,45 +65,50 @@ function NavigationPage(): JSX.Element {
   );
   return (
     <ViroARScene>
-      {/* {getArrowModels()} */}
       {isGetAngle && (
-        <ViroNode
-          position={[productPosition.x, productPosition.y, productPosition.z]}
-          onClickState={(stateValue, position, source) => {
-            console.log('ClickState', stateValue, position, source);
-          }}>
-          <Viro3DObject
-            key={Date.now.toString()}
-            source={require('../../assets/model/can.obj')}
-            type="OBJ"
-            materials={['label']}
-            scale={[2, 2, 2]}
-            rotation={[0, 0, 0]}
-          />
-        </ViroNode>
+        <>
+          {getArrowModels()}
+          <ViroNode
+            position={[productPosition.x, productPosition.y, productPosition.z]}
+            onClickState={(stateValue, position, source) => {
+              console.log('ClickState', stateValue, position, source);
+            }}>
+            <Viro3DObject
+              key={Date.now.toString()}
+              source={require('../../assets/model/can.obj')}
+              type="OBJ"
+              materials={['label']}
+              scale={[1, 1, 1]}
+              rotation={[0, 0, 0]}
+            />
+          </ViroNode>
+        </>
       )}
     </ViroARScene>
   );
 
-  // function getArrowModels() {
-  //   const arrowModels = [];
-  //   console.log('asdadasdasdasdasdassdassdas');
+  function getArrowModels() {
+    const arrowModels = [];
 
-  //   for (let i = 1; i <= 10; i++) {
-  //     arrowModels.push(
-  //       <Viro3DObject
-  //         key={i}
-  //         source={require('../../assets/model/arrow.obj')}
-  //         type="OBJ"
-  //         materials={['blue']}
-  //         position={[initPosition.x, initPosition.y, initPosition.z - i]}
-  //         scale={[0.05, 0.05, 0.05]}
-  //         rotation={[0, 0, 90]}
-  //       />,
-  //     );
-  //   }
-  //   return arrowModels;
-  // }
+    for (let i = 1; i <= 10; i++) {
+      arrowModels.push(
+        <Viro3DObject
+          key={i}
+          source={require('../../assets/model/ball.obj')}
+          type="OBJ"
+          materials={['blue']}
+          position={[
+            (productPosition.x / 10) * (i + 1),
+            -1,
+            (productPosition.z / 10) * (i + 1),
+          ]}
+          scale={[0.02, 0.02, 0.02]}
+          rotation={[0, 0, -90]}
+        />,
+      );
+    }
+    return arrowModels;
+  }
 }
 
 export default NavigationPage;

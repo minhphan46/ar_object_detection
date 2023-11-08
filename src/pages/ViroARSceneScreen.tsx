@@ -12,6 +12,8 @@ import DetectObject from './DetectObject';
 import Ui3DObject from './3DUiObject';
 import NavigationPage from './NavigationPage';
 import CompassObject from '../components/CompassObject';
+import GetCurrentLocationExample from '../services/GetCurrentLocation';
+import WatchPositionExample from '../services/WatchPosition';
 
 function ViroARSceneScreen(): JSX.Element {
   function _onResetScene() {
@@ -35,6 +37,8 @@ function ViroARSceneScreen(): JSX.Element {
       <View style={styles.fab3DButton}>
         <CompassObject />
       </View>
+
+      <GetCurrentLocationExample />
 
       {/* <View style={styles.fab3DButton}>
         <TouchableHighlight

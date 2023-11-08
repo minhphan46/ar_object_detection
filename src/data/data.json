@@ -1,0 +1,42 @@
+[
+  {
+    "modelName": "Nước ngọt Coca Cola lon 320ml",
+    "description": "Coca Cola (Mỹ)",
+    "productType": "Nước ngọt",
+    "price": "10.600đ",
+    "color": "red",
+    "url": "https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-coca-cola-320ml"
+  },
+  {
+    "modelName": "Nước tăng lực Redbull 250ml",
+    "description": "Redbull (Thái Lan)",
+    "productType": "Nước tăng lực",
+    "price": "10.600đ",
+    "color": "yellow",
+    "url": "https://www.bachhoaxanh.com/nuoc-tang-luc/redbull-250ml"
+  },
+  {
+    "modelName": "Cà phê sữa Highlands 235ml",
+    "description": "Highlands (Việt Nam)",
+    "productType": "Cà phê sữa",
+    "price": "11.600đ",
+    "color": "brown",
+    "url": "https://www.bachhoaxanh.com/ca-phe-lon/ca-phe-sua-highlands-lon-235ml"
+  },
+  {
+    "modelName": "Nước ngọt Pepsi không calo lon 320ml",
+    "description": "Pepsi (Mỹ)",
+    "productType": "Nước ngọt",
+    "price": "8.500đ",
+    "color": "black",
+    "url": "https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-pepsi-khong-calo-330ml"
+  },
+  {
+    "modelName": "Trà bí đao Wonderfarm 310ml",
+    "description": "Wonderfarm (Việt Nam)",
+    "productType": "Trà bí đao",
+    "price": "8.600đ",
+    "color": "green",
+    "url": "https://www.bachhoaxanh.com/nuoc-tra/nuoc-tra-bi-dao-lon-310ml"
+  }
+]

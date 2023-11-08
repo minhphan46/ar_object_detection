@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Viro3DObject,
   ViroARCamera,
   ViroARScene,
   ViroBox,
+  ViroCamera,
   ViroMaterials,
   ViroNode,
 } from '@viro-community/react-viro';
@@ -14,12 +15,20 @@ function NavigationPage(): JSX.Element {
     state => state.direction,
   );
 
+  const [camera, setCamera] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCamera(true);
+    }, 200);
+  }, []);
+
   return (
     <ViroARScene>
-      {isFindPositionObject ? (
-        ShowModels(objectPosition)
-      ) : (
-        <ViroARCamera>{ShowModels(objectPosition)}</ViroARCamera>
+      {camera && (
+        <ViroCamera position={[0, 0, 0]} rotation={[0, 0, 0]} active={!isFindPositionObject}>
+          {ShowModels(objectPosition)}
+        </ViroCamera>
       )}
     </ViroARScene>
   );

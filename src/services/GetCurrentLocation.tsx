@@ -9,25 +9,18 @@ export default function GetCurrentLocationExample() {
     Geolocation.getCurrentPosition(
       pos => {
         console.log(pos);
-        setPosition(JSON.stringify(pos));
+        //setPosition(JSON.stringify(pos));
+        const {latitude, longitude} = pos.coords; // Trích xuất latitude và longitude
+        setPosition(`Latitude: ${latitude}, Longitude: ${longitude}`);
       },
-      error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
+      error => console.log(error),
       {enableHighAccuracy: true},
     );
   };
 
-  useEffect(() => {
-    setInterval(function () {
-      getCurrentPosition();
-    }, 100);
-  }, []);
-
   return (
-    <View>
-      <Text>
-        <Text style={styles.title}>Current position: </Text>
-        {position}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.angle}>{position}</Text>
       <Button title="Get Current Position" onPress={getCurrentPosition} />
     </View>
   );
@@ -36,5 +29,18 @@ export default function GetCurrentLocationExample() {
 const styles = StyleSheet.create({
   title: {
     fontWeight: '500',
+  },
+  container: {
+    flex: 1,
+  },
+  angle: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  direction: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });

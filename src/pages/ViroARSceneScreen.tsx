@@ -38,12 +38,8 @@ function ViroARSceneScreen(): JSX.Element {
         <CompassObject />
       </View>
 
-      <GetCurrentLocationExample />
-
-      <GetCurrentLocationExample />
-
       <View style={styles.location}>
-        <CompassObject />
+        <GetCurrentLocationExample />
       </View>
       {/* <View style={styles.fab3DButton}>
         <TouchableHighlight

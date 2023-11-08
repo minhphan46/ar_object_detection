@@ -11,7 +11,7 @@ export default function GetCurrentLocationExample() {
         console.log(pos);
         //setPosition(JSON.stringify(pos));
         const {latitude, longitude} = pos.coords; // Trích xuất latitude và longitude
-        setPosition(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        setPosition(`Lat: ${latitude}\nLong: ${longitude}`);
       },
       error => console.log(error),
       {enableHighAccuracy: true},
@@ -20,7 +20,7 @@ export default function GetCurrentLocationExample() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.angle}>{position}</Text>
+      <Text style={styles.position}>{position}</Text>
       <Button title="Get Current Position" onPress={getCurrentPosition} />
     </View>
   );
@@ -33,13 +33,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  angle: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  direction: {
-    fontSize: 10,
+  position: {
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#fff',
   },

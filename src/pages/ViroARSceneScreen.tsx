@@ -36,6 +36,9 @@ function ViroARSceneScreen(): JSX.Element {
         <CompassObject />
       </View>
 
+      <View style={styles.location}>
+        <CompassObject />
+      </View>
       {/* <View style={styles.fab3DButton}>
         <TouchableHighlight
           style={styles.buttons}
@@ -79,5 +82,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  location: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
   },
 });

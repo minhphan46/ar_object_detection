@@ -11,9 +11,8 @@ const CompassObject = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const degree_update_rate = 3;
+    const degree_update_rate = 1;
     CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
-      console.log('CompassHeading: ', heading, accuracy);
       dispatch(updateDirection({heading, accuracy}));
     });
 

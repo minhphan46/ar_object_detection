@@ -31,7 +31,7 @@ const initialState: DirectionState = {
   objectPosition: {
     x: 0,
     y: -1,
-    z: 10,
+    z: -10,
   },
   isFindPositionObject: false,
 };
@@ -47,10 +47,24 @@ export const DirectionSlice = createSlice({
       const {heading, accuracy} = action.payload;
       const rad = convertDeg2Rad(heading);
       if (!state.isFindPositionObject) {
-        const newObjectPosition = getObjectPosition(state.objectPosition, rad);
+        console.log(
+          '===================================================================================',
+        );
+        // console.log('heading', heading);
+        // console.log('rad', rad);
+        const newObjectPosition = getObjectPosition(
+          {
+            x: 0,
+            y: -1,
+            z: -10,
+          },
+          heading,
+          rad,
+        );
+        // console.log('objectPosition', state.objectPosition);
+        // console.log('newObjectPosition', newObjectPosition);
         state.objectPosition = {...state.objectPosition, ...newObjectPosition};
         state.isFindPositionObject = true;
-        console.log('direction', state.objectPosition);
       }
       state.direction = {...state.direction, heading, accuracy, rad};
     },

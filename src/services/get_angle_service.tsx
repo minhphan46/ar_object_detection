@@ -34,32 +34,33 @@ function getDirection(angle: number) {
 
 function getNewPosition(oldPosition: any, angle: number) {
   let newPosition = oldPosition;
-  console.log('x truoc ' + newPosition.x);
+
   newPosition.x =
     oldPosition.x * Math.cos(angle) - oldPosition.z * Math.sin(angle);
-  console.log('x sau ' + newPosition.x);
 
   newPosition.z =
-    oldPosition.z * Math.sin(angle) + oldPosition.z * Math.cos(angle);
+    oldPosition.x * Math.sin(angle) + oldPosition.z * Math.cos(angle);
 
   return newPosition;
 }
 
 function getObjectPosition(
   oldPosition: ObjectPosition,
+  heading: number,
   angle: number,
 ): ObjectPosition {
   let newPosition = oldPosition;
-
-  console.log('angle ', angle);
+  console.log('heading tinh toan', heading);
+  console.log('angle tinh toan', angle);
+  console.log('old position tinh toan', oldPosition);
 
   newPosition.x =
-    oldPosition.x * Math.cos(angle) - oldPosition.z * Math.sin(angle);
+    oldPosition.x * Math.cos(angle) + oldPosition.z * Math.sin(angle);
 
   newPosition.z =
-    oldPosition.z * Math.sin(angle) + oldPosition.z * Math.cos(angle);
+    -oldPosition.x * Math.sin(angle) + oldPosition.z * Math.cos(angle);
 
-  console.log('postion ', newPosition);
+  console.log('new postion tinh toan', newPosition);
 
   return newPosition;
 }

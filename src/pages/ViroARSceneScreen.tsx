@@ -2,9 +2,23 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import NavigationPage from './NavigationPage';
 import CompassObject from '../components/CompassObject';
-import GetCurrentLocationExample from '../services/GetCurrentLocation';
+import {ProductPosition} from '../data/ProductObject';
+import {useAppDispatch} from '../store/store';
+import {useEffect} from 'react';
+import {initPosition} from '../store/slices/direction_slice';
 
-function ViroARSceneScreen(): JSX.Element {
+type ViroARSceneScreenProps = {
+  postion: ProductPosition;
+};
+
+function ViroARSceneScreen(props: ViroARSceneScreenProps): JSX.Element {
+  const {postion} = props;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(initPosition({x: postion.x, y: postion.y, z: postion.z}));
+  }, [dispatch, postion.x, postion.y, postion.z]);
+
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator
@@ -17,10 +31,6 @@ function ViroARSceneScreen(): JSX.Element {
 
       <View style={styles.fab3DButton}>
         <CompassObject />
-      </View>
-
-      <View style={styles.location}>
-        <GetCurrentLocationExample />
       </View>
     </View>
   );

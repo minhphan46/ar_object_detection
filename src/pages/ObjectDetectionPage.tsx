@@ -61,9 +61,9 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     }
   }
 
-  function _onUpdatedObject(evt: any) {}
+  function _onUpdatedObject(_: any) {}
 
-  function _onLostObject(evt: any) {
+  function _onLostObject(_: any) {
     setIndexImageFound(-1);
     setIndexOld(indexImageFound);
   }

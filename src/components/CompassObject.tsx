@@ -1,7 +1,7 @@
 // Import React and React Native components
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {getDirection} from '../services/get_angle_service';
+import {getDirection} from '../utils/get_angle_service';
 import CompassHeading from 'react-native-compass-heading';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updateDirection} from '../store/slices/direction_slice';

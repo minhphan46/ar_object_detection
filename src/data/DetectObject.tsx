@@ -1,6 +1,6 @@
 import {ViroARScene} from '@viro-community/react-viro';
 import React from 'react';
-import ObjectDetectionPage from './ObjectDetectionPage';
+import ObjectDetectionPage from '../pages/ObjectDetectionPage';
 import {ObjectMap} from '../utils/object_map';
 import Ui3DObject from './3DUiObject';
 

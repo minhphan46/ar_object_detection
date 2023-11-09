@@ -1,6 +1,4 @@
-// Import react-native-sensors
-
-import {ObjectPosition} from '../store/slices/direction_slice';
+import {ProductPosition} from '../data/ProductObject';
 
 // Define a function that converts radians to degrees
 function getRad2deg(rad: number): number {
@@ -45,10 +43,10 @@ function getNewPosition(oldPosition: any, angle: number) {
 }
 
 function getObjectPosition(
-  oldPosition: ObjectPosition,
+  oldPosition: ProductPosition,
   heading: number,
   angle: number,
-): ObjectPosition {
+): ProductPosition {
   let newPosition = oldPosition;
   console.log('heading tinh toan', heading);
   console.log('angle tinh toan', angle);

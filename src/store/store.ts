@@ -1,11 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import {PersonSlice} from './slices/person_slice';
+
 import {DirectionSlice} from './slices/direction_slice';
+import {ListProductSlice} from './slices/list_product_slice';
 
 const rootReducer = combineReducers({
-  person: PersonSlice.reducer,
   direction: DirectionSlice.reducer,
+  listProduct: ListProductSlice.reducer,
 });
 
 const store = configureStore({reducer: rootReducer});

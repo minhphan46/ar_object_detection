@@ -3,7 +3,7 @@
 import {ObjectPosition} from '../store/slices/direction_slice';
 
 // Define a function that converts radians to degrees
-function getRad2deg(rad: number) {
+function getRad2deg(rad: number): number {
   return (rad * 180) / Math.PI;
 }
 

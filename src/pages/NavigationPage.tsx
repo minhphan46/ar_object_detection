@@ -1,75 +1,102 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Viro3DObject,
-  ViroARCamera,
   ViroARScene,
-  ViroBox,
+  ViroCamera,
   ViroMaterials,
   ViroNode,
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
+import {getRad2deg} from '../services/get_angle_service';
+
+type GetArrowModelsProps = {
+  x: number;
+  y: number;
+  z: number;
+  rotationX?: number;
+};
 
 function NavigationPage(): JSX.Element {
   const {objectPosition, isFindPositionObject} = useAppSelector(
     state => state.direction,
   );
 
+  const [camera, setCamera] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCamera(true);
+    }, 200);
+  }, []);
+
   return (
     <ViroARScene>
-      {isFindPositionObject ? (
-        ShowModels(objectPosition)
-      ) : (
-        <ViroARCamera>{ShowModels(objectPosition)}</ViroARCamera>
+      {camera && (
+        <ViroCamera
+          position={[0, 0, 0]}
+          rotation={[0, 0, 0]}
+          active={!isFindPositionObject}>
+          <ShowModels
+            x={objectPosition.x}
+            y={objectPosition.y}
+            z={objectPosition.z}
+            rotationX={0}
+          />
+        </ViroCamera>
       )}
     </ViroARScene>
   );
 }
 
-type GetArrowModelsProps = {
-  x: number;
-  y: number;
-  z: number;
-};
-
 function ShowModels(props: GetArrowModelsProps): JSX.Element {
   const {x, y, z} = props;
+  const [rotationX, setRotationX] = useState<number>(0);
+
+  useEffect(() => {
+    const rad = Math.atan2(x, z);
+    setRotationX(() => 180 - getRad2deg(rad));
+  }, [x, z]);
 
   return (
     <>
+      <GetArrowModels x={x} y={y} z={z} rotationX={rotationX} />
+
       <ViroNode
         position={[x, y, z]}
         onClickState={(stateValue, position, source) => {
           console.log('ClickState', stateValue, position, source);
         }}>
-        <ViroBox materials={['label']} scale={[1, 1, 1]} rotation={[0, 0, 0]} />
-        {/* <Viro3DObject
+        {/* <ViroBox materials={['label']} scale={[1, 1, 1]} rotation={[0, 0, 0]} /> */}
+        <Viro3DObject
           key={Date.now.toString()}
           source={require('../../assets/model/can.obj')}
           type="OBJ"
           materials={['label']}
           scale={[1, 1, 1]}
           rotation={[0, 0, 0]}
-        /> */}
+        />
       </ViroNode>
     </>
   );
 }
 
 function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
-  const {x, z} = props;
+  const {x, z, rotationX} = props;
 
   return (
     <>
       {[...Array(10)].map((_, i) => {
-        <Viro3DObject
-          key={i}
-          source={require('../../assets/model/ball.obj')}
-          type="OBJ"
-          materials={['blue']}
-          position={[(x / 10) * (i + 1), -1, (z / 10) * (i + 1)]}
-          scale={[0.02, 0.02, 0.02]}
-          rotation={[0, 0, -90]}
-        />;
+        return (
+          <Viro3DObject
+            key={i}
+            source={require('../../assets/model/direction_arrow.obj')}
+            type="OBJ"
+            materials={['blue']}
+            position={[(x / 10) * i, -1, (z / 10) * i]}
+            scale={[0.02, 0.02, 0.02]}
+            rotation={[rotationX ?? 0, 0, -90]}
+          />
+        );
       })}
     </>
   );

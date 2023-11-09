@@ -47,11 +47,6 @@ export const DirectionSlice = createSlice({
       const {heading, accuracy} = action.payload;
       const rad = convertDeg2Rad(heading);
       if (!state.isFindPositionObject) {
-        console.log(
-          '===================================================================================',
-        );
-        // console.log('heading', heading);
-        // console.log('rad', rad);
         const newObjectPosition = getObjectPosition(
           {
             x: 0,
@@ -61,8 +56,6 @@ export const DirectionSlice = createSlice({
           heading,
           rad,
         );
-        // console.log('objectPosition', state.objectPosition);
-        // console.log('newObjectPosition', newObjectPosition);
         state.objectPosition = {...state.objectPosition, ...newObjectPosition};
         state.isFindPositionObject = true;
       }

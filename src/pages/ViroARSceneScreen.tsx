@@ -1,33 +1,16 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import React, {useEffect, useState} from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native';
-import DetectObject from './DetectObject';
-import Ui3DObject from './3DUiObject';
+import {StyleSheet, View} from 'react-native';
 import NavigationPage from './NavigationPage';
 import CompassObject from '../components/CompassObject';
+import GetCurrentLocationExample from '../services/GetCurrentLocation';
 
 function ViroARSceneScreen(): JSX.Element {
-  function _onResetScene() {
-    console.log('onReset');
-    //navigation.navigate('YourScreen', {id: 2});
-    //props.navigation.push('WebView');
-  }
-
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
           scene: NavigationPage,
-          //scene: () => DetectObject({sceneNavigator: []}),
-          //scene: () => Ui3DObject({sceneNavigator: []}),
         }}
         style={styles.rootContainer}
       />
@@ -36,16 +19,9 @@ function ViroARSceneScreen(): JSX.Element {
         <CompassObject />
       </View>
 
-      {/* <View style={styles.fab3DButton}>
-        <TouchableHighlight
-          style={styles.buttons}
-          onPress={_onResetScene}
-          underlayColor={'#00000000'}>
-          <Image
-            source={require('../../assets/images/mocks/btn_mode_objects.png')}
-          />
-        </TouchableHighlight>
-      </View> */}
+      <View style={styles.location}>
+        <GetCurrentLocationExample />
+      </View>
     </View>
   );
 }
@@ -79,5 +55,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  location: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
   },
 });

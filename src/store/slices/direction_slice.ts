@@ -49,8 +49,8 @@ export const DirectionSlice = createSlice({
         const newObjectPosition = getObjectPosition(
           {
             x: 0,
-            y: -1,
-            z: -10,
+            y: 0,
+            z: 2,
           },
           heading,
           rad,

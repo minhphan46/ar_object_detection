@@ -1,11 +1,14 @@
-import React, {useLayoutEffect, useMemo, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Divider} from '@rneui/base';
 import data from '../data/data.json';
 import {ObjectMap} from '../utils/object_map';
 
 const CustomBottomSheet = ({bottomSheetRef}: any) => {
+  useEffect(() => {
+    searchModelName('');
+  }, []);
   const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
   const [searchText, onChangeSearch] = useState('');
 
@@ -20,6 +23,9 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
 
     setSearchedObject(filteredObjectMap);
   };
+  const selectedType = () => {
+    handleClose;
+  };
   const handleClose = () => {
     console.log('close');
     bottomSheetRef.current?.close();
@@ -30,7 +36,7 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
       index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose={true}>
-      <View style={styles.row_display}>
+      <View style={styles.rowDisplay}>
         <TextInput
           style={styles.input}
           value={searchText}
@@ -39,17 +45,33 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
             searchModelName(text);
             console.log(searchedObject);
           }}></TextInput>
-        <TouchableOpacity onPress={handleClose} style={styles.cancle_style}>
-          <Text style={styles.contentText}>Cancle</Text>
+        <TouchableOpacity onPress={handleClose} style={styles.cancleStyle}>
+          <Text style={styles.cancleText}>Cancle</Text>
         </TouchableOpacity>
       </View>
 
-      <View>
+      <View style={styles.searchTable}>
+        {searchedObject.length === 0 ? (
+          <Text style={styles.titleText}>No product matchs</Text>
+        ) : (
+          <Text style={styles.titleText}>Suggestions</Text>
+        )}
         {searchedObject.map((item: any) => {
           return (
-            <Text key={item.modelName} style={styles.contentText}>
-              {item.modelName}
-            </Text>
+            <View key={item.modelName}>
+              <TouchableOpacity
+                onPress={selectedType}
+                style={styles.cancleStyle}>
+                <View style={styles.rowDisplay}>
+                  <Image
+                    style={styles.buttonImageIconStyle}
+                    source={item.imageLogo}
+                  />
+                  <Text style={styles.searchText}>{item.modelName}</Text>
+                </View>
+                <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+              </TouchableOpacity>
+            </View>
           );
         })}
       </View>
@@ -79,12 +101,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+
+  cancleText: {
+    color: 'blue',
+    fontSize: 20,
+    fontWeight: 'normal',
+  },
   contentText: {
     color: 'black',
     fontSize: 20,
     fontWeight: 'normal',
   },
+  searchText: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '400',
+  },
   input: {
+    color: '#050505',
     flex: 1,
     width: 'auto',
     marginTop: 8,
@@ -97,13 +131,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#E9E9E9',
   },
 
-  row_display: {
+  searchTable: {
+    paddingHorizontal: 16,
+  },
+
+  rowDisplay: {
+    paddingVertical: 16,
     flexDirection: 'row',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
-  cancle_style: {
+  cancleStyle: {
     paddingVertical: 10,
     paddingHorizontal: 16,
+  },
+  buttonImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 30,
+    width: 30,
+    resizeMode: 'stretch',
   },
 });

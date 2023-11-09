@@ -1,5 +1,5 @@
 import {View, Text, Button, StyleSheet} from 'react-native';
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {addPerson} from '../store/slices/person_slice';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
@@ -11,8 +11,7 @@ const SearchBottomSheet = () => {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
   const searchBottomSheetRef = useRef<BottomSheet>(null);
-
-  const inputRef = useRef();
+  const [searchedObject, setSearchedObject] = useState<any>([]);
 
   const [searchText, setSearchText] = useState<string>('');
 

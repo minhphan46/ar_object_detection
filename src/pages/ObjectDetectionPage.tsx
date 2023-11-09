@@ -61,10 +61,11 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     }
   }
 
-  function _onLostObject(evt: any) {
+  function _onUpdatedObject(_: any) {}
+
+  function _onLostObject(_: any) {
     setIndexImageFound(-1);
     setIndexOld(indexImageFound);
-    console.log(`Lost Object ${props.modelName}`, evt);
   }
 
   const renderList = () => {
@@ -83,14 +84,13 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
         }
       }
 
-      console.log(`index ${indexImageFound}`);
-
       if (indexImageFound !== -1 && indexOld !== indexImageFound) {
         listItems.push(
           <ViroARImageMarker
             key={`${props.modelName}${indexImageFound}`}
             target={`${props.modelName}${indexImageFound + 1}`}
-            onAnchorRemoved={_onLostObject}>
+            onAnchorRemoved={_onLostObject}
+            onAnchorUpdated={_onUpdatedObject}>
             {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
             {/* <ObjectCardInfo
               modelName={props.modelName}

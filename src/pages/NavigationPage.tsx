@@ -1,35 +1,114 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Viro3DObject,
   ViroARScene,
-  ViroText,
-  ViroTrackingState,
+  ViroCamera,
+  ViroMaterials,
+  ViroNode,
 } from '@viro-community/react-viro';
+import {useAppSelector} from '../store/store';
+import {getRad2deg} from '../utils/get_angle_service';
 
-const NavigationPage = () => {
-  const [text, setText] = useState('Initializing AR...');
+type GetArrowModelsProps = {
+  x: number;
+  y: number;
+  z: number;
+  rotationX?: number;
+};
+
+function NavigationPage(): JSX.Element {
+  const {objectPosition, isFindPositionObject} = useAppSelector(
+    state => state.direction,
+  );
+
+  const [camera, setCamera] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCamera(true);
+    }, 200);
+  }, []);
 
   return (
     <ViroARScene>
-      <ViroText
-        text={text}
-        scale={[0.5, 0.5, 0.5]}
-        position={[0, 0, -1]}
-        style={styles.helloWorldTextStyle}
-      />
+      {camera && (
+        <ViroCamera
+          position={[0, 0, 0]}
+          rotation={[0, 0, 0]}
+          active={!isFindPositionObject}>
+          <ShowModels
+            x={objectPosition.x}
+            y={objectPosition.y}
+            z={objectPosition.z}
+            rotationX={0}
+          />
+        </ViroCamera>
+      )}
     </ViroARScene>
   );
-};
+}
+
+function ShowModels(props: GetArrowModelsProps): JSX.Element {
+  const {x, y, z} = props;
+  const [rotationX, setRotationX] = useState<number>(0);
+
+  useEffect(() => {
+    const rad = Math.atan2(x, z);
+    setRotationX(() => 180 - getRad2deg(rad));
+  }, [x, z]);
+
+  return (
+    <>
+      <GetArrowModels x={x} y={y} z={z} rotationX={rotationX} />
+
+      <ViroNode
+        position={[x, y, z]}
+        onClickState={(stateValue, position, source) => {
+          console.log('ClickState', stateValue, position, source);
+        }}>
+        {/* <ViroBox materials={['label']} scale={[1, 1, 1]} rotation={[0, 0, 0]} /> */}
+        <Viro3DObject
+          key={Date.now.toString()}
+          source={require('../../assets/model/can.obj')}
+          type="OBJ"
+          materials={['label']}
+          scale={[1, 1, 1]}
+          rotation={[0, 0, 0]}
+        />
+      </ViroNode>
+    </>
+  );
+}
+
+function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
+  const {x, z, rotationX} = props;
+
+  return (
+    <>
+      {[...Array(10)].map((_, i) => {
+        return (
+          <Viro3DObject
+            key={i}
+            source={require('../../assets/model/direction_arrow.obj')}
+            type="OBJ"
+            materials={['blue']}
+            position={[(x / 10) * i, -1, (z / 10) * i]}
+            scale={[0.02, 0.02, 0.02]}
+            rotation={[rotationX ?? 0, 0, -90]}
+          />
+        );
+      })}
+    </>
+  );
+}
 
 export default NavigationPage;
 
-var styles = StyleSheet.create({
-  f1: {flex: 1},
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
+ViroMaterials.createMaterials({
+  blue: {
+    diffuseColor: 'rgba(11, 127, 171, 1)',
+  },
+  label: {
+    diffuseColor: 'rgba(196, 77, 86, 1)',
   },
 });

@@ -2,16 +2,21 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 import store from './src/store/store';
-import TestRedux from './src/pages/TestRedux';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import SearchBottomSheet from './src/pages/SearchBottomSheet';
+import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
 
 function App(): JSX.Element {
   return (
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
-        {/* <ViroARSceneScreen /> */}
-        <SearchBottomSheet />
+        <ViroARSceneScreen
+          postion={{
+            x: 0,
+            y: 5,
+            z: -10,
+          }}
+        />
+        {/* <TestRedux /> */}
       </Provider>
     </GestureHandlerRootView>
   );

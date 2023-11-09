@@ -62,7 +62,7 @@ function Object3D(props: ObjectProps) {
   return (
     <ViroNode
       position={[0, getYPosition(props.canType), z]}
-      onClickState={(stateValue, position, source) => {
+      onClickState={(stateValue, _, __) => {
         if (stateValue === 1) {
           setRotate(false);
           // Click Down

@@ -1,21 +1,16 @@
 import {
-  Viro3DObject,
   ViroARScene,
   ViroAmbientLight,
-  ViroAnimations,
   ViroDirectionalLight,
   ViroMaterials,
-  ViroNode,
   ViroOrbitCamera,
-  ViroScene,
   ViroSkyBox,
-  ViroText,
 } from '@viro-community/react-viro';
 import {StyleSheet} from 'react-native';
 import {CanType} from '../enum/3DCanEnum';
 import Object3D from '../components/Object3D';
 
-const Ui3DObject = (props: {sceneNavigator: {scene: any}[]}) => {
+const Ui3DObject = () => {
   ViroMaterials.createMaterials({
     ddd: {
       diffuseTexture: require('../../assets/images/soft_drink_label/pepsi_label.jpg'),

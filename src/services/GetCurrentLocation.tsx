@@ -1,6 +1,6 @@
 import Geolocation from '@react-native-community/geolocation';
-import React, {useEffect, useState} from 'react';
-import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Button, StyleSheet, Text, View} from 'react-native';
 
 export default function GetCurrentLocationExample() {
   const [position, setPosition] = useState<string | null>(null);

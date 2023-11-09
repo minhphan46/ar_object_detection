@@ -1,8 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {
-  convertDeg2Rad,
-  getObjectPosition,
-} from '../../services/get_angle_service';
+import {convertDeg2Rad, getObjectPosition} from '../../utils/get_angle_service';
+import {ProductPosition} from '../../data/ProductObject';
 
 export type Direction = {
   heading: number;
@@ -10,15 +8,9 @@ export type Direction = {
   rad: number;
 };
 
-export type ObjectPosition = {
-  x: number;
-  y: number;
-  z: number;
-};
-
 interface DirectionState {
   direction: Direction;
-  objectPosition: ObjectPosition;
+  objectPosition: ProductPosition;
   isFindPositionObject: boolean;
 }
 
@@ -30,8 +22,8 @@ const initialState: DirectionState = {
   },
   objectPosition: {
     x: 0,
-    y: -1,
-    z: -10,
+    y: 0,
+    z: 0,
   },
   isFindPositionObject: false,
 };
@@ -40,6 +32,13 @@ export const DirectionSlice = createSlice({
   name: 'direction',
   initialState,
   reducers: {
+    initPosition: (
+      state,
+      action: PayloadAction<{x: number; y: number; z: number}>,
+    ) => {
+      const {x, y, z} = action.payload;
+      state.objectPosition = {...state.objectPosition, x, y, z};
+    },
     updateDirection: (
       state,
       action: PayloadAction<{heading: number; accuracy: number}>,
@@ -50,8 +49,8 @@ export const DirectionSlice = createSlice({
         const newObjectPosition = getObjectPosition(
           {
             x: 0,
-            y: -1,
-            z: -10,
+            y: 0,
+            z: 2,
           },
           heading,
           rad,
@@ -65,4 +64,4 @@ export const DirectionSlice = createSlice({
 });
 
 export default DirectionSlice.reducer;
-export const {updateDirection} = DirectionSlice.actions;
+export const {initPosition, updateDirection} = DirectionSlice.actions;

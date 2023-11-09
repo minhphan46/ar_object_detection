@@ -7,7 +7,7 @@ import {
   ViroNode,
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
-import {getRad2deg} from '../services/get_angle_service';
+import {getRad2deg} from '../utils/get_angle_service';
 
 type GetArrowModelsProps = {
   x: number;

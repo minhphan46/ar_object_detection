@@ -3,13 +3,17 @@ import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Divider} from '@rneui/base';
 import data from '../data/data.json';
-import {useAppSelector} from '../store/store';
-import {listProduct} from '../data/ProductObject';
+import {useAppDispatch, useAppSelector} from '../store/store';
+import {ProductInfo, listProduct} from '../data/ProductObject';
+import {setSelectedProduct} from '../store/slices/list_product_slice';
 
 const CustomBottomSheet = ({bottomSheetRef}: any) => {
   const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
 
-  const {listProducts} = useAppSelector(state => state.listProduct);
+  const {listProducts, selectedProduct} = useAppSelector(
+    state => state.listProduct,
+  );
+  const dispatch = useAppDispatch();
 
   const [searchText, onChangeSearch] = useState('');
 
@@ -24,7 +28,9 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
       ),
     );
   };
-  const selectedType = () => {
+  const selectedType = (item: ProductInfo) => {
+    dispatch(setSelectedProduct({product: item}));
+
     handleClose();
   };
   const handleClose = () => {
@@ -61,7 +67,7 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
           return (
             <View key={item.name}>
               <TouchableOpacity
-                onPress={selectedType}
+                onPress={() => selectedType(item)}
                 style={styles.cancleStyle}>
                 <View style={styles.rowDisplay}>
                   <Image

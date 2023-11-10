@@ -5,17 +5,18 @@ import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {TextInput, TouchableHighlight} from 'react-native-gesture-handler';
 import {Image} from 'react-native-reanimated/lib/typescript/Animated';
 import CustomBottomSheet from './CustomBottomSheet';
+import Ui3DObject from '../data/3DUiObject';
+import {ViroARSceneNavigator} from '@viro-community/react-viro';
 
 const SearchBottomSheet = () => {
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
   const searchBottomSheetRef = useRef<BottomSheet>(null);
-  const [searchedObject, setSearchedObject] = useState<any>([]);
 
-  const [searchText, setSearchText] = useState<string>('');
+  const {selectedProduct} = useAppSelector(state => state.listProduct);
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
+  const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -29,24 +30,32 @@ const SearchBottomSheet = () => {
   //close
   const handleClose = () => {
     console.log('close');
-    console.log(searchText);
     searchBottomSheetRef.current?.close();
   };
 
   return (
     <View style={styles.container}>
+      <ViroARSceneNavigator
+        initialScene={{
+          scene: () => (
+            <Ui3DObject
+              label={selectedProduct?.canObject[0].brandLabel}
+              canType={selectedProduct?.canObject[0].type}
+            />
+          ),
+        }}
+      />
       <BottomSheet
         ref={bottomSheetRef}
-        index={1}
+        index={2}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}>
         <View style={styles.contentContainer}>
-          <Button
-            color="#774DA1"
-            onPress={handleOpen}
-            title="open search bottomsheet"></Button>
+          <TouchableOpacity style={styles.buttonStyle} onPress={handleOpen}>
+            <Text style={styles.contentText}>Search Product</Text>
+          </TouchableOpacity>
 
-          <Text style={styles.contentText}>{searchText}</Text>
+          <Text style={styles.contentText}>{selectedProduct?.name}</Text>
         </View>
       </BottomSheet>
       <CustomBottomSheet bottomSheetRef={searchBottomSheetRef} />
@@ -55,9 +64,18 @@ const SearchBottomSheet = () => {
 };
 
 const styles = StyleSheet.create({
+  buttonStyle: {
+    marginTop: 20,
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#B1DBFB',
+  },
   container: {
     flex: 1,
-    padding: 24,
     backgroundColor: 'grey',
   },
   contentContainer: {

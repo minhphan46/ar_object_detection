@@ -4,18 +4,13 @@ import {Provider} from 'react-redux';
 import store from './src/store/store';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
+import SearchBottomSheet from './src/pages/SearchBottomSheet';
 
 function App(): JSX.Element {
   return (
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
-        <ViroARSceneScreen
-          postion={{
-            x: 0,
-            y: 5,
-            z: -10,
-          }}
-        />
+        <SearchBottomSheet />
         {/* <TestRedux /> */}
       </Provider>
     </GestureHandlerRootView>

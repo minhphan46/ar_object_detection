@@ -1,7 +1,6 @@
 import {View, Text, Button, StyleSheet} from 'react-native';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../store/store';
-import {addPerson} from '../store/slices/person_slice';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {TextInput, TouchableHighlight} from 'react-native-gesture-handler';
 import {Image} from 'react-native-reanimated/lib/typescript/Animated';
@@ -43,7 +42,7 @@ const SearchBottomSheet = () => {
         onChange={handleSheetChanges}>
         <View style={styles.contentContainer}>
           <Button
-            color="#9B4BEB"
+            color="#774DA1"
             onPress={handleOpen}
             title="open search bottomsheet"></Button>
 

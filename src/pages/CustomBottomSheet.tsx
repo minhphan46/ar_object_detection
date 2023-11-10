@@ -3,28 +3,29 @@ import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import {Divider} from '@rneui/base';
 import data from '../data/data.json';
-import {ObjectMap} from '../utils/object_map';
+import {useAppSelector} from '../store/store';
+import {listProduct} from '../data/ProductObject';
 
 const CustomBottomSheet = ({bottomSheetRef}: any) => {
-  useEffect(() => {
-    searchModelName('');
-  }, []);
   const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
+
+  const {listProducts} = useAppSelector(state => state.listProduct);
+
   const [searchText, onChangeSearch] = useState('');
 
-  const [searchedObject, setSearchedObject] = useState<any>([]);
+  const [searchedObject, setSearchedObject] = useState<any>(listProducts);
 
-  const searchModelName = (searchText: string) => {
-    const filteredObjects = Object.keys(ObjectMap).filter(key =>
-      ObjectMap[key].modelName.toLowerCase().includes(searchText.toLowerCase()),
+  const searchModelName = (searchTerm: string) => {
+    searchTerm = searchTerm.toLowerCase();
+
+    setSearchedObject(
+      listProduct.filter(product =>
+        product.name.toLowerCase().includes(searchTerm),
+      ),
     );
-
-    const filteredObjectMap = filteredObjects.map(key => ObjectMap[key]);
-
-    setSearchedObject(filteredObjectMap);
   };
   const selectedType = () => {
-    handleClose;
+    handleClose();
   };
   const handleClose = () => {
     console.log('close');
@@ -58,16 +59,16 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
         )}
         {searchedObject.map((item: any) => {
           return (
-            <View key={item.modelName}>
+            <View key={item.name}>
               <TouchableOpacity
                 onPress={selectedType}
                 style={styles.cancleStyle}>
                 <View style={styles.rowDisplay}>
                   <Image
                     style={styles.buttonImageIconStyle}
-                    source={item.imageLogo}
+                    source={item.image}
                   />
-                  <Text style={styles.searchText}>{item.modelName}</Text>
+                  <Text style={styles.searchText}>{item.name}</Text>
                 </View>
                 <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
               </TouchableOpacity>

@@ -1,13 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {ProductInfo} from '../../data/ProductObject';
+import {ProductInfo, listProduct} from '../../data/ProductObject';
 
 interface DirectionState {
   listProducts: ProductInfo[];
 }
 
 const initialState: DirectionState = {
-  listProducts: [],
+  listProducts: listProduct,
 };
 
 export const ListProductSlice = createSlice({

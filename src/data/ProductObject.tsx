@@ -32,8 +32,8 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/bohuc/bohuc.jpg'),
     position: {
       x: 0,
-      y: 0,
-      z: 0,
+      y: 8,
+      z: -2,
     },
   },
   {
@@ -48,8 +48,8 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/coca/coca.jpg'),
     position: {
       x: 0,
-      y: 0,
-      z: 0,
+      y: 4,
+      z: -3,
     },
   },
   {
@@ -63,9 +63,89 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/pepsi/pepsi.jpg'),
     position: {
+      x: 2,
+      y: 4,
+      z: 6,
+    },
+  },
+  {
+    id: 4,
+    name: 'Fanta',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/fanta_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/fanta/fanta.png'),
+    position: {
+      x: 2,
+      y: 5,
+      z: 9,
+    },
+  },
+  {
+    id: 5,
+    name: '7Up',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/fanta_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/7up/7up.png'),
+    position: {
+      x: -2,
+      y: 5,
+      z: 9,
+    },
+  },
+  {
+    id: 6,
+    name: 'Pocari Sweet',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/pocari_sweet_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/pocari/pocari.jpg'),
+    position: {
+      x: 0,
+      y: -2,
+      z: 4,
+    },
+  },
+  {
+    id: 7,
+    name: 'Sting',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/sting_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/sting/sting.png'),
+    position: {
+      x: 0,
+      y: 2,
+      z: 1,
+    },
+  },
+  {
+    id: 8,
+    name: 'Mirinda hương cam',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/mirinda_orange_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/mirinda_orange/mirinda_orange.jpg'),
+    position: {
       x: 0,
       y: 0,
-      z: 0,
+      z: -11,
     },
   },
 ];

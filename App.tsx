@@ -13,7 +13,7 @@ function App(): JSX.Element {
       <Provider store={store}>
         {/* <SearchBottomSheet /> */}
         {/* <TestRedux /> */}
-        <ViroARSceneScreen product={listProduct[0]} />
+        <ViroARSceneScreen />
       </Provider>
     </GestureHandlerRootView>
   );

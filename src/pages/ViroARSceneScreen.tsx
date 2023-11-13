@@ -2,22 +2,24 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import NavigationPage from './NavigationPage';
 import CompassObject from '../components/CompassObject';
-import {ProductPosition} from '../data/ProductObject';
+import {ProductInfo, ProductPosition} from '../data/ProductObject';
 import {useAppDispatch} from '../store/store';
 import {useEffect} from 'react';
 import {initPosition} from '../store/slices/direction_slice';
+import {setSelectedProduct} from '../store/slices/list_product_slice';
 
 type ViroARSceneScreenProps = {
-  postion: ProductPosition;
+  product: ProductInfo;
 };
 
 function ViroARSceneScreen(props: ViroARSceneScreenProps): JSX.Element {
-  const {postion} = props;
+  const {position} = props.product;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(initPosition({x: postion.x, y: postion.y, z: postion.z}));
-  }, [dispatch, postion.x, postion.y, postion.z]);
+    dispatch(initPosition({x: position.x, y: position.y, z: position.z}));
+    dispatch(setSelectedProduct({product: props.product}));
+  }, [dispatch, position.x, position.y, position.z]);
 
   return (
     <View style={styles.outer}>

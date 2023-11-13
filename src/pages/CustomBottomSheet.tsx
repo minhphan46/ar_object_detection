@@ -31,7 +31,7 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
   const selectedType = (item: ProductInfo) => {
     dispatch(setSelectedProduct({product: item}));
 
-    handleClose();
+    //handleClose();
   };
   const handleClose = () => {
     console.log('close');

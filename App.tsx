@@ -5,13 +5,15 @@ import store from './src/store/store';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
 import SearchBottomSheet from './src/pages/SearchBottomSheet';
+import {listProduct} from './src/data/ProductObject';
 
 function App(): JSX.Element {
   return (
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
-        <SearchBottomSheet />
+        {/* <SearchBottomSheet /> */}
         {/* <TestRedux /> */}
+        <ViroARSceneScreen product={listProduct[0]} />
       </Provider>
     </GestureHandlerRootView>
   );

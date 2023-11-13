@@ -3,14 +3,13 @@ import {StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 import store from './src/store/store';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
-import SearchBottomSheet from './src/pages/SearchBottomSheet';
+import CustomBottomSheet from './src/pages/CustomBottomSheet';
 
 function App(): JSX.Element {
   return (
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
-        <SearchBottomSheet />
+        <CustomBottomSheet />
         {/* <TestRedux /> */}
       </Provider>
     </GestureHandlerRootView>

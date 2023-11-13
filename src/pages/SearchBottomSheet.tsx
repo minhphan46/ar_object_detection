@@ -16,7 +16,7 @@ const SearchBottomSheet = () => {
   const {selectedProduct} = useAppSelector(state => state.listProduct);
 
   // variables
-  const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
+  const snapPoints = useMemo(() => ['50%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
@@ -49,16 +49,17 @@ const SearchBottomSheet = () => {
         ref={bottomSheetRef}
         index={2}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}>
+        onChange={handleSheetChanges}
+        enablePanDownToClose={true}
+        enableOverDrag={true}>
         <View style={styles.contentContainer}>
-          <TouchableOpacity style={styles.buttonStyle} onPress={handleOpen}>
+          <TouchableOpacity style={styles.buttonStyle} onPress={handleClose}>
             <Text style={styles.contentText}>Search Product</Text>
           </TouchableOpacity>
 
           <Text style={styles.contentText}>{selectedProduct?.name}</Text>
         </View>
       </BottomSheet>
-      <CustomBottomSheet bottomSheetRef={searchBottomSheetRef} />
     </View>
   );
 };

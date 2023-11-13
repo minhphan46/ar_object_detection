@@ -50,7 +50,7 @@ function NavigationPage(): JSX.Element {
   );
 }
 
-function ShowModels(props: GetArrowModelsProps): JSX.Element {
+export function ShowModels(props: GetArrowModelsProps): JSX.Element {
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
 

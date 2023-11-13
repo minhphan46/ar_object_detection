@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from '../store/store';
 import {useEffect} from 'react';
 import {initPosition} from '../store/slices/direction_slice';
 import {setSelectedProduct} from '../store/slices/list_product_slice';
+import NavigationImagePage from './NavigationImagePage';
 
 function ViroARSceneScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,7 +24,8 @@ function ViroARSceneScreen(): JSX.Element {
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
-          scene: NavigationPage,
+          //scene: NavigationPage,
+          scene: NavigationImagePage,
         }}
         style={styles.rootContainer}
       />

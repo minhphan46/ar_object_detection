@@ -11,9 +11,8 @@ import {useAppDispatch, useAppSelector} from '../store/store';
 import {ProductInfo, listProduct} from '../data/ProductObject';
 import {setSelectedProduct} from '../store/slices/list_product_slice';
 import {Divider} from '@rneui/themed/dist/Divider';
-import {Icon} from '@rneui/themed';
 import {ScrollView} from 'react-native-gesture-handler';
-import ActionSheet, {ActionSheetRef} from 'react-native-actions-sheet';
+import {Icon} from '@rneui/themed';
 const CustomBottomSheet = () => {
   // variables
   const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);

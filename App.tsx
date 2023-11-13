@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
 import {HomePage} from './src/pages/HomePage';
+import CustomBottomSheet from './src/pages/CustomBottomSheet';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -21,7 +22,7 @@ function App(): JSX.Element {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName={'Home'}>
-            <Stack.Screen name={'Home'} component={HomePage} />
+            <Stack.Screen name={'Home'} component={CustomBottomSheet} />
             <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
           </Stack.Navigator>
         </NavigationContainer>

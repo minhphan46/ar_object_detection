@@ -13,7 +13,13 @@ import {setSelectedProduct} from '../store/slices/list_product_slice';
 import {Divider} from '@rneui/themed/dist/Divider';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Icon} from '@rneui/themed';
-const CustomBottomSheet = () => {
+import {initPosition} from '../store/slices/direction_slice';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+const CustomBottomSheet = ({navigation}: Props) => {
   // variables
   const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -23,16 +29,32 @@ const CustomBottomSheet = () => {
   );
   const dispatch = useAppDispatch();
 
+  let chooseProduct: ProductInfo = listProducts[0];
+
   const [searchText, onChangeSearch] = useState('');
 
   const [searchedObject, setSearchedObject] = useState<any>(listProducts);
+
   const handleClose = () => {
-    console.log('close');
     bottomSheetRef.current?.close();
   };
 
+  const handleNavigateAR = () => {
+    bottomSheetRef.current?.close();
+    dispatch(setSelectedProduct({product: chooseProduct}));
+    dispatch(
+      initPosition({
+        x: chooseProduct.position.x,
+        y: chooseProduct.position.y,
+        z: chooseProduct.position.z,
+      }),
+    );
+    navigation.navigate('Direction');
+  };
+
   const selectedType = (item: ProductInfo) => {
-    dispatch(setSelectedProduct({product: item}));
+    //dispatch(setSelectedProduct({product: item}));
+    chooseProduct = item;
     bottomSheetRef.current?.expand();
   };
 
@@ -81,7 +103,7 @@ const CustomBottomSheet = () => {
         enableContentPanningGesture={false}>
         <TouchableOpacity
           style={styles.transparentButton}
-          onPress={handleClose}>
+          onPress={handleNavigateAR}>
           <Text style={styles.contentText}>Show Direction</Text>
         </TouchableOpacity>
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />

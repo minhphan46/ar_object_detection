@@ -6,7 +6,6 @@ import {
   ViroMaterials,
   ViroNode,
   ViroSpinner,
-  ViroText,
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
@@ -57,7 +56,7 @@ function NavigationPage(): JSX.Element {
   );
 }
 
-function ShowModels(props: GetArrowModelsProps) {
+export function ShowModels(props: GetArrowModelsProps) {
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
 

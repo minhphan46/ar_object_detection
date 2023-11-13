@@ -2,6 +2,7 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import NavigationPage from './NavigationPage';
+import NavigationImagePage from './NavigationImagePage';
 
 function ViroARSceneScreen() {
   return (
@@ -9,7 +10,8 @@ function ViroARSceneScreen() {
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
-          scene: NavigationPage,
+          //scene: NavigationPage,
+          scene: NavigationImagePage,
         }}
         style={styles.rootContainer}
       />

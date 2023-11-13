@@ -22,8 +22,8 @@ const initialState: DirectionState = {
   },
   objectPosition: {
     x: 0,
-    y: 0,
-    z: 0,
+    y: 1,
+    z: -10,
   },
   isFindPositionObject: false,
 };
@@ -48,9 +48,9 @@ export const DirectionSlice = createSlice({
       if (!state.isFindPositionObject) {
         const newObjectPosition = getObjectPosition(
           {
-            x: 0,
-            y: 0,
-            z: 2,
+            x: state.objectPosition.x,
+            y: state.objectPosition.y,
+            z: state.objectPosition.z,
           },
           heading,
           rad,

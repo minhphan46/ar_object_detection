@@ -32,8 +32,8 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/bohuc/bohuc.jpg'),
     position: {
       x: 0,
-      y: 8,
-      z: -2,
+      y: -1,
+      z: -10,
     },
   },
   {

@@ -26,7 +26,7 @@ function NavigationPage(): JSX.Element {
   useEffect(() => {
     setTimeout(() => {
       setCamera(true);
-    }, 200);
+    }, 300);
   }, []);
 
   return (

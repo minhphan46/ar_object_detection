@@ -1,24 +1,9 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
-import NavigationPage from './NavigationPage';
 import CompassObject from '../components/CompassObject';
-import {ProductPosition} from '../data/ProductObject';
-import {useAppDispatch} from '../store/store';
-import {useEffect} from 'react';
-import {initPosition} from '../store/slices/direction_slice';
+import NavigationPage from './NavigationPage';
 
-type ViroARSceneScreenProps = {
-  postion: ProductPosition;
-};
-
-function ViroARSceneScreen(props: ViroARSceneScreenProps): JSX.Element {
-  const {postion} = props;
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(initPosition({x: postion.x, y: postion.y, z: postion.z}));
-  }, [dispatch, postion.x, postion.y, postion.z]);
-
+function ViroARSceneScreen() {
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator

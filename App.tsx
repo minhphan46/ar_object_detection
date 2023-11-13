@@ -3,14 +3,28 @@ import {StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 import store from './src/store/store';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
 import SearchBottomSheet from './src/pages/SearchBottomSheet';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
+
+export type RootStackParamList = {
+  Home: undefined;
+  Direction: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
   return (
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
-        <SearchBottomSheet />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={'Direction'}>
+            <Stack.Screen name={'Home'} component={SearchBottomSheet} />
+            <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
         {/* <TestRedux /> */}
       </Provider>
     </GestureHandlerRootView>

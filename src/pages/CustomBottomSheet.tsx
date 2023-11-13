@@ -1,15 +1,22 @@
-import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import {Divider} from '@rneui/base';
-import data from '../data/data.json';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {ProductInfo, listProduct} from '../data/ProductObject';
 import {setSelectedProduct} from '../store/slices/list_product_slice';
-import {FlatList} from 'react-native-gesture-handler';
-
-const CustomBottomSheet = ({bottomSheetRef}: any) => {
-  const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
+import {Divider} from '@rneui/themed/dist/Divider';
+import {ScrollView} from 'react-native-gesture-handler';
+import {Icon} from '@rneui/themed';
+const CustomBottomSheet = () => {
+  // variables
+  const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
   const {listProducts, selectedProduct} = useAppSelector(
     state => state.listProduct,
@@ -19,74 +26,34 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
   const [searchText, onChangeSearch] = useState('');
 
   const [searchedObject, setSearchedObject] = useState<any>(listProducts);
-
-  const searchModelName = (searchTerm: string) => {
-    searchTerm = searchTerm.toLowerCase();
-
-    setSearchedObject(
-      listProduct.filter(product =>
-        product.name.toLowerCase().includes(searchTerm),
-      ),
-    );
-  };
-  const selectedType = (item: ProductInfo) => {
-    dispatch(setSelectedProduct({product: item}));
-
-    //handleClose();
-  };
   const handleClose = () => {
     console.log('close');
     bottomSheetRef.current?.close();
   };
+
+  const selectedType = (item: ProductInfo) => {
+    dispatch(setSelectedProduct({product: item}));
+    bottomSheetRef.current?.expand();
+  };
+
   return (
-    <BottomSheet
-      ref={bottomSheetRef}
-      index={-1}
-      snapPoints={snapPoints}
-      enablePanDownToClose={true}>
-      <View style={styles.rowDisplay}>
+    <View style={styles.container}>
+      <View style={styles.searchLabel}>
+        <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
         <TextInput
           style={styles.input}
-          value={searchText}
-          onChangeText={text => {
-            onChangeSearch(text);
-            searchModelName(text);
-            console.log(searchedObject);
-          }}
+          placeholder="Search something here"
+          onChangeText={searchString => {}}
+          underlineColorAndroid="transparent"
         />
-        <TouchableOpacity onPress={handleClose} style={styles.cancleStyle}>
-          <Text style={styles.cancleText}>Cancle</Text>
-        </TouchableOpacity>
       </View>
-
-      <View style={styles.searchTable}>
+      <ScrollView style={styles.searchTable}>
         {searchedObject.length === 0 ? (
           <Text style={styles.titleText}>No product matchs</Text>
         ) : (
           <Text style={styles.titleText}>Suggestions</Text>
         )}
-        <FlatList
-          scrollEnabled={false}
-          data={searchedObject}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => (
-            <View key={item.name}>
-              <TouchableOpacity
-                onPress={() => selectedType(item)}
-                style={styles.cancleStyle}>
-                <View style={styles.rowDisplay}>
-                  <Image
-                    style={styles.buttonImageIconStyle}
-                    source={item.image}
-                  />
-                  <Text style={styles.searchText}>{item.name}</Text>
-                </View>
-                <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-        {/* {searchedObject.map((item: any) => {
+        {searchedObject.map((item: any) => {
           return (
             <View key={item.name}>
               <TouchableOpacity
@@ -103,9 +70,35 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
               </TouchableOpacity>
             </View>
           );
-        })} */}
-      </View>
-    </BottomSheet>
+        })}
+      </ScrollView>
+      <BottomSheet
+        backgroundStyle={{backgroundColor: '#F2F2F2'}}
+        ref={bottomSheetRef}
+        index={-1}
+        snapPoints={snapPoints}
+        enablePanDownToClose={true}
+        enableContentPanningGesture={false}>
+        <TouchableOpacity
+          style={styles.transparentButton}
+          onPress={handleClose}>
+          <Text style={styles.contentText}>Show 3D Object</Text>
+        </TouchableOpacity>
+        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+        <TouchableOpacity
+          style={styles.transparentButton}
+          onPress={handleClose}>
+          <Text style={styles.contentText}>Show Direction</Text>
+        </TouchableOpacity>
+        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+        <TouchableOpacity
+          style={styles.transparentButton}
+          onPress={handleClose}>
+          <Text style={styles.contentText}>Close</Text>
+        </TouchableOpacity>
+        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+      </BottomSheet>
+    </View>
   );
 };
 
@@ -114,16 +107,20 @@ export default CustomBottomSheet;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    backgroundColor: 'grey',
+    backgroundColor: 'white',
   },
   contentContainer: {
     flex: 1,
     alignItems: 'center',
   },
+  transparentButton: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    padding: 10,
+  },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#EFEFEF',
     padding: 10,
   },
   titleText: {
@@ -147,22 +144,37 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
   },
-  input: {
-    color: '#050505',
-    flex: 1,
-    width: 'auto',
-    marginTop: 8,
-    marginLeft: 16,
-    marginBottom: 10,
-    borderRadius: 10,
-    fontSize: 16,
-    lineHeight: 20,
-    padding: 8,
-    backgroundColor: '#E9E9E9',
+  icon: {
+    alignItems: 'center',
+    padding: 10,
   },
 
+  searchSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  searchIcon: {
+    padding: 10,
+  },
+  input: {
+    flex: 1,
+    paddingRight: 10,
+    color: '#040404',
+  },
   searchTable: {
     paddingHorizontal: 16,
+  },
+  searchLabel: {
+    borderRadius: 10,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    backgroundColor: '#D2CFCF',
   },
 
   rowDisplay: {

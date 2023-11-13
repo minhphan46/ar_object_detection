@@ -10,8 +10,8 @@ function ViroARSceneScreen() {
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
-          //scene: NavigationPage,
-          scene: NavigationImagePage,
+          scene: NavigationPage,
+          // scene: NavigationImagePage,
         }}
         style={styles.rootContainer}
       />

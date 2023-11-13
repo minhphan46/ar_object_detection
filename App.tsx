@@ -7,6 +7,7 @@ import SearchBottomSheet from './src/pages/SearchBottomSheet';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
+import {HomePage} from './src/pages/HomePage';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -20,8 +21,8 @@ function App(): JSX.Element {
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName={'Direction'}>
-            <Stack.Screen name={'Home'} component={SearchBottomSheet} />
+          <Stack.Navigator initialRouteName={'Home'}>
+            <Stack.Screen name={'Home'} component={HomePage} />
             <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
           </Stack.Navigator>
         </NavigationContainer>

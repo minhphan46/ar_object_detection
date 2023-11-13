@@ -6,10 +6,10 @@ import {
   ViroMaterials,
   ViroNode,
   ViroSpinner,
+  ViroText,
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
-import Object3D from '../components/Object3D';
 import {CanType, getCanSource} from '../enum/3DCanEnum';
 
 type GetArrowModelsProps = {
@@ -42,7 +42,7 @@ function NavigationPage(): JSX.Element {
         <ViroCamera
           position={[0, 0, 0]}
           rotation={[0, 0, 0]}
-          active={!isFirstInit}>
+          active={isFirstInit}>
           <ShowModels
             x={objectPosition.x}
             y={objectPosition.y}
@@ -57,7 +57,7 @@ function NavigationPage(): JSX.Element {
   );
 }
 
-function ShowModels(props: GetArrowModelsProps): JSX.Element {
+function ShowModels(props: GetArrowModelsProps) {
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
 

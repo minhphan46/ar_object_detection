@@ -1,18 +1,27 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {initPosition} from '../store/slices/direction_slice';
-import {useAppDispatch} from '../store/store';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import {useAppDispatch} from '../store/store';
+import {setSelectedProduct} from '../store/slices/list_product_slice';
+import {initPosition} from '../store/slices/direction_slice';
+import {listProduct} from '../data/ProductObject';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export function HomePage({navigation}: Props) {
   const dispatch = useAppDispatch();
-
   const onClick = () => {
-    dispatch(initPosition({x: 0, y: -1, z: -10}));
+    const selectProduct = listProduct[0];
+    dispatch(setSelectedProduct({product: selectProduct}));
+    dispatch(
+      initPosition({
+        x: selectProduct.position.x,
+        y: selectProduct.position.y,
+        z: selectProduct.position.z,
+      }),
+    );
     navigation.navigate('Direction');
   };
 

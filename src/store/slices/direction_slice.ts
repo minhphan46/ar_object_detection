@@ -25,7 +25,7 @@ const initialState: DirectionState = {
     y: 1,
     z: -10,
   },
-  isFirstInit: false,
+  isFirstInit: true,
 };
 
 export const DirectionSlice = createSlice({
@@ -45,7 +45,7 @@ export const DirectionSlice = createSlice({
     ) => {
       const {heading, accuracy} = action.payload;
       const rad = convertDeg2Rad(heading);
-      if (!state.isFirstInit) {
+      if (state.isFirstInit) {
         const newObjectPosition = getObjectPosition(
           {
             x: state.objectPosition.x,
@@ -56,7 +56,7 @@ export const DirectionSlice = createSlice({
           rad,
         );
         state.objectPosition = {...state.objectPosition, ...newObjectPosition};
-        state.isFirstInit = true;
+        state.isFirstInit = false;
       }
       state.direction = {...state.direction, heading, accuracy, rad};
     },

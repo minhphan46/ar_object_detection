@@ -26,7 +26,6 @@ function App(): JSX.Element {
             <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
           </Stack.Navigator>
         </NavigationContainer>
-        {/* <TestRedux /> */}
       </Provider>
     </GestureHandlerRootView>
   );

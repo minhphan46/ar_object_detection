@@ -9,6 +9,8 @@ import {
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
+import Object3D from '../components/Object3D';
+import {CanType, getCanSource} from '../enum/3DCanEnum';
 
 type GetArrowModelsProps = {
   x: number;
@@ -18,7 +20,7 @@ type GetArrowModelsProps = {
 };
 
 function NavigationPage(): JSX.Element {
-  const {objectPosition, isFindPositionObject} = useAppSelector(
+  const {objectPosition, isFirstInit} = useAppSelector(
     state => state.direction,
   );
 
@@ -40,7 +42,7 @@ function NavigationPage(): JSX.Element {
         <ViroCamera
           position={[0, 0, 0]}
           rotation={[0, 0, 0]}
-          active={!isFindPositionObject}>
+          active={!isFirstInit}>
           <ShowModels
             x={objectPosition.x}
             y={objectPosition.y}
@@ -59,10 +61,25 @@ function ShowModels(props: GetArrowModelsProps): JSX.Element {
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
 
+  const {selectedProduct} = useAppSelector(state => state.listProduct);
+
   useEffect(() => {
     const rad = Math.atan2(x, z);
     setRotationX(() => 180 - getRad2deg(rad));
   }, [x, z]);
+
+  ViroMaterials.createMaterials({
+    blue: {
+      diffuseColor: 'rgba(11, 127, 171, 1)',
+    },
+    label: {
+      diffuseColor: 'rgba(171,171,171,1)',
+      writesToDepthBuffer: true,
+      readsFromDepthBuffer: true,
+      diffuseTexture: selectedProduct?.canObject[0].brandLabel,
+      specularTexture: selectedProduct?.canObject[0].brandLabel,
+    },
+  });
 
   return (
     <>
@@ -73,13 +90,11 @@ function ShowModels(props: GetArrowModelsProps): JSX.Element {
         onClickState={(stateValue, position, source) => {
           console.log('ClickState', stateValue, position, source);
         }}>
-        {/* <ViroBox materials={['label']} scale={[1, 1, 1]} rotation={[0, 0, 0]} /> */}
         <Viro3DObject
-          key={Date.now.toString()}
-          source={require('../../assets/model/can.obj')}
-          type="OBJ"
+          source={getCanSource(CanType.can250)}
           materials={['label']}
-          scale={[1, 1, 1]}
+          type="OBJ"
+          scale={[0.5, 0.5, 0.5]}
           rotation={[0, 0, 0]}
         />
       </ViroNode>
@@ -88,18 +103,20 @@ function ShowModels(props: GetArrowModelsProps): JSX.Element {
 }
 
 function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
-  const {x, z, rotationX} = props;
+  const {x, y, z, rotationX} = props;
+
+  const numArrow = 5;
 
   return (
     <>
-      {[...Array(10)].map((_, i) => {
+      {[...Array(numArrow)].map((_, i) => {
         return (
           <Viro3DObject
             key={i}
             source={require('../../assets/model/direction_arrow.obj')}
             type="OBJ"
             materials={['blue']}
-            position={[(x / 10) * i, -1, (z / 10) * i]}
+            position={[(x / numArrow) * i, y - 0.2, (z / numArrow) * i]}
             scale={[0.02, 0.02, 0.02]}
             rotation={[rotationX ?? 0, 0, -90]}
           />
@@ -110,12 +127,3 @@ function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
 }
 
 export default NavigationPage;
-
-ViroMaterials.createMaterials({
-  blue: {
-    diffuseColor: 'rgba(11, 127, 171, 1)',
-  },
-  label: {
-    diffuseColor: 'rgba(196, 77, 86, 1)',
-  },
-});

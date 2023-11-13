@@ -48,7 +48,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/coca/coca.jpg'),
     position: {
       x: 0,
-      y: 4,
+      y: -1,
       z: -3,
     },
   },
@@ -64,7 +64,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/pepsi/pepsi.jpg'),
     position: {
       x: 2,
-      y: 4,
+      y: -1,
       z: 6,
     },
   },
@@ -80,7 +80,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/fanta/fanta.png'),
     position: {
       x: 2,
-      y: 5,
+      y: -1,
       z: 9,
     },
   },
@@ -96,7 +96,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/7up/7up.png'),
     position: {
       x: -2,
-      y: 5,
+      y: -1,
       z: 9,
     },
   },
@@ -112,7 +112,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/pocari/pocari.jpg'),
     position: {
       x: 0,
-      y: -2,
+      y: -1,
       z: 4,
     },
   },
@@ -128,7 +128,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/sting/sting.png'),
     position: {
       x: 0,
-      y: 2,
+      y: -1,
       z: 1,
     },
   },
@@ -144,7 +144,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/mirinda_orange/mirinda_orange.jpg'),
     position: {
       x: 0,
-      y: 0,
+      y: -1,
       z: -11,
     },
   },

@@ -6,6 +6,7 @@ import data from '../data/data.json';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {ProductInfo, listProduct} from '../data/ProductObject';
 import {setSelectedProduct} from '../store/slices/list_product_slice';
+import {FlatList} from 'react-native-gesture-handler';
 
 const CustomBottomSheet = ({bottomSheetRef}: any) => {
   const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
@@ -51,7 +52,8 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
             onChangeSearch(text);
             searchModelName(text);
             console.log(searchedObject);
-          }}></TextInput>
+          }}
+        />
         <TouchableOpacity onPress={handleClose} style={styles.cancleStyle}>
           <Text style={styles.cancleText}>Cancle</Text>
         </TouchableOpacity>
@@ -63,7 +65,28 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
         ) : (
           <Text style={styles.titleText}>Suggestions</Text>
         )}
-        {searchedObject.map((item: any) => {
+        <FlatList
+          scrollEnabled={false}
+          data={searchedObject}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => (
+            <View key={item.name}>
+              <TouchableOpacity
+                onPress={() => selectedType(item)}
+                style={styles.cancleStyle}>
+                <View style={styles.rowDisplay}>
+                  <Image
+                    style={styles.buttonImageIconStyle}
+                    source={item.image}
+                  />
+                  <Text style={styles.searchText}>{item.name}</Text>
+                </View>
+                <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+        {/* {searchedObject.map((item: any) => {
           return (
             <View key={item.name}>
               <TouchableOpacity
@@ -80,7 +103,7 @@ const CustomBottomSheet = ({bottomSheetRef}: any) => {
               </TouchableOpacity>
             </View>
           );
-        })}
+        })} */}
       </View>
     </BottomSheet>
   );

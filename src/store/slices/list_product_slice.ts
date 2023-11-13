@@ -13,7 +13,7 @@ const initialState: DirectionState = {
 };
 
 export const ListProductSlice = createSlice({
-  name: 'list-prduct',
+  name: 'list-product',
   initialState,
   reducers: {
     setSelectedProduct: (

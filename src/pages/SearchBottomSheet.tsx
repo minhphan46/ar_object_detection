@@ -1,19 +1,23 @@
 import {View, Text, Button, StyleSheet} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
-import {TextInput, TouchableHighlight} from 'react-native-gesture-handler';
-import {Image} from 'react-native-reanimated/lib/typescript/Animated';
 import CustomBottomSheet from './CustomBottomSheet';
 import Ui3DObject from '../data/3DUiObject';
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
+import {initPosition} from '../store/slices/direction_slice';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
 
-const SearchBottomSheet = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+const SearchBottomSheet = ({navigation}: Props) => {
+  const {selectedProduct} = useAppSelector(state => state.listProduct);
+  const dispatch = useAppDispatch();
+
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
   const searchBottomSheetRef = useRef<BottomSheet>(null);
-
-  const {selectedProduct} = useAppSelector(state => state.listProduct);
 
   // variables
   const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
@@ -28,9 +32,17 @@ const SearchBottomSheet = () => {
     searchBottomSheetRef.current?.expand();
   };
   //close
-  const handleClose = () => {
-    console.log('close');
-    searchBottomSheetRef.current?.close();
+  // const handleClose = () => {
+  //   console.log('close');
+  //   searchBottomSheetRef.current?.close();
+  // };
+
+  const handleDirectionObject = () => {
+    if (selectedProduct !== undefined) {
+      const position = selectedProduct.position;
+      dispatch(initPosition({x: position.x, y: position.y, z: position.z}));
+      navigation.navigate('Direction');
+    }
   };
 
   return (
@@ -56,6 +68,14 @@ const SearchBottomSheet = () => {
           </TouchableOpacity>
 
           <Text style={styles.contentText}>{selectedProduct?.name}</Text>
+
+          {/*{selectedProduct?.name !== undefined ?? (*/}
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            onPress={handleDirectionObject}>
+            <Text style={styles.contentText}>Direction</Text>
+          </TouchableOpacity>
+          {/*)}*/}
         </View>
       </BottomSheet>
       <CustomBottomSheet bottomSheetRef={searchBottomSheetRef} />

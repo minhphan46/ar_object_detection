@@ -5,6 +5,7 @@ import {
   ViroCamera,
   ViroMaterials,
   ViroNode,
+  ViroSpinner,
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
@@ -26,14 +27,18 @@ function NavigationPage(): JSX.Element {
   const [camera, setCamera] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setCamera(true);
-    }, 200);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
     <ViroARScene>
-      {camera && (
+      {camera ? (
         <ViroCamera
           position={[0, 0, 0]}
           rotation={[0, 0, 0]}
@@ -45,6 +50,8 @@ function NavigationPage(): JSX.Element {
             rotationX={0}
           />
         </ViroCamera>
+      ) : (
+        <ViroSpinner type="light" position={[0, 0, -2]} />
       )}
     </ViroARScene>
   );

@@ -82,13 +82,13 @@ const CustomBottomSheet = () => {
         <TouchableOpacity
           style={styles.transparentButton}
           onPress={handleClose}>
-          <Text style={styles.contentText}>Show 3D Object</Text>
+          <Text style={styles.contentText}>Show Direction</Text>
         </TouchableOpacity>
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
         <TouchableOpacity
           style={styles.transparentButton}
           onPress={handleClose}>
-          <Text style={styles.contentText}>Show Direction</Text>
+          <Text style={styles.contentText}>Show 3D Object</Text>
         </TouchableOpacity>
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
         <TouchableOpacity

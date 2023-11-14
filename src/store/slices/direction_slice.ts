@@ -22,8 +22,8 @@ const initialState: DirectionState = {
   },
   objectPosition: {
     x: 0,
-    y: 1,
-    z: -10,
+    y: 0,
+    z: 0,
   },
   isFirstInit: true,
 };
@@ -38,6 +38,7 @@ export const DirectionSlice = createSlice({
     ) => {
       const {x, y, z} = action.payload;
       state.objectPosition = {...state.objectPosition, x, y, z};
+      state.isFirstInit = true;
     },
     updateDirection: (
       state,

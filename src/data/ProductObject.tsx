@@ -48,8 +48,8 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/coca/coca.jpg'),
     position: {
       x: 0,
-      y: -1,
-      z: -3,
+      y: -2,
+      z: -8,
     },
   },
   {

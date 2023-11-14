@@ -1,19 +1,14 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-
+import React, {useMemo, useRef, useState} from 'react';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {
+  Dimensions,
   Image,
+  Keyboard,
   Linking,
   StyleSheet,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {useAppDispatch, useAppSelector} from '../store/store';
@@ -26,6 +21,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
+import {Card} from 'react-native-shadow-cards'; // nó đỏ thì đỏ chứ vẫn chạy :V
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -81,13 +77,17 @@ const CustomBottomSheet = ({navigation}: Props) => {
   };
 
   const selectedType = (item: ProductInfo) => {
-    //dispatch(setSelectedProduct({product: item}));
     chooseProduct = item;
     bottomSheetRef.current?.expand();
   };
 
   const handleNavigateToScanObject = () => {
     navigation.navigate('Detect');
+  };
+
+  const handleNavigateToShow3D = () => {
+    dispatch(setSelectedProduct({product: chooseProduct}));
+    navigation.navigate('Model3D');
   };
 
   return (
@@ -108,33 +108,39 @@ const CustomBottomSheet = ({navigation}: Props) => {
             size={20}
             color="#000"
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Search something here"
-            onChangeText={searchString => {
-              searchModelName(searchString);
-            }}
-            underlineColorAndroid="transparent"
-          />
+          <TouchableWithoutFeedback
+            style={{flex: 1}}
+            onPress={Keyboard.dismiss}
+            accessible={false}>
+            <TextInput
+              style={styles.input}
+              placeholder="Search product here"
+              onChangeText={searchString => {
+                searchModelName(searchString);
+              }}
+              underlineColorAndroid="transparent"
+            />
+          </TouchableWithoutFeedback>
         </View>
-        <TouchableHighlight onPress={handleNavigateToScanObject}>
+        <TouchableOpacity onPress={handleNavigateToScanObject}>
           <MaterialCommunityIcons
             style={styles.cubeIcon}
             name="cube-scan"
             size={30}
             color="#000"
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }
+
   function _renderSearchList() {
     return (
       <ScrollView style={styles.searchTable}>
         {searchedObject.length === 0 ? (
           <Text style={styles.titleText}>No product matchs</Text>
         ) : (
-          <Text style={styles.titleText}>Suggestions</Text>
+          <Text style={styles.titleText}>Products</Text>
         )}
         {searchedObject.map((item: any) => {
           return (
@@ -142,19 +148,21 @@ const CustomBottomSheet = ({navigation}: Props) => {
               <TouchableOpacity
                 onPress={() => selectedType(item)}
                 style={styles.cancleStyle}>
-                <View style={styles.rowDisplay}>
-                  <Image
-                    style={styles.buttonImageIconStyle}
-                    source={item.image}
-                  />
-                  <Text style={styles.searchText}>{item.name}</Text>
-                </View>
-                <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+                {_getProductCard(item)}
               </TouchableOpacity>
             </View>
           );
         })}
       </ScrollView>
+    );
+  }
+
+  function _getProductCard(item: any) {
+    return (
+      <Card style={styles.rowDisplay}>
+        <Image style={styles.buttonImageIconStyle} source={item.image} />
+        <Text style={styles.searchText}>{item.name}</Text>
+      </Card>
     );
   }
 
@@ -175,7 +183,7 @@ const CustomBottomSheet = ({navigation}: Props) => {
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
         <TouchableOpacity
           style={styles.transparentButton}
-          onPress={handleClose}>
+          onPress={handleNavigateToShow3D}>
           <Text style={styles.contentText}>Show 3D Object</Text>
         </TouchableOpacity>
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
@@ -280,9 +288,11 @@ const styles = StyleSheet.create({
   },
   rowDisplay: {
     paddingVertical: 16,
+    width: Dimensions.get('window').width * 0.86,
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   cancleStyle: {
     paddingVertical: 10,

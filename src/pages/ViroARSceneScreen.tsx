@@ -11,7 +11,6 @@ function ViroARSceneScreen() {
         autofocus={true}
         initialScene={{
           scene: NavigationPage,
-          // scene: NavigationImagePage,
         }}
         style={styles.rootContainer}
       />

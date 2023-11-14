@@ -146,7 +146,7 @@ export const listProduct: ProductInfo[] = [
     position: {
       x: 0,
       y: -1,
-      z: 4,
+      z: 8,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-bo-sung-ion-pocari-sweat-500ml-chai',
     brandName: 'Pocari Sweat (Nhật Bản)',
@@ -165,8 +165,8 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/sting/sting.png'),
     position: {
       x: 0,
-      y: -1,
-      z: 1,
+      y: -5,
+      z: 12,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-tang-luc-sting-vi-dau-loc-6-lon-cao-330ml',
     brandName: 'Sting (Việt Nam)',
@@ -205,7 +205,7 @@ export const listProduct: ProductInfo[] = [
     image: require('../../assets/images/cafe/cafe.png'),
     position: {
       x: 0,
-      y: -5,
+      y: -1,
       z: -10,
     },
     url: 'https://www.bachhoaxanh.com/ca-phe-lon/ca-phe-sua-highlands-lon-235ml',

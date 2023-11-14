@@ -1,22 +1,45 @@
 import {
   ViroARScene,
+  ViroARSceneNavigator,
   ViroAmbientLight,
   ViroDirectionalLight,
   ViroMaterials,
   ViroOrbitCamera,
   ViroSkyBox,
 } from '@viro-community/react-viro';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {CanType} from '../enum/3DCanEnum';
 import Object3D from '../components/Object3D';
 import React from 'react';
+import {useAppSelector} from '../store/store';
+
+export default function ViroAR3DObject() {
+  const {selectedProduct} = useAppSelector(state => state.listProduct);
+
+  return (
+    <View style={styles.outer}>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: () => (
+            <Ui3DObjectPage
+              label={selectedProduct?.canObject[0].brandLabel}
+              canType={selectedProduct?.canObject[0].type}
+            />
+          ),
+        }}
+        style={styles.rootContainer}
+      />
+    </View>
+  );
+}
 
 interface Ui3DObjectProps {
   label: any;
   canType: CanType | undefined;
 }
 
-class Ui3DObject extends React.Component<Ui3DObjectProps> {
+class Ui3DObjectPage extends React.Component<Ui3DObjectProps> {
   render(): React.ReactNode {
     const {label} = this.props;
     const {canType} = this.props;
@@ -63,8 +86,6 @@ class Ui3DObject extends React.Component<Ui3DObjectProps> {
   }
 }
 
-export default Ui3DObject;
-
 const styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'HelveticaNeue-Medium',
@@ -80,5 +101,37 @@ const styles = StyleSheet.create({
     margin: 20,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  outer: {
+    flex: 1,
+  },
+  rootContainer: {
+    flex: 1,
+  },
+  buttons: {
+    height: 80,
+    width: 80,
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: '#00000000',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ffffff00',
+  },
+  fab3DButton: {
+    position: 'absolute',
+    left: 20,
+    right: 0,
+    bottom: 30,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  location: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
   },
 });

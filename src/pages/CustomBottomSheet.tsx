@@ -31,8 +31,15 @@ const CustomBottomSheet = ({navigation}: Props) => {
 
   let chooseProduct: ProductInfo = listProducts[0];
 
-  const [searchText, onChangeSearch] = useState('');
+  const searchModelName = (searchTerm: string) => {
+    searchTerm = searchTerm.toLowerCase();
 
+    setSearchedObject(
+      listProduct.filter(product =>
+        product.name.toLowerCase().includes(searchTerm),
+      ),
+    );
+  };
   const [searchedObject, setSearchedObject] = useState<any>(listProducts);
 
   const handleClose = () => {
@@ -65,7 +72,9 @@ const CustomBottomSheet = ({navigation}: Props) => {
         <TextInput
           style={styles.input}
           placeholder="Search something here"
-          onChangeText={searchString => {}}
+          onChangeText={searchString => {
+            searchModelName(searchString);
+          }}
           underlineColorAndroid="transparent"
         />
       </View>

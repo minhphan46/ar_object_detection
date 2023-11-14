@@ -5,13 +5,17 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import BottomSheet, {
-  TouchableHighlight,
-  TouchableOpacity,
-} from '@gorhom/bottom-sheet';
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
-import {Image, Linking, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {ProductInfo, listProduct} from '../data/ProductObject';
 import {setSelectedProduct} from '../store/slices/list_product_slice';

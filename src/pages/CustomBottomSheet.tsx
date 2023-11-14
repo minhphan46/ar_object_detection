@@ -21,7 +21,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
-import {Card} from 'react-native-shadow-cards'; // nó đỏ thì đỏ chứ vẫn chạy :V
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -149,6 +148,7 @@ const CustomBottomSheet = ({navigation}: Props) => {
                 onPress={() => selectedType(item)}
                 style={styles.cancleStyle}>
                 {_getProductCard(item)}
+                <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
               </TouchableOpacity>
             </View>
           );
@@ -159,10 +159,10 @@ const CustomBottomSheet = ({navigation}: Props) => {
 
   function _getProductCard(item: any) {
     return (
-      <Card style={styles.rowDisplay}>
+      <View style={styles.rowDisplay}>
         <Image style={styles.buttonImageIconStyle} source={item.image} />
         <Text style={styles.searchText}>{item.name}</Text>
-      </Card>
+      </View>
     );
   }
 
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: 'bold',
+    marginHorizontal: 16,
   },
 
   cancleText: {

@@ -25,7 +25,13 @@ function App(): JSX.Element {
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName={'Home'}>
-            <Stack.Screen name={'Home'} component={CustomBottomSheet} />
+            <Stack.Screen
+              name={'Home'}
+              options={{
+                headerShown: false,
+              }}
+              component={CustomBottomSheet}
+            />
             <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
             <Stack.Screen name={'Detect'} component={ViroARDetectionPage} />
             <Stack.Screen name={'Model3D'} component={ViroAR3DObject} />

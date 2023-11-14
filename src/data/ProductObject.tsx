@@ -18,6 +18,9 @@ export type ProductInfo = {
   image: any;
   position: ProductPosition;
   url: string;
+  brandName: string;
+  type: string;
+  price: string;
 };
 
 export const listProduct: ProductInfo[] = [
@@ -37,6 +40,9 @@ export const listProduct: ProductInfo[] = [
       z: -10,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/redbull-250ml',
+    brandName: 'Redbull (Thái Lan)',
+    type: 'Nước ngọt',
+    price: '10.800đ',
   },
   {
     id: 2,
@@ -54,6 +60,9 @@ export const listProduct: ProductInfo[] = [
       z: -8,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-coca-cola-320ml',
+    brandName: 'Coca Cola (Mỹ)',
+    type: 'nước ngọt',
+    price: '10.600đ',
   },
   {
     id: 3,
@@ -71,6 +80,9 @@ export const listProduct: ProductInfo[] = [
       z: 6,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-pepsi-khong-calo-330ml',
+    brandName: 'Pepsi',
+    type: 'nước ngọt',
+    price: '8.000đ',
   },
   {
     id: 4,
@@ -88,6 +100,9 @@ export const listProduct: ProductInfo[] = [
       z: 9,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-fanta-huong-cam-loc-6-lon',
+    brandName: 'Fanta',
+    type: 'nước ngọt',
+    price: '8.000đ',
   },
   {
     id: 5,
@@ -105,6 +120,9 @@ export const listProduct: ProductInfo[] = [
       z: 9,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/7up-sleek-330ml',
+    brandName: '7 Up (Mỹ)',
+    type: 'nước ngọt',
+    price: '8.000đ',
   },
   {
     id: 6,
@@ -122,6 +140,9 @@ export const listProduct: ProductInfo[] = [
       z: 4,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-bo-sung-ion-pocari-sweat-500ml-chai',
+    brandName: 'Pocari Sweat (Nhật Bản)',
+    type: 'nước bù khoáng',
+    price: '12.300đ',
   },
   {
     id: 7,
@@ -139,6 +160,9 @@ export const listProduct: ProductInfo[] = [
       z: 1,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-tang-luc-sting-vi-dau-loc-6-lon-cao-330ml',
+    brandName: 'Sting (Việt Nam)',
+    type: 'nước ngọt',
+    price: '9.100đ',
   },
   {
     id: 8,
@@ -156,5 +180,8 @@ export const listProduct: ProductInfo[] = [
       z: -11,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/mirinda-cam-330ml-sleek-lon',
+    brandName: 'Mirinda (Việt Nam)',
+    type: 'nước ngọt',
+    price: '9.000đ',
   },
 ];

@@ -10,6 +10,8 @@ import BottomSheet, {
   TouchableOpacity,
 } from '@gorhom/bottom-sheet';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
+import {Image, Linking, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {ProductInfo, listProduct} from '../data/ProductObject';
 import {setSelectedProduct} from '../store/slices/list_product_slice';
@@ -48,6 +50,17 @@ const CustomBottomSheet = ({navigation}: Props) => {
 
   const handleClose = () => {
     bottomSheetRef.current?.close();
+  };
+
+  const handleNavToWeb = () => {
+    bottomSheetRef.current?.close();
+    Linking.canOpenURL(chooseProduct.url).then(supported => {
+      if (supported) {
+        Linking.openURL(chooseProduct.url);
+      } else {
+        console.log("Don't know how to open URI: " + chooseProduct.url);
+      }
+    });
   };
 
   const handleNavigateAR = () => {
@@ -158,6 +171,12 @@ const CustomBottomSheet = ({navigation}: Props) => {
           style={styles.transparentButton}
           onPress={handleClose}>
           <Text style={styles.contentText}>Show 3D Object</Text>
+        </TouchableOpacity>
+        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+        <TouchableOpacity
+          style={styles.transparentButton}
+          onPress={handleNavToWeb}>
+          <Text style={styles.contentText}>Go to Bach Hoa Xanh</Text>
         </TouchableOpacity>
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
         <TouchableOpacity

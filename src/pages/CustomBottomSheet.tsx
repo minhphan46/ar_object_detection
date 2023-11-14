@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 10,
+    paddingTop: 15,
   },
   input: {
     flex: 1,
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'flex-start',
-    backgroundColor: '#D2CFCF',
+    backgroundColor: '#F6F6F6',
   },
 
   rowDisplay: {

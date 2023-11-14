@@ -5,17 +5,27 @@ import React, {
   useRef,
   useState,
 } from 'react';
+
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
-import {Image, Linking, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {ProductInfo, listProduct} from '../data/ProductObject';
 import {setSelectedProduct} from '../store/slices/list_product_slice';
 import {Divider} from '@rneui/themed/dist/Divider';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Icon} from '@rneui/themed';
 import {initPosition} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -76,19 +86,48 @@ const CustomBottomSheet = ({navigation}: Props) => {
     bottomSheetRef.current?.expand();
   };
 
+  const handleNavigateToScanObject = () => {};
+
   return (
     <View style={styles.container}>
-      <View style={styles.searchLabel}>
-        <Icon style={styles.searchIcon} name="search" size={20} color="#000" />
-        <TextInput
-          style={styles.input}
-          placeholder="Search something here"
-          onChangeText={searchString => {
-            searchModelName(searchString);
-          }}
-          underlineColorAndroid="transparent"
-        />
+      {_renderSearchPlace()}
+
+      {_renderSearchList()}
+      {_renderBottomSheet()}
+    </View>
+  );
+  function _renderSearchPlace() {
+    return (
+      <View style={styles.viewSearchLabel}>
+        <View style={styles.searchLabel}>
+          <FontAwsomeIcon
+            style={styles.searchIcon}
+            name="search"
+            size={20}
+            color="#000"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Search something here"
+            onChangeText={searchString => {
+              searchModelName(searchString);
+            }}
+            underlineColorAndroid="transparent"
+          />
+        </View>
+        <TouchableHighlight onPress={handleNavigateToScanObject}>
+          <MaterialCommunityIcons
+            style={styles.cubeIcon}
+            name="cube-scan"
+            size={30}
+            color="#000"
+          />
+        </TouchableHighlight>
       </View>
+    );
+  }
+  function _renderSearchList() {
+    return (
       <ScrollView style={styles.searchTable}>
         {searchedObject.length === 0 ? (
           <Text style={styles.titleText}>No product matchs</Text>
@@ -114,6 +153,11 @@ const CustomBottomSheet = ({navigation}: Props) => {
           );
         })}
       </ScrollView>
+    );
+  }
+
+  function _renderBottomSheet() {
+    return (
       <BottomSheet
         backgroundStyle={{backgroundColor: '#F2F2F2'}}
         ref={bottomSheetRef}
@@ -146,8 +190,8 @@ const CustomBottomSheet = ({navigation}: Props) => {
         </TouchableOpacity>
         <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
       </BottomSheet>
-    </View>
-  );
+    );
+  }
 };
 
 export default CustomBottomSheet;
@@ -205,11 +249,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   searchIcon: {
-    padding: 10,
+    padding: 15,
     paddingTop: 15,
   },
+  cubeIcon: {
+    paddingLeft: 16,
+  },
   input: {
-    flex: 1,
+    // flex: 1,
     paddingRight: 10,
     color: '#040404',
   },
@@ -218,14 +265,18 @@ const styles = StyleSheet.create({
   },
   searchLabel: {
     borderRadius: 10,
+    flexDirection: 'row',
+    flex: 1,
+    backgroundColor: '#D2CFCF',
+  },
+  viewSearchLabel: {
+    borderRadius: 10,
     marginHorizontal: 16,
     marginVertical: 16,
+    alignItems: 'center',
     flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'flex-start',
     backgroundColor: '#F6F6F6',
   },
-
   rowDisplay: {
     paddingVertical: 16,
     flexDirection: 'row',

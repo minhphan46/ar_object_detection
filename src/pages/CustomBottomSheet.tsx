@@ -86,7 +86,9 @@ const CustomBottomSheet = ({navigation}: Props) => {
     bottomSheetRef.current?.expand();
   };
 
-  const handleNavigateToScanObject = () => {};
+  const handleNavigateToScanObject = () => {
+    navigation.navigate('Detect');
+  };
 
   return (
     <View style={styles.container}>
@@ -250,6 +252,7 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 15,
+    paddingTop: 15,
   },
   cubeIcon: {
     paddingLeft: 16,
@@ -266,7 +269,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     flex: 1,
-    backgroundColor: '#D2CFCF',
+    backgroundColor: '#F6F6F6',
   },
   viewSearchLabel: {
     borderRadius: 10,
@@ -274,7 +277,6 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
   },
   rowDisplay: {
     paddingVertical: 16,

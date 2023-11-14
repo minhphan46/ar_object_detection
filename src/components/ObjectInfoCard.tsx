@@ -10,7 +10,6 @@ import {Alert, StyleSheet, Linking} from 'react-native';
 
 type ObjectCardInfoProps = {
   modelName: string;
-  color: string;
   image: any;
   description: string;
   productType: string;
@@ -30,7 +29,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
     });
   }
 
-  function handleShow3D() {
+  function handleDirection() {
     props.handleClick();
   }
 
@@ -45,8 +44,8 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
           style: 'destructive',
         },
         {
-          text: 'Xem 3D',
-          onPress: () => handleShow3D(),
+          text: 'Tìm đường',
+          onPress: () => handleDirection(),
           style: 'default',
         },
         {

@@ -2,6 +2,8 @@ import {CanType} from '../enum/3DCanEnum';
 import CocaImages from '../utils/coca_images';
 import Bohuc_images from '../utils/bohuc_images';
 import pepsi_images from '../utils/pepsi_images';
+import cafe_images from '../utils/cafe_image';
+import bidao_images from '../utils/bidao_image';
 
 export type ProductPosition = {
   x: number;
@@ -16,7 +18,7 @@ export type ProductCan = {
 
 export type ProductInfo = {
   id: number;
-  name: String;
+  name: string;
   canObject: ProductCan[];
   image: any;
   position: ProductPosition;
@@ -37,7 +39,7 @@ export const listProduct: ProductInfo[] = [
         brandLabel: require('../../assets/images/soft_drink_label/pepsi_label.jpg'),
       },
     ],
-    image: require('../../assets/images/bohuc/bohuc.jpg'),
+    image: require('../../assets/images/bohuc/bohuc.png'),
     position: {
       x: 0,
       y: -1,
@@ -58,7 +60,7 @@ export const listProduct: ProductInfo[] = [
         brandLabel: require('../../assets/images/soft_drink_label/coca_label.jpg'),
       },
     ],
-    image: require('../../assets/images/coca/coca.jpg'),
+    image: require('../../assets/images/coca/coca.png'),
     position: {
       x: 0,
       y: -2,
@@ -79,7 +81,7 @@ export const listProduct: ProductInfo[] = [
         brandLabel: require('../../assets/images/soft_drink_label/pepsi_label.jpg'),
       },
     ],
-    image: require('../../assets/images/pepsi/pepsi.jpg'),
+    image: require('../../assets/images/pepsi/pepsi.png'),
     position: {
       x: 2,
       y: -1,
@@ -190,5 +192,47 @@ export const listProduct: ProductInfo[] = [
     brandName: 'Mirinda (Việt Nam)',
     type: 'nước ngọt',
     price: '9.000đ',
+  },
+  {
+    id: 9,
+    name: 'Cà phê sữa Highlands',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/coca_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/cafe/cafe.png'),
+    position: {
+      x: 0,
+      y: -5,
+      z: -10,
+    },
+    url: 'https://www.bachhoaxanh.com/ca-phe-lon/ca-phe-sua-highlands-lon-235ml',
+    brandName: 'Highlands (Việt Nam)',
+    type: 'Cà phê sữa',
+    price: '11.600đ',
+    imageDetect: cafe_images,
+  },
+  {
+    id: 10,
+    name: 'Trà bí đao Wonderfarm',
+    canObject: [
+      {
+        type: CanType.can250,
+        brandLabel: require('../../assets/images/soft_drink_label/coca_label.jpg'),
+      },
+    ],
+    image: require('../../assets/images/bidao/bidao.png'),
+    position: {
+      x: 0,
+      y: 5,
+      z: -10,
+    },
+    url: 'https://www.bachhoaxanh.com/nuoc-tra/nuoc-tra-bi-dao-lon-310ml',
+    brandName: 'Wonderfarm (Việt Nam)',
+    type: 'Trà bí đao',
+    price: '8.600đ',
+    imageDetect: bidao_images,
   },
 ];

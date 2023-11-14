@@ -10,7 +10,6 @@ type ObjectDetectionProps = {
   modelName: string;
   description: string;
   images: Record<string, any>;
-  color: string;
   imageLogo: any;
   productType: string;
   price: string;
@@ -100,7 +99,6 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             /> */}
             <ObjectInfoCard
               modelName={props.modelName}
-              color={props.color}
               image={props.imageLogo}
               description={props.description}
               productType={props.productType}

@@ -1,4 +1,7 @@
 import {CanType} from '../enum/3DCanEnum';
+import CocaImages from '../utils/coca_images';
+import Bohuc_images from '../utils/bohuc_images';
+import pepsi_images from '../utils/pepsi_images';
 
 export type ProductPosition = {
   x: number;
@@ -21,6 +24,7 @@ export type ProductInfo = {
   brandName: string;
   type: string;
   price: string;
+  imageDetect?: Record<string, any> | undefined;
 };
 
 export const listProduct: ProductInfo[] = [
@@ -43,6 +47,7 @@ export const listProduct: ProductInfo[] = [
     brandName: 'Redbull (Thái Lan)',
     type: 'Nước ngọt',
     price: '10.800đ',
+    imageDetect: Bohuc_images,
   },
   {
     id: 2,
@@ -63,6 +68,7 @@ export const listProduct: ProductInfo[] = [
     brandName: 'Coca Cola (Mỹ)',
     type: 'nước ngọt',
     price: '10.600đ',
+    imageDetect: CocaImages,
   },
   {
     id: 3,
@@ -83,6 +89,7 @@ export const listProduct: ProductInfo[] = [
     brandName: 'Pepsi',
     type: 'nước ngọt',
     price: '8.000đ',
+    imageDetect: pepsi_images,
   },
   {
     id: 4,

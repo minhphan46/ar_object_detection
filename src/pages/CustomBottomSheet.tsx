@@ -115,14 +115,14 @@ const CustomBottomSheet = ({navigation}: Props) => {
             underlineColorAndroid="transparent"
           />
         </View>
-        <TouchableHighlight onPress={handleNavigateToScanObject}>
+        <TouchableOpacity onPress={handleNavigateToScanObject}>
           <MaterialCommunityIcons
             style={styles.cubeIcon}
             name="cube-scan"
             size={30}
             color="#000"
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }

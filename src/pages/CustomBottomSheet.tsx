@@ -21,7 +21,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const CustomBottomSheet = ({navigation}: Props) => {
   // variables
-  const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
+  const snapPoints = useMemo(() => ['50%'], []);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const {listProducts, selectedProduct} = useAppSelector(

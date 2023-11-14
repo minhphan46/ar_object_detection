@@ -17,6 +17,7 @@ export type ProductInfo = {
   canObject: ProductCan[];
   image: any;
   position: ProductPosition;
+  url: string;
 };
 
 export const listProduct: ProductInfo[] = [
@@ -35,6 +36,7 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: -10,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/redbull-250ml',
   },
   {
     id: 2,
@@ -51,6 +53,7 @@ export const listProduct: ProductInfo[] = [
       y: -2,
       z: -8,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-coca-cola-320ml',
   },
   {
     id: 3,
@@ -67,6 +70,7 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: 6,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-pepsi-khong-calo-330ml',
   },
   {
     id: 4,
@@ -83,6 +87,7 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: 9,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-fanta-huong-cam-loc-6-lon',
   },
   {
     id: 5,
@@ -99,6 +104,7 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: 9,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-ngot/7up-sleek-330ml',
   },
   {
     id: 6,
@@ -115,6 +121,7 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: 4,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-bo-sung-ion-pocari-sweat-500ml-chai',
   },
   {
     id: 7,
@@ -131,6 +138,7 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: 1,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-tang-luc-sting-vi-dau-loc-6-lon-cao-330ml',
   },
   {
     id: 8,
@@ -147,5 +155,6 @@ export const listProduct: ProductInfo[] = [
       y: -1,
       z: -11,
     },
+    url: 'https://www.bachhoaxanh.com/nuoc-ngot/mirinda-cam-330ml-sleek-lon',
   },
 ];

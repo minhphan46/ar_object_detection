@@ -90,7 +90,7 @@ export const listProduct: ProductInfo[] = [
     canObject: [
       {
         type: CanType.can250,
-        brandLabel: require('../../assets/images/soft_drink_label/fanta_label.jpg'),
+        brandLabel: require('../../assets/images/soft_drink_label/7up_label.jpg'),
       },
     ],
     image: require('../../assets/images/7up/7up.png'),

@@ -1,20 +1,30 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
-import {ProductInfo} from '../../data/ProductObject';
+import {ProductInfo, listProduct} from '../../data/ProductObject';
 
 interface DirectionState {
   listProducts: ProductInfo[];
+  selectedProduct: ProductInfo | undefined;
 }
 
 const initialState: DirectionState = {
-  listProducts: [],
+  listProducts: listProduct,
+  selectedProduct: undefined,
 };
 
 export const ListProductSlice = createSlice({
-  name: 'list-prduct',
+  name: 'list-product',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedProduct: (
+      state,
+      action: PayloadAction<{product: ProductInfo}>,
+    ) => {
+      const selectedProduct = action.payload.product;
+      state.selectedProduct = {...selectedProduct};
+    },
+  },
 });
 
 export default ListProductSlice.reducer;
-export const {} = ListProductSlice.actions;
+export const {setSelectedProduct} = ListProductSlice.actions;

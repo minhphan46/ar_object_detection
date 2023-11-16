@@ -4,13 +4,12 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import ObjectInfoCard from '../components/ObjectInfoCard';
+import ObjectInfoCard from './ObjectInfoCard';
 
 type ObjectDetectionProps = {
   modelName: string;
   description: string;
   images: Record<string, any>;
-  color: string;
   imageLogo: any;
   productType: string;
   price: string;
@@ -18,7 +17,7 @@ type ObjectDetectionProps = {
   handleClick: () => void;
 };
 
-function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
+function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   interface TargetData {
     [key: string]: {
       source: any;
@@ -100,7 +99,6 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             /> */}
             <ObjectInfoCard
               modelName={props.modelName}
-              color={props.color}
               image={props.imageLogo}
               description={props.description}
               productType={props.productType}
@@ -120,4 +118,4 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   return <View>{targetDataCreated && renderList()}</View>;
 }
 
-export default ObjectDetectionPage;
+export default ObjectDetectionList;

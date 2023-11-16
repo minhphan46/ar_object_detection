@@ -11,7 +11,7 @@ export type Direction = {
 interface DirectionState {
   direction: Direction;
   objectPosition: ProductPosition;
-  isFindPositionObject: boolean;
+  isFirstInit: boolean;
 }
 
 const initialState: DirectionState = {
@@ -25,7 +25,7 @@ const initialState: DirectionState = {
     y: 0,
     z: 0,
   },
-  isFindPositionObject: false,
+  isFirstInit: true,
 };
 
 export const DirectionSlice = createSlice({
@@ -38,6 +38,7 @@ export const DirectionSlice = createSlice({
     ) => {
       const {x, y, z} = action.payload;
       state.objectPosition = {...state.objectPosition, x, y, z};
+      state.isFirstInit = true;
     },
     updateDirection: (
       state,
@@ -45,18 +46,18 @@ export const DirectionSlice = createSlice({
     ) => {
       const {heading, accuracy} = action.payload;
       const rad = convertDeg2Rad(heading);
-      if (!state.isFindPositionObject) {
+      if (state.isFirstInit) {
         const newObjectPosition = getObjectPosition(
           {
-            x: 0,
-            y: 0,
-            z: 2,
+            x: state.objectPosition.x,
+            y: state.objectPosition.y,
+            z: state.objectPosition.z,
           },
           heading,
           rad,
         );
         state.objectPosition = {...state.objectPosition, ...newObjectPosition};
-        state.isFindPositionObject = true;
+        state.isFirstInit = false;
       }
       state.direction = {...state.direction, heading, accuracy, rad};
     },

@@ -13,7 +13,7 @@ import Object3D from '../components/Object3D';
 import React from 'react';
 import {useAppSelector} from '../store/store';
 
-export default function ViroAR3DObject() {
+export default function ViroAR3DObjectPage() {
   const {selectedProduct} = useAppSelector(state => state.listProduct);
 
   return (

@@ -2,9 +2,9 @@ import {ViroARScene, ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import {listProduct} from '../data/ProductObject';
-import ObjectDetectionPage from './ObjectDetectionPage';
+import ObjectDetectionList from '../components/ObjectDetectionList';
 
-function ViroARDetectionPage() {
+function ViroARDetectionObjectPage() {
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator
@@ -18,7 +18,7 @@ function ViroARDetectionPage() {
   );
 }
 
-export default ViroARDetectionPage;
+export default ViroARDetectionObjectPage;
 
 export function DetectObjectListPage(): JSX.Element {
   return (
@@ -26,7 +26,7 @@ export function DetectObjectListPage(): JSX.Element {
       {listProduct.map(
         product =>
           product.imageDetect && (
-            <ObjectDetectionPage
+            <ObjectDetectionList
               key={product.id}
               modelName={product.name}
               description={product.brandName}

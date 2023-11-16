@@ -18,7 +18,7 @@ type GetArrowModelsProps = {
   rotationX?: number;
 };
 
-function NavigationPage(): JSX.Element {
+function ShowNavigation(): JSX.Element {
   const {objectPosition, isFirstInit} = useAppSelector(
     state => state.direction,
   );
@@ -125,4 +125,4 @@ function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
   );
 }
 
-export default NavigationPage;
+export default ShowNavigation;

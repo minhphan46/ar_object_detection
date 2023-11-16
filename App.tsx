@@ -9,12 +9,14 @@ import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
 import CustomBottomSheet from './src/pages/CustomBottomSheet';
 import ViroARDetectionPage from './src/pages/ViroARDetectionPage';
 import ViroAR3DObject from './src/pages/3DUiObjectPage';
+import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 
 export type RootStackParamList = {
   Home: undefined;
   Direction: undefined;
-  Detect: undefined;
+  DetectObject: undefined;
   Model3D: undefined;
+  DetectImage: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -33,8 +35,15 @@ function App(): JSX.Element {
               component={CustomBottomSheet}
             />
             <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
-            <Stack.Screen name={'Detect'} component={ViroARDetectionPage} />
+            <Stack.Screen
+              name={'DetectObject'}
+              component={ViroARDetectionPage}
+            />
             <Stack.Screen name={'Model3D'} component={ViroAR3DObject} />
+            <Stack.Screen
+              name={'DetectImage'}
+              component={ViroARDetectionImagesPage}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

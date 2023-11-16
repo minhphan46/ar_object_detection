@@ -2,7 +2,6 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import NavigationPage from './NavigationPage';
-import NavigationImagePage from './NavigationImagePage';
 
 function ViroARSceneScreen() {
   return (

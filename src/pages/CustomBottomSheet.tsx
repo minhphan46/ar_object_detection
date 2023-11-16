@@ -19,15 +19,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {initPosition} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
-import {
-  Menu,
-  MenuProvider,
-  MenuOptions,
-  MenuTrigger,
-  MenuOption,
-} from 'react-native-popup-menu';
+import {MenuProvider} from 'react-native-popup-menu';
 import MenuButtonTop from '../components/MenuButtonTop';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
@@ -89,7 +82,11 @@ const CustomBottomSheet = ({navigation}: Props) => {
   };
 
   const handleNavigateToScanObject = () => {
-    navigation.navigate('Detect');
+    navigation.navigate('DetectObject');
+  };
+
+  const handleNavigateToScanImage = () => {
+    navigation.navigate('DetectImage');
   };
 
   const handleNavigateToShow3D = () => {
@@ -132,7 +129,7 @@ const CustomBottomSheet = ({navigation}: Props) => {
         </View>
         <MenuButtonTop
           funNavtoScanObject={handleNavigateToScanObject}
-          funNavtoScanImage={handleNavigateToScanObject}
+          funNavtoScanImage={handleNavigateToScanImage}
         />
       </View>
     );

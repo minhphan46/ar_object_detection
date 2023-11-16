@@ -21,6 +21,14 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
+import {
+  Menu,
+  MenuProvider,
+  MenuOptions,
+  MenuTrigger,
+  MenuOption,
+} from 'react-native-popup-menu';
+import MenuButtonTop from '../components/MenuButtonTop';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -90,12 +98,13 @@ const CustomBottomSheet = ({navigation}: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      {_renderSearchPlace()}
-
-      {_renderSearchList()}
-      {_renderBottomSheet()}
-    </View>
+    <MenuProvider style={{flex: 1}}>
+      <View style={styles.container}>
+        {_renderSearchPlace()}
+        {_renderSearchList()}
+        {_renderBottomSheet()}
+      </View>
+    </MenuProvider>
   );
   function _renderSearchPlace() {
     return (
@@ -121,19 +130,18 @@ const CustomBottomSheet = ({navigation}: Props) => {
             />
           </TouchableWithoutFeedback>
         </View>
-        <TouchableOpacity onPress={handleNavigateToScanObject}>
-          <MaterialCommunityIcons
-            style={styles.cubeIcon}
-            name="cube-scan"
-            size={30}
-            color="#000"
-          />
-        </TouchableOpacity>
+        <MenuButtonTop
+          funNavtoScanObject={handleNavigateToScanObject}
+          funNavtoScanImage={handleNavigateToScanObject}
+        />
       </View>
     );
   }
 
   function _renderSearchList() {
+    const MyDivider = () => (
+      <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+    );
     return (
       <ScrollView style={styles.searchTable}>
         {searchedObject.length === 0 ? (
@@ -148,7 +156,7 @@ const CustomBottomSheet = ({navigation}: Props) => {
                 onPress={() => selectedType(item)}
                 style={styles.cancleStyle}>
                 {_getProductCard(item)}
-                <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+                <MyDivider />
               </TouchableOpacity>
             </View>
           );
@@ -263,9 +271,6 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingTop: 15,
   },
-  cubeIcon: {
-    paddingLeft: 16,
-  },
   input: {
     // flex: 1,
     paddingRight: 10,
@@ -305,5 +310,15 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     resizeMode: 'stretch',
+  },
+  containerMenu: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginVertical: 100,
+    marginHorizontal: 100,
+  },
+  trigger: {
+    padding: 5,
+    margin: 5,
   },
 });

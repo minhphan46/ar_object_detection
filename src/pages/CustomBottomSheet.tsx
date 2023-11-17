@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import BottomSheet, {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {
   Dimensions,
@@ -21,10 +21,31 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
+import {accelerometer} from 'react-native-sensors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const CustomBottomSheet = ({navigation}: Props) => {
+  const [isPhoneStanding, setIsPhoneStanding] = useState(false);
+  useEffect(() => {
+    const subscription = accelerometer.subscribe(({x, y, z}) => {
+      // Tính tổng gia tốc vector (sqrt(x^2 + y^2 + z^2))
+      const totalAcceleration = Math.sqrt(x * x + y * y + z * z);
+      const gravity = 9.81; // Gia tốc trọng trường, g = 9.81 m/s²
+
+      // Kiểm tra nếu gia tốc trục Z gần bằng gia tốc trọng trường
+      const tolerance = 0.5; // Độ lệch cho phép
+      const isStanding =
+        Math.abs(y) > gravity - tolerance && Math.abs(y) < gravity + tolerance;
+
+      setIsPhoneStanding(isStanding);
+    });
+
+    return () => {
+      subscription.unsubscribe(); // Hủy lắng nghe khi component unmount
+    };
+  });
+
   // variables
   const snapPoints = useMemo(() => ['50%'], []);
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -76,6 +97,7 @@ const CustomBottomSheet = ({navigation}: Props) => {
   };
 
   const selectedType = (item: ProductInfo) => {
+    console.log(`isPhoneStanding ${isPhoneStanding}`);
     chooseProduct = item;
     bottomSheetRef.current?.expand();
   };

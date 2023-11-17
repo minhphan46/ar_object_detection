@@ -7,11 +7,11 @@ export enum CanType {
 export function getCanSource(canType: CanType) {
   switch (canType) {
     case CanType.can320:
-      return require('../../assets/model/can320.obj');
+      return require('../../../assets/model/can320.obj');
     case CanType.can310:
-      return require('../../assets/model/can310.obj');
+      return require('../../../assets/model/can310.obj');
     case CanType.can250:
-      return require('../../assets/model/can250.obj');
+      return require('../../../assets/model/can250.obj');
   }
 }
 

@@ -24,7 +24,7 @@ const MenuButtonTop = (props: MenuProps) => {
         <MenuTrigger style={styles.trigger}>
           <MaterialCommunityIcons
             style={styles.cubeIcon}
-            name="magnify-scan"
+            name="cube-outline"
             size={30}
             color="#000"
           />

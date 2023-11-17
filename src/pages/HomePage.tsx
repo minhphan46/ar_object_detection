@@ -19,10 +19,10 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {initPosition} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
-import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
 import {MenuProvider} from 'react-native-popup-menu';
 import MenuButtonTop from '../components/MenuButtonTop';
 import BottomSheetComponent from '../components/BottomSheetComponent';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -30,9 +30,7 @@ const HomePage = ({navigation}: Props) => {
   // variables
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const {listProducts, selectedProduct} = useAppSelector(
-    state => state.listProduct,
-  );
+  const {listProducts} = useAppSelector(state => state.listProduct);
   const dispatch = useAppDispatch();
 
   let chooseProduct: ProductInfo = listProducts[0];
@@ -113,9 +111,15 @@ const HomePage = ({navigation}: Props) => {
     return (
       <View style={styles.viewSearchLabel}>
         <View style={styles.searchLabel}>
-          <FontAwsomeIcon
+          {/* <FontAwsomeIcon
             style={styles.searchIcon}
             name="search"
+            size={20}
+            color="#000"
+          /> */}
+          <MaterialCommunityIcons
+            style={styles.searchIcon}
+            name="magnify"
             size={20}
             color="#000"
           />

@@ -5,6 +5,19 @@ import {
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import ObjectInfoCard from './ObjectInfoCard';
+import {useAppDispatch, useAppSelector} from '../store/store';
+import {
+  removeObjectDetected,
+  updateObjectDetected,
+} from '../store/slices/detect_object_slice';
+
+interface TargetData {
+  [key: string]: {
+    source: any;
+    orientation: string;
+    physicalWidth: number;
+  };
+}
 
 type ObjectDetectionProps = {
   modelName: string;
@@ -18,17 +31,12 @@ type ObjectDetectionProps = {
 };
 
 function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
-  interface TargetData {
-    [key: string]: {
-      source: any;
-      orientation: string;
-      physicalWidth: number;
-    };
-  }
+  const dispatch = useAppDispatch();
+  const {idObject, indexImageDetected} = useAppSelector(
+    state => state.detectbject,
+  );
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);
-  const [indexImageFound, setIndexImageFound] = useState<number>(-1);
-  const [indexOld, setIndexOld] = useState<number>(-1);
 
   useEffect(() => {
     const targetData: TargetData = {};
@@ -49,12 +57,15 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
 
   function _onFoundObject(evt: any, id: number) {
     try {
-      console.log(
-        `Found Object ${props.modelName} ${id} , indexOld ${indexOld}`,
-        evt,
-      );
-      setIndexImageFound(() => id);
-      setIndexOld(indexImageFound);
+      console.log(`Found Object ${props.modelName} ${id} `, evt);
+      if (props.modelName !== idObject && id !== indexImageDetected) {
+        dispatch(
+          updateObjectDetected({
+            id: props.modelName,
+            indexImageDetected: id,
+          }),
+        );
+      }
     } catch (err) {
       console.log(err);
     }
@@ -63,15 +74,17 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   function _onUpdatedObject(_: any) {}
 
   function _onLostObject(_: any) {
-    setIndexImageFound(-1);
-    setIndexOld(indexImageFound);
+    console.log(`Lost Object ${props.modelName}`);
+    if (props.modelName === idObject) {
+      dispatch(removeObjectDetected({}));
+    }
   }
 
   const renderList = () => {
     const listItems = [];
     try {
       for (let i = 0; i < Object.keys(props.images).length; i++) {
-        if (i !== indexImageFound) {
+        if (i !== indexImageDetected) {
           listItems.push(
             <ViroARImageMarker
               key={`${props.modelName}${i}`}
@@ -83,11 +96,11 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
         }
       }
 
-      if (indexImageFound !== -1 && indexOld !== indexImageFound) {
+      if (indexImageDetected !== -1 && props.modelName === idObject) {
         listItems.push(
           <ViroARImageMarker
-            key={`${props.modelName}${indexImageFound}`}
-            target={`${props.modelName}${indexImageFound + 1}`}
+            key={`${props.modelName}${indexImageDetected}`}
+            target={`${props.modelName}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
             {/* <ObjectText modelName={props.modelName} color={props.color} /> */}

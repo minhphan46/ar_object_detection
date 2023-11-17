@@ -22,6 +22,7 @@ import {RootStackParamList} from '../../App';
 import FontAwsomeIcon from 'react-native-vector-icons/FontAwesome';
 import {MenuProvider} from 'react-native-popup-menu';
 import MenuButtonTop from '../components/MenuButtonTop';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -174,56 +175,89 @@ const CustomBottomSheet = ({navigation}: Props) => {
   function _renderBottomSheet() {
     return (
       <BottomSheet
-        backgroundStyle={{backgroundColor: '#F2F2F2'}}
+        backgroundStyle={{backgroundColor: '#fff'}}
         ref={bottomSheetRef}
         index={-1}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
+        style={{
+          borderWidth: 0,
+          shadowColor: '#000',
+          shadowOpacity: 0.3,
+          shadowRadius: 10,
+          elevation: 10,
+          shadowOffset: {
+            width: 0,
+            height: 3,
+          },
+        }}
         enableContentPanningGesture={false}>
-        <TouchableOpacity
-          style={styles.transparentButton}
-          onPress={handleNavigateAR}>
-          <Text style={styles.contentText}>Show Direction</Text>
-        </TouchableOpacity>
-        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-        <TouchableOpacity
-          style={styles.transparentButton}
-          onPress={handleNavigateToShow3D}>
-          <Text style={styles.contentText}>Show 3D Object</Text>
-        </TouchableOpacity>
-        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-        <TouchableOpacity
-          style={styles.transparentButton}
-          onPress={handleNavToWeb}>
-          <Text style={styles.contentText}>Go to Bach Hoa Xanh</Text>
-        </TouchableOpacity>
-        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-        <TouchableOpacity
-          style={styles.transparentButton}
-          onPress={handleClose}>
-          <Text style={styles.contentText}>Close</Text>
-        </TouchableOpacity>
-        <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+        {_renderButtonBottom(
+          handleNavigateAR,
+          'Show Direction',
+          'arrow-up-bold-circle-outline',
+          '#000000',
+        )}
+        {_renderButtonBottom(
+          handleNavigateToShow3D,
+          'Show 3D Object',
+          'rotate-3d',
+          '#000000',
+        )}
+        {_renderButtonBottom(
+          handleNavToWeb,
+          'Go to Bach Hoa Xanh',
+          'shopping-outline',
+          '#000000',
+        )}
+        {_renderButtonBottom(
+          handleClose,
+          'Close',
+          'close-circle-outline',
+          '#000000',
+        )}
       </BottomSheet>
     );
   }
 };
 
+function _renderButtonBottom(
+  navigateFunc: any,
+  content: string,
+  iconName: string,
+  color: string,
+) {
+  return (
+    <TouchableOpacity style={styles.transparentButton} onPress={navigateFunc}>
+      <MaterialCommunityIcons
+        style={styles.icon2}
+        name={iconName}
+        size={26}
+        color={color}
+      />
+      <Text style={[styles.contentText, {color: color}]}>{content}</Text>
+    </TouchableOpacity>
+  );
+}
+
 export default CustomBottomSheet;
 
 const styles = StyleSheet.create({
+  icon2: {
+    marginLeft: 16,
+    marginRight: 10,
+  },
+  transparentButton: {
+    backgroundColor: '#FAF9F9',
+    padding: 15,
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginVertical: 5,
+    borderRadius: 10,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  transparentButton: {
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    padding: 10,
   },
   button: {
     alignItems: 'center',
@@ -307,15 +341,5 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     resizeMode: 'stretch',
-  },
-  containerMenu: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginVertical: 100,
-    marginHorizontal: 100,
-  },
-  trigger: {
-    padding: 5,
-    margin: 5,
   },
 });

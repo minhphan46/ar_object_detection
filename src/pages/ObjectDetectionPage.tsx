@@ -6,7 +6,10 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import ObjectInfoCard from '../components/ObjectInfoCard';
 import {useAppDispatch, useAppSelector} from '../store/store';
-import {updateObjectDetected} from '../store/slices/detect_object_slice';
+import {
+  removeObjectDetected,
+  updateObjectDetected,
+} from '../store/slices/detect_object_slice';
 
 interface TargetData {
   [key: string]: {
@@ -29,17 +32,15 @@ type ObjectDetectionProps = {
 
 function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {idObject, indexImageDetected, oldIndexImageDetected} = useAppSelector(
+  const {idObject, indexImageDetected} = useAppSelector(
     state => state.detectbject,
   );
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);
-  // const [indexImageFound, setIndexImageFound] = useState<number>(-1);
-  // const [indexOld, setIndexOld] = useState<number>(-1);
 
   useEffect(() => {
     const targetData: TargetData = {};
-    // Sử dụng mảng imagePaths để tạo targetData
+
     Object.keys(props.images).forEach((key, i) => {
       targetData[`${props.modelName}${i + 1}`] = {
         source: props.images[key],
@@ -50,18 +51,12 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
 
     ViroARTrackingTargets.createTargets(targetData);
 
-    // Set the flag to indicate that targetData is created
     setTargetDataCreated(true);
   }, [props.images, props.modelName]);
 
   function _onFoundObject(evt: any, id: number) {
     try {
-      console.log(
-        `Found Object ${props.modelName} ${id} , indexOld ${oldIndexImageDetected}`,
-        evt,
-      );
-      // setIndexImageFound(() => id);
-      // setIndexOld(indexImageFound);
+      console.log(`Found Object ${props.modelName} ${id} `, evt);
       if (props.modelName !== idObject && id !== indexImageDetected) {
         dispatch(
           updateObjectDetected({
@@ -75,11 +70,15 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     }
   }
 
-  function _onUpdatedObject(_: any) {}
+  function _onUpdatedObject(evts: any) {
+    console.log(evts);
+  }
 
   function _onLostObject(_: any) {
-    // setIndexImageFound(-1);
-    // setIndexOld(indexImageFound);
+    console.log(`Lost Object ${props.modelName}`);
+    if (props.modelName === idObject) {
+      dispatch(removeObjectDetected({}));
+    }
   }
 
   const renderList = () => {
@@ -105,13 +104,6 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             target={`${props.modelName}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
-            {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
-            {/* <ObjectCardInfo
-              modelName={props.modelName}
-              color={props.color}
-              image={props.imageLogo}
-              description={props.description}
-            /> */}
             <ObjectInfoCard
               modelName={props.modelName}
               image={props.imageLogo}

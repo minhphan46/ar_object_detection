@@ -8,7 +8,7 @@ import {
   ViroSkyBox,
 } from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
-import {CanType} from '../enum/3DCanEnum';
+import {CanType} from '../data/enum/3DCanEnum';
 import Object3D from '../components/Object3D';
 import React from 'react';
 import {useAppSelector} from '../store/store';

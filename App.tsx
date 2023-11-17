@@ -6,7 +6,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ViroARNavigationPage from './src/pages/ViroARNavigationPage';
-import CustomBottomSheet from './src/pages/CustomBottomSheet';
+import HomePage from './src/pages/HomePage';
 import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
 import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
@@ -32,7 +32,7 @@ function App(): JSX.Element {
               options={{
                 headerShown: false,
               }}
-              component={CustomBottomSheet}
+              component={HomePage}
             />
             <Stack.Screen name={'Direction'} component={ViroARNavigationPage} />
             <Stack.Screen

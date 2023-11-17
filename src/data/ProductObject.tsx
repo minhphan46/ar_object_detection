@@ -1,4 +1,4 @@
-import {CanType} from '../enum/3DCanEnum';
+import {CanType} from './enum/3DCanEnum';
 import CocaImages from '../utils/coca_images';
 import Bohuc_images from '../utils/bohuc_images';
 import pepsi_images from '../utils/pepsi_images';

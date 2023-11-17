@@ -1,16 +1,15 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
-import NavigationPage from './NavigationPage';
-import NavigationImagePage from './NavigationImagePage';
+import ShowNavigation from '../components/ShowNavigation';
 
-function ViroARSceneScreen() {
+function ViroARNavigationPage() {
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator
         autofocus={true}
         initialScene={{
-          scene: NavigationPage,
+          scene: ShowNavigation,
         }}
         style={styles.rootContainer}
       />
@@ -22,7 +21,7 @@ function ViroARSceneScreen() {
   );
 }
 
-export default ViroARSceneScreen;
+export default ViroARNavigationPage;
 
 const styles = StyleSheet.create({
   outer: {

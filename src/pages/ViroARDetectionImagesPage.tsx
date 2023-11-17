@@ -1,13 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   ViroARImageMarker,
   ViroARScene,
+  ViroARSceneNavigator,
   ViroARTrackingTargets,
   ViroBox,
 } from '@viro-community/react-viro';
-import {ShowModels} from './NavigationPage';
+import {StyleSheet, View} from 'react-native';
 
-function NavigationImagePage(): JSX.Element {
+function ViroARDetectionImagesPage() {
+  return (
+    <View style={styles.outer}>
+      <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: ImageDetectPage,
+        }}
+        style={styles.rootContainer}
+      />
+    </View>
+  );
+}
+
+export default ViroARDetectionImagesPage;
+
+export function ImageDetectPage(): JSX.Element {
   ViroARTrackingTargets.createTargets({
     targetOne: {
       source: require('../../assets/images/mocks/card.jpg'),
@@ -27,10 +44,16 @@ function NavigationImagePage(): JSX.Element {
     <ViroARScene>
       <ViroARImageMarker target={'targetOne'} onAnchorFound={_onFoundObject}>
         <ViroBox position={[0, 0, 0]} scale={[0.1, 0.1, 0.1]} />
-        <ShowModels x={0} y={-1} z={-10} rotationX={0} />
       </ViroARImageMarker>
     </ViroARScene>
   );
 }
 
-export default NavigationImagePage;
+const styles = StyleSheet.create({
+  outer: {
+    flex: 1,
+  },
+  rootContainer: {
+    flex: 1,
+  },
+});

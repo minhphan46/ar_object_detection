@@ -8,12 +8,12 @@ import {
   ViroSkyBox,
 } from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
-import {CanType} from '../enum/3DCanEnum';
+import {CanType} from '../data/enum/3DCanEnum';
 import Object3D from '../components/Object3D';
 import React from 'react';
 import {useAppSelector} from '../store/store';
 
-export default function ViroAR3DObject() {
+export default function ViroAR3DObjectPage() {
   const {selectedProduct} = useAppSelector(state => state.listProduct);
 
   return (

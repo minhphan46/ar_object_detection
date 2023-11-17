@@ -4,7 +4,7 @@ import {
 } from '@viro-community/react-viro';
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import ObjectInfoCard from '../components/ObjectInfoCard';
+import ObjectInfoCard from './ObjectInfoCard';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {
   removeObjectDetected,
@@ -30,7 +30,7 @@ type ObjectDetectionProps = {
   handleClick: () => void;
 };
 
-function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
+function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   const dispatch = useAppDispatch();
   const {idObject, indexImageDetected} = useAppSelector(
     state => state.detectbject,
@@ -40,7 +40,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
 
   useEffect(() => {
     const targetData: TargetData = {};
-
+    // Sử dụng mảng imagePaths để tạo targetData
     Object.keys(props.images).forEach((key, i) => {
       targetData[`${props.modelName}${i + 1}`] = {
         source: props.images[key],
@@ -51,6 +51,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
 
     ViroARTrackingTargets.createTargets(targetData);
 
+    // Set the flag to indicate that targetData is created
     setTargetDataCreated(true);
   }, [props.images, props.modelName]);
 
@@ -70,9 +71,7 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
     }
   }
 
-  function _onUpdatedObject(evts: any) {
-    console.log(evts);
-  }
+  function _onUpdatedObject(_: any) {}
 
   function _onLostObject(_: any) {
     console.log(`Lost Object ${props.modelName}`);
@@ -104,6 +103,13 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
             target={`${props.modelName}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
+            {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
+            {/* <ObjectCardInfo
+              modelName={props.modelName}
+              color={props.color}
+              image={props.imageLogo}
+              description={props.description}
+            /> */}
             <ObjectInfoCard
               modelName={props.modelName}
               image={props.imageLogo}
@@ -125,4 +131,4 @@ function ObjectDetectionPage(props: ObjectDetectionProps): JSX.Element {
   return <View>{targetDataCreated && renderList()}</View>;
 }
 
-export default ObjectDetectionPage;
+export default ObjectDetectionList;

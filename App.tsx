@@ -5,16 +5,18 @@ import store from './src/store/store';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ViroARSceneScreen from './src/pages/ViroARSceneScreen';
-import CustomBottomSheet from './src/pages/CustomBottomSheet';
-import ViroARDetectionPage from './src/pages/ViroARDetectionPage';
-import ViroAR3DObject from './src/pages/3DUiObjectPage';
+import ViroARNavigationPage from './src/pages/ViroARNavigationPage';
+import HomePage from './src/pages/HomePage';
+import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
+import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
+import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
 
 export type RootStackParamList = {
   Home: undefined;
   Direction: undefined;
-  Detect: undefined;
+  DetectObject: undefined;
   Model3D: undefined;
+  DetectImage: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,11 +32,18 @@ function App(): JSX.Element {
               options={{
                 headerShown: false,
               }}
-              component={CustomBottomSheet}
+              component={HomePage}
             />
-            <Stack.Screen name={'Direction'} component={ViroARSceneScreen} />
-            <Stack.Screen name={'Detect'} component={ViroARDetectionPage} />
-            <Stack.Screen name={'Model3D'} component={ViroAR3DObject} />
+            <Stack.Screen name={'Direction'} component={ViroARNavigationPage} />
+            <Stack.Screen
+              name={'DetectObject'}
+              component={ViroARDetectionObjectPage}
+            />
+            <Stack.Screen name={'Model3D'} component={ViroAR3DObjectPage} />
+            <Stack.Screen
+              name={'DetectImage'}
+              component={ViroARDetectionImagesPage}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

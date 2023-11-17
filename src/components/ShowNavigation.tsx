@@ -9,7 +9,7 @@ import {
 } from '@viro-community/react-viro';
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
-import {CanType, getCanSource} from '../enum/3DCanEnum';
+import {CanType, getCanSource} from '../data/enum/3DCanEnum';
 
 type GetArrowModelsProps = {
   x: number;
@@ -18,7 +18,7 @@ type GetArrowModelsProps = {
   rotationX?: number;
 };
 
-function NavigationPage(): JSX.Element {
+function ShowNavigation(): JSX.Element {
   const {objectPosition, isFirstInit} = useAppSelector(
     state => state.direction,
   );
@@ -125,4 +125,4 @@ function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
   );
 }
 
-export default NavigationPage;
+export default ShowNavigation;

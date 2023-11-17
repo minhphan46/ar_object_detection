@@ -3,10 +3,12 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 import {DirectionSlice} from './slices/direction_slice';
 import {ListProductSlice} from './slices/list_product_slice';
+import {DetectObjectSlice} from './slices/detect_object_slice';
 
 const rootReducer = combineReducers({
   direction: DirectionSlice.reducer,
   listProduct: ListProductSlice.reducer,
+  detectbject: DetectObjectSlice.reducer,
 });
 
 const store = configureStore({reducer: rootReducer});

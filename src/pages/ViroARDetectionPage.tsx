@@ -1,6 +1,5 @@
 import {ViroARScene, ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
-import CompassObject from '../components/CompassObject';
 import {listProduct} from '../data/ProductObject';
 import ObjectDetectionPage from './ObjectDetectionPage';
 

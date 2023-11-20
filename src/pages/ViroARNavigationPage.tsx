@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
 function ViroARNavigationPage({navigation}: Props) {
+  const {isDeviceStanding} = useAppSelector(state => state.direction);
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -26,15 +27,8 @@ function ViroARNavigationPage({navigation}: Props) {
         />
       ),
     });
-  });
-  const dispatch = useAppDispatch();
+  }, [navigation, isDeviceStanding]);
 
-  const {isDeviceStanding} = useAppSelector(state => state.direction);
-  useEffect(() => {
-    return () => {
-      dispatch(updatePhoneDirection({isStading: false}));
-    };
-  }, [isDeviceStanding]);
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator

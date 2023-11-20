@@ -32,6 +32,7 @@
     "react-native-sensors": "^7.3.6",
     "react-native-shadow-cards": "^1.0.2",
     "react-native-vector-icons": "^10.0.1",
+    "react-native-wifi-reborn": "^4.10.1",
     "react-redux": "^8.1.3"
   },
   "devDependencies": {

@@ -11,6 +11,7 @@ import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
 import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
 import IntructionUserHandlePhone from './src/pages/InstructionDeviceDirectionPage';
+import WifiDetectionPage from './src/pages/WifiDetectionPage';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   Model3D: undefined;
   DetectImage: undefined;
   DeviceDirectionPage: undefined;
+  WifiDetection: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -70,6 +72,13 @@ function App(): JSX.Element {
                 title: 'Device Direction',
               }}
               component={IntructionUserHandlePhone}
+            />
+            <Stack.Screen
+              name={'WifiDetection' as never}
+              options={{
+                title: 'Wifi Detection',
+              }}
+              component={WifiDetectionPage}
             />
           </Stack.Navigator>
         </NavigationContainer>

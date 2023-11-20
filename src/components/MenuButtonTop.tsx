@@ -12,6 +12,7 @@ import {Divider} from '@rneui/themed/dist/Divider';
 type MenuProps = {
   funNavtoScanObject: () => void;
   funNavtoScanImage: () => void;
+  funNavtoWifiDetection: () => void;
 };
 
 const MenuButtonTop = (props: MenuProps) => {
@@ -69,6 +70,23 @@ const MenuButtonTop = (props: MenuProps) => {
               color="#000"
             />
             <Text style={styles.text}>{'Detect Images'}</Text>
+          </MenuOption>
+          <MyDivider />
+          <MenuOption
+            onSelect={props.funNavtoWifiDetection}
+            customStyles={{
+              optionWrapper: {
+                flexDirection: 'row',
+                alignItems: 'center',
+              },
+            }}>
+            <MaterialCommunityIcons
+              style={styles.icon2}
+              name="wifi"
+              size={26}
+              color="#000"
+            />
+            <Text style={styles.text}>{'Wifi Detection'}</Text>
           </MenuOption>
         </MenuOptions>
       </Menu>

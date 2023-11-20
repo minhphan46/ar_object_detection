@@ -41,6 +41,7 @@ export const DirectionSlice = createSlice({
       const {x, y, z} = action.payload;
       state.objectPosition = {...state.objectPosition, x, y, z};
       state.isFirstInit = true;
+      state.isDeviceStanding = false;
     },
     updateDirection: (
       state,

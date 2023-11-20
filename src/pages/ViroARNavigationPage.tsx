@@ -9,7 +9,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {StackActions} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Direction'>;
 
 function ViroARNavigationPage({navigation}: Props) {
   const {isDeviceStanding} = useAppSelector(state => state.direction);
@@ -27,7 +27,7 @@ function ViroARNavigationPage({navigation}: Props) {
         />
       ),
     });
-  }, [navigation, isDeviceStanding]);
+  }, [navigation]);
 
   return (
     <View style={styles.outer}>

@@ -5,12 +5,19 @@ import {useSelector} from 'react-redux';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import LottieView from 'lottie-react-native';
 import {getStadingArea} from '../utils/get_angle_service';
-import {updatePhoneDirection} from '../store/slices/direction_slice';
+import {
+  initPosition,
+  updatePhoneDirection,
+} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import {setSelectedProduct} from '../store/slices/list_product_slice';
+import {NavigationAction, useRoute} from '@react-navigation/native';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
-export default function IntructionUserHandlePhone({navigation}: Props) {
+export default function IntructionUserHandlePhone({navigation, route}: Props) {
+  const chooseProduct = route.params.direction;
   const dispatch = useAppDispatch();
   let isStanding = false;
   useEffect(() => {
@@ -18,6 +25,14 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
       isStanding = getStadingArea(y);
       if (isStanding) {
         dispatch(updatePhoneDirection({isStading: isStanding}));
+        dispatch(setSelectedProduct({product: chooseProduct}));
+        dispatch(
+          initPosition({
+            x: chooseProduct.position.x,
+            y: chooseProduct.position.y,
+            z: chooseProduct.position.z,
+          }),
+        );
         navigation.navigate('Direction');
         subscription.unsubscribe();
       }

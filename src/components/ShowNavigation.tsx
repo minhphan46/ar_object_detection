@@ -19,7 +19,7 @@ type GetArrowModelsProps = {
 };
 
 function ShowNavigation(): JSX.Element {
-  const {objectPosition, isFirstInit} = useAppSelector(
+  const {objectPosition, isFirstInit, isDeviceStanding} = useAppSelector(
     state => state.direction,
   );
 
@@ -33,7 +33,7 @@ function ShowNavigation(): JSX.Element {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [isDeviceStanding]);
 
   return (
     <ViroARScene>

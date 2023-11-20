@@ -63,15 +63,15 @@ const HomePage = ({navigation}: Props) => {
 
   const handleNavigateAR = () => {
     bottomSheetRef.current?.close();
-    dispatch(setSelectedProduct({product: chooseProduct}));
-    dispatch(
-      initPosition({
-        x: chooseProduct.position.x,
-        y: chooseProduct.position.y,
-        z: chooseProduct.position.z,
-      }),
-    );
-    navigation.navigate('DeviceDirectionPage');
+    // dispatch(setSelectedProduct({product: chooseProduct}));
+    // dispatch(
+    //   initPosition({
+    //     x: chooseProduct.position.x,
+    //     y: chooseProduct.position.y,
+    //     z: chooseProduct.position.z,
+    //   }),
+    // );
+    navigation.navigate('DeviceDirectionPage', {direction: chooseProduct});
   };
 
   const selectedType = (item: ProductInfo) => {

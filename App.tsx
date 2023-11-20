@@ -11,6 +11,7 @@ import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
 import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
 import IntructionUserHandlePhone from './src/pages/IntructionDeviceDirection';
+import {ProductInfo} from './src/data/ProductObject';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -18,7 +19,7 @@ export type RootStackParamList = {
   DetectObject: undefined;
   Model3D: undefined;
   DetectImage: undefined;
-  DeviceDirectionPage: undefined;
+  DeviceDirectionPage: {direction: ProductInfo};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

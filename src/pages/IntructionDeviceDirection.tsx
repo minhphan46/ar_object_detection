@@ -32,7 +32,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
     <View style={styles.container}>
       <LottieView
         style={{flex: 1}}
-        source={require('../../assets/lottie/up_lottie.json')}
+        source={require('../../assets/lottie/ar_loti.json')}
         autoPlay
         loop
       />
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginHorizontal: 16,
+    marginBottom: 100,
     textAlign: 'center',
   },
 });

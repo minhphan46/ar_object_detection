@@ -54,7 +54,7 @@ const BottomSheetComponent = (props: BottomSheetProps) => {
         props.handleClose,
         'Close',
         'close-circle-outline',
-        '#000000',
+        'red',
       )}
     </BottomSheet>
   );

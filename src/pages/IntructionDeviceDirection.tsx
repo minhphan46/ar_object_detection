@@ -14,15 +14,16 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
   const dispatch = useAppDispatch();
 
   const {isDeviceStanding} = useAppSelector(state => state.direction);
+  let isStanding = false;
   useEffect(() => {
     const subscription = accelerometer.subscribe(({x, y, z}) => {
-      console.log('render');
-      const isStanding = getStadingArea(y);
-      dispatch(updatePhoneDirection({isStading: isStanding}));
+      isStanding = getStadingArea(y);
+      if (isStanding) {
+        dispatch(updatePhoneDirection({isStading: isStanding}));
+        navigation.navigate('Direction');
+        subscription.unsubscribe();
+      }
     });
-    if (isDeviceStanding) {
-      navigation.navigate('Direction');
-    }
 
     return () => {
       subscription.unsubscribe(); // Hủy lắng nghe khi component unmount

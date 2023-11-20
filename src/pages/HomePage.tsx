@@ -73,7 +73,7 @@ const HomePage = ({navigation}: Props) => {
         z: chooseProduct.position.z,
       }),
     );
-    navigation.navigate('Direction');
+    navigation.navigate('DeviceDirectionPage');
   };
 
   const selectedType = (item: ProductInfo) => {

@@ -18,6 +18,7 @@
     "@rneui/base": "^0.0.0-edge.2",
     "@rneui/themed": "^0.0.0-edge.2",
     "@viro-community/react-viro": "^2.23.0",
+    "lottie-react-native": "^6.4.1",
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-compass-heading": "^1.5.0",

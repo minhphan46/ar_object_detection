@@ -12,6 +12,7 @@ interface DirectionState {
   direction: Direction;
   objectPosition: ProductPosition;
   isFirstInit: boolean;
+  isDeviceStanding: boolean;
 }
 
 const initialState: DirectionState = {
@@ -26,6 +27,7 @@ const initialState: DirectionState = {
     z: 0,
   },
   isFirstInit: true,
+  isDeviceStanding: false,
 };
 
 export const DirectionSlice = createSlice({
@@ -61,8 +63,16 @@ export const DirectionSlice = createSlice({
       }
       state.direction = {...state.direction, heading, accuracy, rad};
     },
+    updatePhoneDirection: (
+      state,
+      action: PayloadAction<{isStading: boolean}>,
+    ) => {
+      const {isStading} = action.payload;
+      state.isDeviceStanding = isStading;
+    },
   },
 });
 
 export default DirectionSlice.reducer;
-export const {initPosition, updateDirection} = DirectionSlice.actions;
+export const {initPosition, updateDirection, updatePhoneDirection} =
+  DirectionSlice.actions;

@@ -2,8 +2,19 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import ShowNavigation from '../components/ShowNavigation';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../store/store';
+import {updatePhoneDirection} from '../store/slices/direction_slice';
 
 function ViroARNavigationPage() {
+  const dispatch = useAppDispatch();
+
+  const {isDeviceStanding} = useAppSelector(state => state.direction);
+  useEffect(() => {
+    return () => {
+      dispatch(updatePhoneDirection({isStading: false}));
+    };
+  }, [isDeviceStanding]);
   return (
     <View style={styles.outer}>
       <ViroARSceneNavigator

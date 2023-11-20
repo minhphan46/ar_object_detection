@@ -63,10 +63,21 @@ function getObjectPosition(
   return newPosition;
 }
 
+function getStadingArea(axis: number) {
+  const gravity = 9.81; // Gia tốc trọng trường, g = 9.81 m/s²
+  // Kiểm tra nếu gia tốc trục Z gần bằng gia tốc trọng trường
+  const tolerance = 0.5; // Độ lệch cho phép
+  const isStanding =
+    Math.abs(axis) > gravity - tolerance &&
+    Math.abs(axis) < gravity + tolerance;
+  return isStanding;
+}
+
 export {
   getRad2deg,
   convertDeg2Rad,
   getDirection,
   getNewPosition,
   getObjectPosition,
+  getStadingArea,
 };

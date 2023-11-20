@@ -4,22 +4,39 @@ import {accelerometer} from 'react-native-sensors';
 import {useSelector} from 'react-redux';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import LottieView from 'lottie-react-native';
-import {getStadingArea} from '../utils/get_angle_service';
-import {updatePhoneDirection} from '../store/slices/direction_slice';
+import {
+  convertDeg2Rad,
+  getDirection,
+  getStadingArea,
+} from '../utils/get_angle_service';
+import {
+  updateDirection,
+  updatePhoneDirection,
+} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import CompassHeading from 'react-native-compass-heading';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
 export default function IntructionUserHandlePhone({navigation}: Props) {
   const dispatch = useAppDispatch();
   let isStanding = false;
+  const [headingapp, setHeadingApp] = useState(0);
   useEffect(() => {
+    const degree_update_rate = 1;
+    CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
+      setHeadingApp(heading);
+    });
+
     const subscription = accelerometer.subscribe(({x, y, z}) => {
       isStanding = getStadingArea(y);
       if (isStanding) {
-        dispatch(updatePhoneDirection({isStading: isStanding}));
-        navigation.navigate('Direction');
-        subscription.unsubscribe();
+        if (355 < headingapp || headingapp < 5) {
+          dispatch(updatePhoneDirection({isStading: isStanding}));
+          navigation.navigate('Direction');
+          subscription.unsubscribe();
+        }
       }
     });
 
@@ -36,9 +53,10 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
         autoPlay
         loop
       />
+      <Text style={styles.titleText}>Heading: {Math.round(headingapp)}°</Text>
       <Text style={styles.titleText}>
         Please put the phone upright, the phone's frame is perpendicular to the
-        ground{' '}
+        ground, and heading number is 0°{' '}
       </Text>
     </View>
   );

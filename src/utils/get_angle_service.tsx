@@ -70,6 +70,7 @@ function getStadingArea(axis: number) {
   const isStanding =
     Math.abs(axis) > gravity - tolerance &&
     Math.abs(axis) < gravity + tolerance;
+
   return isStanding;
 }
 

@@ -10,7 +10,7 @@ import HomePage from './src/pages/HomePage';
 import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
 import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
-import IntructionUserHandlePhone from './src/pages/InstructionDeviceDirection';
+import IntructionUserHandlePhone from './src/pages/InstructionDeviceDirectionPage';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -37,7 +37,7 @@ function App(): JSX.Element {
               component={HomePage}
             />
             <Stack.Screen
-              name={'Direction'}
+              name={'Direction' as never}
               options={{
                 title: 'Direction',
               }}

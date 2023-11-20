@@ -36,6 +36,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
           navigation.navigate('Direction');
           subscription.unsubscribe();
+          CompassHeading.stop();
         }
       }
     });
@@ -53,8 +54,9 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
         autoPlay
         loop
       />
-      <Text style={styles.titleText}>Heading: {Math.round(headingapp)}°</Text>
-      <Text style={styles.titleText}>
+      <Text style={styles.title}>Your Device Heading</Text>
+      <Text style={styles.titleHeading}>{Math.round(headingapp)}°</Text>
+      <Text style={styles.titleDes}>
         Please put the phone upright, the phone's frame is perpendicular to the
         ground, and heading number is 0°{' '}
       </Text>
@@ -67,7 +69,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  titleText: {
+  title: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginHorizontal: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  titleHeading: {
+    color: '#8C4CC7',
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginHorizontal: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  titleDes: {
     color: 'black',
     fontSize: 20,
     fontWeight: 'bold',

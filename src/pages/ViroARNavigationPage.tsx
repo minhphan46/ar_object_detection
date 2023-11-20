@@ -1,12 +1,32 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import {StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import ShowNavigation from '../components/ShowNavigation';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updatePhoneDirection} from '../store/slices/direction_slice';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+import {StackActions} from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
-function ViroARNavigationPage() {
+function ViroARNavigationPage({navigation}: Props) {
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <MaterialCommunityIcons
+          size={26}
+          color={'black'}
+          onPress={() => {
+            // Xử lý sự kiện pop back tại đây
+            navigation.dispatch(StackActions.popToTop()); // Quay về màn hình trước đó
+          }}
+          name="keyboard-backspace"
+        />
+      ),
+    });
+  });
   const dispatch = useAppDispatch();
 
   const {isDeviceStanding} = useAppSelector(state => state.direction);

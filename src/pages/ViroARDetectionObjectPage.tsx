@@ -18,7 +18,7 @@ type DeleteButtonProps = {
 function DeleteButton(props: DeleteButtonProps) {
   return (
     <MaterialCommunityIcons
-      name="trash-can-outline"
+      name="refresh"
       size={30}
       color="#000"
       onPress={() => props.onClick()}

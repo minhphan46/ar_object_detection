@@ -12,8 +12,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
 export default function IntructionUserHandlePhone({navigation}: Props) {
   const dispatch = useAppDispatch();
-
-  const {isDeviceStanding} = useAppSelector(state => state.direction);
   let isStanding = false;
   useEffect(() => {
     const subscription = accelerometer.subscribe(({x, y, z}) => {

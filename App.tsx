@@ -36,18 +36,39 @@ function App(): JSX.Element {
               }}
               component={HomePage}
             />
-            <Stack.Screen name={'Direction'} component={ViroARNavigationPage} />
+            <Stack.Screen
+              name={'Direction'}
+              options={{
+                title: 'Direction',
+              }}
+              component={ViroARNavigationPage}
+            />
             <Stack.Screen
               name={'DetectObject'}
+              options={{
+                title: 'Detect Products',
+              }}
               component={ViroARDetectionObjectPage}
             />
-            <Stack.Screen name={'Model3D'} component={ViroAR3DObjectPage} />
+            <Stack.Screen
+              name={'Model3D'}
+              options={{
+                title: 'Show 3D Product',
+              }}
+              component={ViroAR3DObjectPage}
+            />
             <Stack.Screen
               name={'DetectImage'}
+              options={{
+                title: 'Detect Images',
+              }}
               component={ViroARDetectionImagesPage}
             />
             <Stack.Screen
               name={'DeviceDirectionPage'}
+              options={{
+                title: 'Device Direction',
+              }}
               component={IntructionUserHandlePhone}
             />
           </Stack.Navigator>

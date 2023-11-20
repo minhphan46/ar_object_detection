@@ -37,6 +37,18 @@ const bohucImages: Record<string, any> = {
   image36: require('../../assets/images/bohuc/bohuc36.jpg'),
   image37: require('../../assets/images/bohuc/bohuc37.jpg'),
   image38: require('../../assets/images/bohuc/bohuc38.jpg'),
+  image39: require('../../assets/images/bohuc/bohuc39.jpg'),
+  image40: require('../../assets/images/bohuc/bohuc40.jpg'),
+  image41: require('../../assets/images/bohuc/bohuc41.jpg'),
+  image42: require('../../assets/images/bohuc/bohuc42.jpg'),
+  image43: require('../../assets/images/bohuc/bohuc43.jpg'),
+  image44: require('../../assets/images/bohuc/bohuc44.jpg'),
+  image45: require('../../assets/images/bohuc/bohuc45.jpg'),
+  image46: require('../../assets/images/bohuc/bohuc46.jpg'),
+  image47: require('../../assets/images/bohuc/bohuc47.jpg'),
+  image48: require('../../assets/images/bohuc/bohuc48.jpg'),
+  image49: require('../../assets/images/bohuc/bohuc49.jpg'),
+  image50: require('../../assets/images/bohuc/bohuc50.jpg'),
 };
 
 export default bohucImages;

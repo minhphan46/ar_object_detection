@@ -4,6 +4,7 @@ import Bohuc_images from '../utils/bohuc_images';
 import pepsi_images from '../utils/pepsi_images';
 import cafe_images from '../utils/cafe_image';
 import bidao_images from '../utils/bidao_image';
+import sting_images from '../utils/sting_images';
 
 export type ProductPosition = {
   x: number;
@@ -172,6 +173,7 @@ export const listProduct: ProductInfo[] = [
     brandName: 'Sting (Việt Nam)',
     type: 'nước ngọt',
     price: '9.100đ',
+    imageDetect: sting_images,
   },
   {
     id: 8,

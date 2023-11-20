@@ -10,6 +10,7 @@ import HomePage from './src/pages/HomePage';
 import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
 import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
+import IntructionUserHandlePhone from './src/pages/IntructionDeviceDirection';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -17,6 +18,7 @@ export type RootStackParamList = {
   DetectObject: undefined;
   Model3D: undefined;
   DetectImage: undefined;
+  DeviceDirectionPage: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -43,6 +45,10 @@ function App(): JSX.Element {
             <Stack.Screen
               name={'DetectImage'}
               component={ViroARDetectionImagesPage}
+            />
+            <Stack.Screen
+              name={'DeviceDirectionPage'}
+              component={IntructionUserHandlePhone}
             />
           </Stack.Navigator>
         </NavigationContainer>

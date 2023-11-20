@@ -10,7 +10,7 @@ import HomePage from './src/pages/HomePage';
 import ViroAR3DObjectPage from './src/pages/3DUiObjectPage';
 import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
-import IntructionUserHandlePhone from './src/pages/IntructionDeviceDirection';
+import IntructionUserHandlePhone from './src/pages/InstructionDeviceDirection';
 
 export type RootStackParamList = {
   Home: undefined;

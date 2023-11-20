@@ -177,6 +177,22 @@ const HomePage = ({navigation}: Props) => {
       <View style={styles.rowDisplay}>
         <Image style={styles.buttonImageIconStyle} source={item.image} />
         <Text style={styles.searchText}>{item.name}</Text>
+
+        {item.imageDetect ? (
+          <MaterialCommunityIcons
+            style={styles.icon}
+            name="check-circle"
+            size={20}
+            color="#A6CF98"
+          />
+        ) : (
+          <MaterialCommunityIcons
+            style={styles.icon}
+            name="close-circle"
+            size={20}
+            color="#CE5A67"
+          />
+        )}
       </View>
     );
   }
@@ -209,6 +225,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: '400',
+    flex: 1,
   },
   icon: {
     alignItems: 'center',

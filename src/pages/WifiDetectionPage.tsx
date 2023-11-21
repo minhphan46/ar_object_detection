@@ -12,9 +12,34 @@ function WifiDetectionPage({navigation}: Props) {
   const [currentSSID, setCurrentSSID] = useState('');
   useEffect(() => {
     permission();
+    getWifiSignalStrengths();
     getCurrenSSID();
     getWifiList();
+    const intervalId = setInterval(() => {
+      getWifiSignalStrengths();
+    }, 1000); // Khoảng thời gian (5 giây trong ví dụ này)
+
+    return () => {
+      clearInterval(intervalId); // Xóa interval khi component unmount
+    };
   }, []);
+  const getWifiSignalStrengths = async () => {
+    try {
+      const wifiList = await WifiManager.loadWifiList();
+      if (wifiList && wifiList.length > 0) {
+        for (const network of wifiList) {
+          const signalStrength = await network.level;
+          console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
+          // Xử lý thông tin RSSI của từng mạng ở đây
+        }
+        console.log('---------------------------------------------------');
+      } else {
+        console.log('Không tìm thấy mạng WiFi');
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy thông tin RSSI của mạng WiFi:', error);
+    }
+  };
 
   const getCurrenSSID = () => {
     WifiManager.getCurrentWifiSSID().then(ssid => setCurrentSSID(ssid));

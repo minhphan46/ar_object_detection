@@ -67,7 +67,7 @@ function _renderButtonBottom(
   color: string,
 ) {
   return (
-    <TouchableOpacity style={styles.transparentButton} onPress={navigateFunc}>
+    <TouchableOpacity style={styles.buttonStyle} onPress={navigateFunc}>
       <MaterialCommunityIcons
         style={styles.icon2}
         name={iconName}
@@ -98,5 +98,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     fontWeight: 'normal',
+  },
+  buttonStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    color: '#040404',
   },
 });

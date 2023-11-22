@@ -4,17 +4,52 @@ import {StyleSheet, Text, View} from 'react-native';
 import {PermissionsAndroid} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import WifiManager, {WifiEntry} from 'react-native-wifi-reborn';
+import {Divider} from '@rneui/base';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'WifiDetection'>;
+
+type WifiInfo = {
+  timestamp: number;
+  name: string;
+  strength: number;
+};
+
+type RefreshButtonProps = {
+  onClick: () => void;
+};
+
+function RefreshButton(props: RefreshButtonProps) {
+  return (
+    <MaterialCommunityIcons
+      name="refresh"
+      size={30}
+      color="#000"
+      onPress={() => props.onClick()}
+    />
+  );
+}
 
 function WifiDetectionPage({navigation}: Props) {
   const [wifiList, setWifiList] = useState<WifiEntry[]>([]);
   const [currentSSID, setCurrentSSID] = useState('');
+
+  const [wifi1, setWifi1] = useState<WifiInfo | undefined>();
+  const [wifi2, setWifi2] = useState<WifiInfo | undefined>();
+  const [wifi3, setWifi3] = useState<WifiInfo | undefined>();
+
   useEffect(() => {
+    const handlleOnClick = async () => {
+      await WifiManager.reScanAndLoadWifiList().then(_ => {
+        getWifiSignalStrengths();
+      });
+    };
+
+    navigation.setOptions({
+      headerRight: () => RefreshButton({onClick: handlleOnClick}),
+    });
+
     permission();
-    getWifiSignalStrengths();
-    getCurrenSSID();
-    getWifiList();
     const intervalId = setInterval(() => {
       getWifiSignalStrengths();
     }, 1000); // Khoảng thời gian (5 giây trong ví dụ này)
@@ -22,33 +57,47 @@ function WifiDetectionPage({navigation}: Props) {
     return () => {
       clearInterval(intervalId); // Xóa interval khi component unmount
     };
-  }, []);
+  }, [navigation]);
+
   const getWifiSignalStrengths = async () => {
     try {
       const wifiList = await WifiManager.loadWifiList();
       if (wifiList && wifiList.length > 0) {
+        console.log('---------------------------------------------------');
         for (const network of wifiList) {
           const signalStrength = await network.level;
-          console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
           // Xử lý thông tin RSSI của từng mạng ở đây
+          if (network.SSID === 'Wifi1') {
+            setWifi1({
+              timestamp: Date.now(),
+              name: network.SSID,
+              strength: signalStrength,
+            });
+            console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
+          }
+          if (network.SSID === 'wifi2') {
+            setWifi2({
+              timestamp: Date.now(),
+              name: network.SSID,
+              strength: signalStrength,
+            });
+            console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
+          }
+          if (network.SSID === 'Wifi3') {
+            setWifi3({
+              timestamp: Date.now(),
+              name: network.SSID,
+              strength: signalStrength,
+            });
+            console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
+          }
         }
-        console.log('---------------------------------------------------');
       } else {
         console.log('Không tìm thấy mạng WiFi');
       }
     } catch (error) {
       console.error('Lỗi khi lấy thông tin RSSI của mạng WiFi:', error);
     }
-  };
-
-  const getCurrenSSID = () => {
-    WifiManager.getCurrentWifiSSID().then(ssid => setCurrentSSID(ssid));
-  };
-
-  const getWifiList = () => {
-    WifiManager.loadWifiList().then(wifiList => {
-      setWifiList(wifiList);
-    });
   };
 
   const permission = async () => {
@@ -76,13 +125,18 @@ function WifiDetectionPage({navigation}: Props) {
     <View style={styles.container}>
       <Text style={styles.title}>WifiDetectionPage</Text>
       <Text style={styles.title}>{currentSSID}</Text>
-      {wifiList.map(list => {
-        return (
-          <Text key={list.SSID} style={styles.ssidText}>
-            {list.SSID}
-          </Text>
-        );
-      })}
+      <Divider />
+      <Text style={styles.title}>
+        "Name:" {wifi1?.name} | "Strength:" {wifi1?.strength}
+      </Text>
+      <Divider />
+      <Text style={styles.title}>
+        "Name:" {wifi2?.name} | "Strength:" {wifi2?.strength}
+      </Text>
+      <Divider />
+      <Text style={styles.title}>
+        "Name:" {wifi3?.name} | "Strength:" {wifi3?.strength}
+      </Text>
     </View>
   );
 }

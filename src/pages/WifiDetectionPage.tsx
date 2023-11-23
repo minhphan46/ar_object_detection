@@ -44,6 +44,7 @@ function WifiDetectionPage({navigation}: Props) {
   const [wifi1, setWifi1] = useState<WifiInfo | undefined>();
   const [wifi2, setWifi2] = useState<WifiInfo | undefined>();
   const [wifi3, setWifi3] = useState<WifiInfo | undefined>();
+  const [wifi4, setWifi4] = useState<WifiInfo | undefined>();
   const [listWifiMatrix, setListWifiMatrix] = useState<
     WifiMatrix[] | undefined
   >();
@@ -85,7 +86,7 @@ function WifiDetectionPage({navigation}: Props) {
             });
             console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
           }
-          if (network.SSID === 'wifi2') {
+          if (network.SSID === 'Iphone NQ') {
             setWifi2({
               timestamp: Date.now(),
               name: network.SSID,
@@ -95,6 +96,14 @@ function WifiDetectionPage({navigation}: Props) {
           }
           if (network.SSID === 'Wifi3') {
             setWifi3({
+              timestamp: Date.now(),
+              name: network.SSID,
+              strength: signalStrength,
+            });
+            console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
+          }
+          if (network.SSID === 'Wifi4') {
+            setWifi4({
               timestamp: Date.now(),
               name: network.SSID,
               strength: signalStrength,
@@ -136,6 +145,7 @@ function WifiDetectionPage({navigation}: Props) {
       wifi1,
       wifi2,
       wifi3,
+      wifi4,
     } as WifiMatrix;
 
     if (listWifiMatrix === undefined) {
@@ -149,16 +159,20 @@ function WifiDetectionPage({navigation}: Props) {
     <View style={styles.container}>
       <Button onPress={handleAddButton} title="Add" color="black" />
       <Divider />
-      <Text style={styles.title}>
+      <Text style={styles.subTitle}>
         "Name:" {wifi1?.name} | "Strength:" {wifi1?.strength}
       </Text>
       <Divider />
-      <Text style={styles.title}>
+      <Text style={styles.subTitle}>
         "Name:" {wifi2?.name} | "Strength:" {wifi2?.strength}
       </Text>
       <Divider />
-      <Text style={styles.title}>
+      <Text style={styles.subTitle}>
         "Name:" {wifi3?.name} | "Strength:" {wifi3?.strength}
+      </Text>
+      <Divider />
+      <Text style={styles.subTitle}>
+        "Name:" {wifi4?.name} | "Strength:" {wifi4?.strength}
       </Text>
       <Divider />
       <Text style={styles.heading}>List Matrix</Text>

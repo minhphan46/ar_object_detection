@@ -87,6 +87,10 @@ const HomePage = ({navigation}: Props) => {
     navigation.navigate('DetectImage');
   };
 
+  const handleNavigateToGetPosition = () => {
+    navigation.navigate('Position');
+  };
+
   const handleNavigateToShow3D = () => {
     dispatch(setSelectedProduct({product: chooseProduct}));
     navigation.navigate('Model3D');
@@ -140,6 +144,7 @@ const HomePage = ({navigation}: Props) => {
         <MenuButtonTop
           funNavtoScanObject={handleNavigateToScanObject}
           funNavtoScanImage={handleNavigateToScanImage}
+          funNavtoPosition={handleNavigateToGetPosition}
         />
       </View>
     );

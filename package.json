@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4",
-    "@react-native-community/geolocation": "^3.1.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@reduxjs/toolkit": "^1.9.7",

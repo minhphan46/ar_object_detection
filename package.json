@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "@rneui/base": "^0.0.0-edge.2",
     "@rneui/themed": "^0.0.0-edge.2",
+    "@rnmapbox/maps": "^10.0.15",
     "@viro-community/react-viro": "^2.23.0",
     "lottie-react-native": "^6.4.1",
     "react": "18.2.0",

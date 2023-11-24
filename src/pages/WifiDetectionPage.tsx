@@ -20,6 +20,7 @@ type WifiMatrix = {
   wifi1: WifiInfo;
   wifi2: WifiInfo;
   wifi3: WifiInfo;
+  wifi4: WifiInfo;
 };
 
 type RefreshButtonProps = {
@@ -86,7 +87,7 @@ function WifiDetectionPage({navigation}: Props) {
             });
             console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
           }
-          if (network.SSID === 'Iphone NQ') {
+          if (network.SSID === 'wifi2') {
             setWifi2({
               timestamp: Date.now(),
               name: network.SSID,
@@ -102,7 +103,7 @@ function WifiDetectionPage({navigation}: Props) {
             });
             console.log(`Tên mạng: ${network.SSID}, RSSI: ${signalStrength}`);
           }
-          if (network.SSID === 'Wifi4') {
+          if (network.SSID === 'Iphone NQ') {
             setWifi4({
               timestamp: Date.now(),
               name: network.SSID,
@@ -190,6 +191,9 @@ function WifiDetectionPage({navigation}: Props) {
             </Text>
             <Text style={styles.subTitle}>
               "Name:" {item.wifi3.name} | "Strength:" {item.wifi3.strength}
+            </Text>
+            <Text style={styles.subTitle}>
+              "Name:" {item.wifi4.name} | "Strength:" {item.wifi4.strength}
             </Text>
             <Divider width={2} />
           </View>

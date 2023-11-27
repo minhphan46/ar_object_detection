@@ -14,6 +14,7 @@ import Mapbox, {
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
+import * as turf from '@turf/turf';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -40,13 +41,35 @@ const PositionPage = () => {
     setLongitude(location.coords.longitude);
   };
 
+  const addNewLocation = (lat: number, long: number) => {
+    setLocationCoords([
+      ...locationCoords,
+      {
+        latitude: lat,
+        longitude: long,
+      },
+    ]);
+    caculateDistance(lat, long);
+  };
+
+  const caculateDistance = (lat: number, long: number) => {
+    const point1 = turf.point([longitude, latitude]);
+    const point2 = turf.point([long, lat]);
+
+    const distance = turf.distance(point1, point2);
+    console.log('Khoảng cách giữa hai điểm là:', distance * 1000, 'đơn vị.');
+  };
+
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <Mapbox.MapView
           style={styles.map}
-          onPress={e => {
-            console.log(e);
+          onPress={(feature: any) => {
+            const {coordinates} = feature.geometry;
+            if (coordinates) {
+              addNewLocation(coordinates[1], coordinates[0]);
+            }
           }}>
           <Mapbox.UserLocation
             minDisplacement={1}
@@ -68,6 +91,7 @@ const PositionPage = () => {
           {locationCoords.map((item: any, index: number) => {
             return (
               <PointAnnotation
+                key={index.toString()}
                 id="pointAnnotation"
                 coordinate={[item.longitude, item.latitude]}
                 onSelected={() => console.log('onSelected')}>
@@ -87,12 +111,7 @@ const PositionPage = () => {
             borderRadius: 10,
             padding: 20,
           }}
-          onPress={() => {
-            setLocationCoords([
-              ...locationCoords,
-              {latitude: latitude, longitude: longitude},
-            ]);
-          }}>
+          onPress={() => addNewLocation(latitude, longitude)}>
           <Text>Add</Text>
         </Pressable>
       </View>

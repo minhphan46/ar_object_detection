@@ -12,6 +12,7 @@ import ViroARDetectionImagesPage from './src/pages/ViroARDetectionImagesPage';
 import ViroARDetectionObjectPage from './src/pages/ViroARDetectionObjectPage';
 import IntructionUserHandlePhone from './src/pages/InstructionDeviceDirectionPage';
 import PositionPage from './src/pages/PositionPage';
+var turf = require('@turf/turf');
 
 export type RootStackParamList = {
   Home: undefined;

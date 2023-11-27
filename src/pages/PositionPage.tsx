@@ -62,28 +62,18 @@ const PositionPage = () => {
     const distance2Point = turf.distance(point1, point2, {units: 'meters'});
     const angle2Point = calculateAngleBetween(point1, point2);
     console.log(angle2Point);
-    if (angle2Point <= 90 || angle2Point >= 270) {
-      let z = -distance2Point * Math.cos((angle2Point * Math.PI) / 180);
-      let x = distance2Point * Math.sin((angle2Point * Math.PI) / 180);
-      let y = 0;
-      console.log(`x: ${x},y: ${y},z: ${z}`);
-    } else if (angle2Point <= 180) {
-      let z = -distance2Point * Math.cos((angle2Point * Math.PI) / 180);
-      let x = distance2Point * Math.sin(((180 - angle2Point) * Math.PI) / 180);
-      let y = 0;
-      console.log(`x: ${x},y: ${y},z: ${z}`);
-    } else {
-      let z = -distance2Point * Math.cos((angle2Point * Math.PI) / 180);
-      let x = -distance2Point * Math.sin((angle2Point - 180 * Math.PI) / 180);
-      let y = 0;
-      console.log(`x: ${x},y: ${y},z: ${z}`);
-    }
+    let z = -distance2Point * Math.cos((angle2Point * Math.PI) / 180);
+    let x = distance2Point * Math.sin((angle2Point * Math.PI) / 180);
+    let y = 0;
+
     console.log(
       'Khoảng cách giữa hai điểm là:',
       distance2Point * 1000,
       'đơn vị.',
     );
     console.log('Angle:', angle2Point, 'độ.');
+
+    console.log(`x: ${x},y: ${y},z: ${z}`);
 
     dispatch(
       updateDistanceAndAngle({distance: distance2Point, angle: angle2Point}),

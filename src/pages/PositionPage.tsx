@@ -7,6 +7,11 @@ import Mapbox, {
 } from '@rnmapbox/maps';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as turf from '@turf/turf';
+import {useAppDispatch, useAppSelector} from '../store/store';
+import {
+  updateCurrentLocation,
+  updateDistanceAndAngle,
+} from '../store/slices/current_location_slice';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -15,8 +20,10 @@ Mapbox.setAccessToken(token);
 Mapbox.setConnected(true);
 
 const PositionPage = () => {
-  const [latitude, setLatitude] = useState<number>(0);
-  const [longitude, setLongitude] = useState<number>(0);
+  const dispatch = useAppDispatch();
+  const {lat, long, distance, angle} = useAppSelector(
+    state => state.currentLocation,
+  );
 
   // list location.coords usestate
   const [locationCoords, setLocationCoords] = useState<any>([]);
@@ -29,29 +36,41 @@ const PositionPage = () => {
 
   const handleUserLocationUpdate = (location: any) => {
     console.log('location', location);
-    setLatitude(location.coords.latitude);
-    setLongitude(location.coords.longitude);
+    dispatch(
+      updateCurrentLocation({
+        lat: location.coords.latitude,
+        long: location.coords.longitude,
+      }),
+    );
   };
 
-  const addNewLocation = (lat: number, long: number) => {
+  const addNewLocation = (latitude: number, longitude: number) => {
     setLocationCoords([
       ...locationCoords,
       {
-        latitude: lat,
-        longitude: long,
+        latitude,
+        longitude,
       },
     ]);
-    caculateDistance(lat, long);
+    calculateDistance(latitude, longitude);
   };
 
-  const caculateDistance = (lat: number, long: number) => {
-    const point1 = turf.point([longitude, latitude]);
-    const point2 = turf.point([long, lat]);
+  const calculateDistance = (latitude: number, longitude: number) => {
+    const point1 = turf.point([long, lat]);
+    const point2 = turf.point([longitude, latitude]);
 
-    const distance = turf.distance(point1, point2);
-    const angle = calculateAngleBetween(point1, point2);
-    console.log('Khoảng cách giữa hai điểm là:', distance * 1000, 'đơn vị.');
-    console.log('Angle:', angle, 'độ.');
+    const distance2Point = turf.distance(point1, point2);
+    const angle2Point = calculateAngleBetween(point1, point2);
+    console.log(
+      'Khoảng cách giữa hai điểm là:',
+      distance2Point * 1000,
+      'đơn vị.',
+    );
+    console.log('Angle:', angle2Point, 'độ.');
+
+    dispatch(
+      updateDistanceAndAngle({distance: distance2Point, angle: angle2Point}),
+    );
   };
 
   const calculateAngleBetween = (position1: any, position2: any): number => {
@@ -81,7 +100,7 @@ const PositionPage = () => {
             visible={true}
           />
           <Mapbox.Camera
-            centerCoordinate={[longitude, latitude]}
+            centerCoordinate={[long, lat]}
             zoomLevel={20}
             animationMode={'flyTo'}
             animationDuration={0}
@@ -107,7 +126,7 @@ const PositionPage = () => {
             onPress={() => {
               setLocationCoords([
                 ...locationCoords,
-                {latitude: latitude, longitude: longitude},
+                {latitude: lat, longitude: long},
               ]);
             }}>
             {/*<Text>Add</Text>*/}

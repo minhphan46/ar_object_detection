@@ -33,7 +33,7 @@ type ObjectDetectionProps = {
 function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   const dispatch = useAppDispatch();
   const {idObject, indexImageDetected} = useAppSelector(
-    state => state.detectbject,
+    state => state.detectObject,
   );
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);

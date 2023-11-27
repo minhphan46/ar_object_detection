@@ -1,19 +1,11 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Button,
-  Image,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
   PointAnnotation,
-  UserLocation,
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as turf from '@turf/turf';
 
 const token =
@@ -25,6 +17,10 @@ Mapbox.setConnected(true);
 const PositionPage = () => {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
+  const [bearing, setBearing] = useState<number>(0);
+
+  const lat = 10.851753;
+  const long = 106.797441;
 
   // list location.coords usestate
   const [locationCoords, setLocationCoords] = useState<any>([]);
@@ -60,6 +56,17 @@ const PositionPage = () => {
     console.log('Khoảng cách giữa hai điểm là:', distance * 1000, 'đơn vị.');
   };
 
+  const calculateAngleBetween = () => {
+    const position1 = turf.point([longitude, latitude]);
+    const position2 = turf.point([long, lat]);
+
+    const bearing = turf.bearing(position1, position2);
+
+    console.log((bearing + 360) % 360);
+
+    setBearing((bearing + 360) % 360);
+  };
+
   return (
     <View style={styles.page}>
       <View style={styles.container}>
@@ -91,7 +98,6 @@ const PositionPage = () => {
           {locationCoords.map((item: any, index: number) => {
             return (
               <PointAnnotation
-                key={index.toString()}
                 id="pointAnnotation"
                 coordinate={[item.longitude, item.latitude]}
                 onSelected={() => console.log('onSelected')}>
@@ -102,18 +108,33 @@ const PositionPage = () => {
             );
           })}
         </Mapbox.MapView>
-        <Pressable
-          style={{
-            position: 'absolute',
-            bottom: 20,
-            right: 20,
-            backgroundColor: 'white',
-            borderRadius: 10,
-            padding: 20,
-          }}
-          onPress={() => addNewLocation(latitude, longitude)}>
-          <Text>Add</Text>
-        </Pressable>
+        <View style={styles.buttons}>
+          <Pressable
+            style={styles.buttonContainer}
+            onPress={() => {
+              setLocationCoords([
+                ...locationCoords,
+                {latitude: latitude, longitude: longitude},
+              ]);
+            }}>
+            {/*<Text>Add</Text>*/}
+            <MaterialCommunityIcons
+              name={'map-marker-plus-outline'}
+              size={24}
+              color="#fff"
+            />
+          </Pressable>
+          <Pressable
+            style={styles.buttonContainer}
+            onPress={calculateAngleBetween}>
+            {/*<Text>Degree</Text>*/}
+            <MaterialCommunityIcons
+              name={'angle-acute'}
+              size={24}
+              color="#fff"
+            />
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -135,5 +156,19 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  buttons: {
+    position: 'absolute',
+    flexDirection: 'row',
+    bottom: 20,
+    right: 20,
+  },
+  buttonContainer: {
+    margin: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderRadius: 16,
+    backgroundColor: 'tomato',
+    color: 'white',
   },
 });

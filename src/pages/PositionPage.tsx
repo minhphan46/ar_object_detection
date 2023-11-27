@@ -17,10 +17,6 @@ Mapbox.setConnected(true);
 const PositionPage = () => {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
-  const [bearing, setBearing] = useState<number>(0);
-
-  const lat = 10.851753;
-  const long = 106.797441;
 
   // list location.coords usestate
   const [locationCoords, setLocationCoords] = useState<any>([]);
@@ -53,24 +49,21 @@ const PositionPage = () => {
     const point2 = turf.point([long, lat]);
 
     const distance = turf.distance(point1, point2);
+    const angle = calculateAngleBetween(point1, point2);
     console.log('Khoảng cách giữa hai điểm là:', distance * 1000, 'đơn vị.');
+    console.log('Angle:', angle, 'độ.');
   };
 
-  const calculateAngleBetween = () => {
-    const position1 = turf.point([longitude, latitude]);
-    const position2 = turf.point([long, lat]);
-
-    const bearing = turf.bearing(position1, position2);
-
-    console.log((bearing + 360) % 360);
-
-    setBearing((bearing + 360) % 360);
+  const calculateAngleBetween = (position1: any, position2: any): number => {
+    return turf.bearing(position1, position2);
   };
 
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <Mapbox.MapView
+          compassEnabled={true}
+          compassFadeWhenNorth={true}
           style={styles.map}
           onPress={(feature: any) => {
             const {coordinates} = feature.geometry;
@@ -120,16 +113,6 @@ const PositionPage = () => {
             {/*<Text>Add</Text>*/}
             <MaterialCommunityIcons
               name={'map-marker-plus-outline'}
-              size={24}
-              color="#fff"
-            />
-          </Pressable>
-          <Pressable
-            style={styles.buttonContainer}
-            onPress={calculateAngleBetween}>
-            {/*<Text>Degree</Text>*/}
-            <MaterialCommunityIcons
-              name={'angle-acute'}
               size={24}
               color="#fff"
             />

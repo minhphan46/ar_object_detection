@@ -42,9 +42,9 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/bohuc/bohuc.png'),
     position: {
-      x: 0,
-      y: -1,
-      z: -10,
+      x: -9.835962051243758,
+      y: 0,
+      z: 16.11033393003231,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/redbull-250ml',
     brandName: 'Redbull (Thái Lan)',

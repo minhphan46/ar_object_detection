@@ -59,14 +59,23 @@ const PositionPage = () => {
     const point1 = turf.point([long, lat]);
     const point2 = turf.point([longitude, latitude]);
 
-    const distance2Point = turf.distance(point1, point2);
+    const distance2Point = turf.distance(point1, point2, {units: 'meters'});
     const angle2Point = calculateAngleBetween(point1, point2);
+    console.log(angle2Point);
+    let z = distance2Point * Math.cos((angle2Point * Math.PI) / 180);
+    let x = distance2Point * Math.sin((angle2Point * Math.PI) / 180);
+    let y = 0;
+    if (angle2Point < 90) {
+      z = -z;
+    }
     console.log(
       'Khoảng cách giữa hai điểm là:',
       distance2Point * 1000,
       'đơn vị.',
     );
     console.log('Angle:', angle2Point, 'độ.');
+
+    console.log(`x: ${x},y: ${y},z: ${z}`);
 
     dispatch(
       updateDistanceAndAngle({distance: distance2Point, angle: angle2Point}),

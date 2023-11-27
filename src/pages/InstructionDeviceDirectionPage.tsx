@@ -22,7 +22,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 export default function IntructionUserHandlePhone({navigation}: Props) {
   const dispatch = useAppDispatch();
   let isStanding = false;
-  const [headingapp, setHeadingApp] = useState(0);
+  const [headingapp, setHeadingApp] = useState(-100);
   useEffect(() => {
     const degree_update_rate = 1;
     CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
@@ -32,7 +32,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
     const subscription = accelerometer.subscribe(({x, y, z}) => {
       isStanding = getStadingArea(y);
       if (isStanding) {
-        if (355 < headingapp || headingapp < 5) {
+        if (headingapp > 355 || headingapp < 5) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
           navigation.navigate('Direction');
           subscription.unsubscribe();

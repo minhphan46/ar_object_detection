@@ -2,13 +2,14 @@ import {ViroARSceneNavigator} from '@viro-community/react-viro';
 import {BackHandler, Button, StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import ShowNavigation from '../components/ShowNavigation';
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updatePhoneDirection} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {StackActions} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
 function ViroARNavigationPage({navigation}: Props) {

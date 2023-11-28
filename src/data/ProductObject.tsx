@@ -5,6 +5,7 @@ import pepsi_images from '../utils/pepsi_images';
 import cafe_images from '../utils/cafe_image';
 import bidao_images from '../utils/bidao_image';
 import sting_images from '../utils/sting_images';
+import fanta_images from '../utils/fanta_images';
 
 export type MapPosition = {
   long: number;
@@ -108,6 +109,7 @@ export const listProduct: ProductInfo[] = [
     brandName: 'Fanta',
     type: 'nước ngọt',
     price: '8.000đ',
+    imageDetect: fanta_images,
   },
   {
     id: 5,

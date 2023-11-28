@@ -15,7 +15,7 @@ const BottomSheetComponent = (props: BottomSheetProps) => {
   const snapPoints = useMemo(() => ['40%'], []);
   return (
     <BottomSheet
-      backgroundStyle={{backgroundColor: '#fff'}}
+      backgroundStyle={styles.bottomSheetBg}
       ref={props.bottomSheetRef}
       index={-1}
       snapPoints={snapPoints}
@@ -72,6 +72,9 @@ function _renderButtonBottom(
 export default BottomSheetComponent;
 
 const styles = StyleSheet.create({
+  bottomSheetBg: {
+    backgroundColor: '#fff',
+  },
   bottomSheetContainer: {
     borderWidth: 0,
     shadowColor: '#000',

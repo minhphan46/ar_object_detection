@@ -96,7 +96,7 @@ const HomePage = ({navigation}: Props) => {
   };
 
   return (
-    <MenuProvider style={{flex: 1}}>
+    <MenuProvider style={styles.root}>
       <View style={styles.container}>
         {_renderSearchPlace()}
         {_renderSearchList()}
@@ -114,12 +114,6 @@ const HomePage = ({navigation}: Props) => {
     return (
       <View style={styles.viewSearchLabel}>
         <View style={styles.searchLabel}>
-          {/* <FontAwsomeIcon
-            style={styles.searchIcon}
-            name="search"
-            size={20}
-            color="#000"
-          /> */}
           <MaterialCommunityIcons
             style={styles.searchIcon}
             name="magnify"
@@ -127,7 +121,7 @@ const HomePage = ({navigation}: Props) => {
             color="#000"
           />
           <TouchableWithoutFeedback
-            style={{flex: 1}}
+            style={styles.root}
             onPress={Keyboard.dismiss}
             accessible={false}>
             <TextInput
@@ -205,6 +199,9 @@ const HomePage = ({navigation}: Props) => {
 export default HomePage;
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

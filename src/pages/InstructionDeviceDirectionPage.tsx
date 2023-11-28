@@ -41,7 +41,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
   return (
     <View style={styles.container}>
       <LottieView
-        style={{flex: 1}}
+        style={styles.lottieView}
         source={require('../../assets/lottie/ar_loti.json')}
         autoPlay
         loop
@@ -57,6 +57,9 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
 }
 
 const styles = StyleSheet.create({
+  lottieView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

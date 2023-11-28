@@ -11,7 +11,9 @@ import {useAppDispatch, useAppSelector} from '../store/store';
 import {
   updateCurrentLocation,
   updateDistanceAndAngle,
+  updateTempPosition,
 } from '../store/slices/current_location_slice';
+import {Point} from '@turf/turf';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -61,7 +63,7 @@ const PositionPage = () => {
 
     const distance2Point = turf.distance(point1, point2, {units: 'meters'});
     const angle2Point = calculateAngleBetween(point1, point2);
-    console.log(angle2Point);
+
     let z = distance2Point * Math.cos((angle2Point * Math.PI) / 180);
     let x = distance2Point * Math.sin((angle2Point * Math.PI) / 180);
     let y = 0;
@@ -133,6 +135,12 @@ const PositionPage = () => {
           <Pressable
             style={styles.buttonContainer}
             onPress={() => {
+              dispatch(
+                updateTempPosition({
+                  currentPosition: turf.point([long, lat]),
+                  objectPosition: turf.point([106.797458, 10.8517096]),
+                }),
+              );
               setLocationCoords([
                 ...locationCoords,
                 {latitude: lat, longitude: long},

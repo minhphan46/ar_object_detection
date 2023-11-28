@@ -23,6 +23,8 @@ function ShowNavigation(): JSX.Element {
     state => state.direction,
   );
 
+  const {position} = useAppSelector(state => state.currentLocation);
+
   const [camera, setCamera] = useState(false);
 
   useEffect(() => {
@@ -43,9 +45,9 @@ function ShowNavigation(): JSX.Element {
           rotation={[0, 0, 0]}
           active={isFirstInit}>
           <ShowModels
-            x={objectPosition.x}
-            y={objectPosition.y}
-            z={objectPosition.z}
+            x={position?.x ?? 0}
+            y={position?.y ?? -1}
+            z={position?.z ?? -1}
             rotationX={0}
           />
         </ViroCamera>

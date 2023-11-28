@@ -1,10 +1,19 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {position2Viro} from '../../utils/viro_position_service';
+import {Point} from '@turf/turf';
+
+type ObjectPosition = {
+  x: number;
+  y: number;
+  z: number;
+};
 
 interface CurrentLocationType {
   lat: number;
   long: number;
   distance: number;
   angle: number;
+  position: ObjectPosition | undefined;
 }
 
 const initialState: CurrentLocationType = {
@@ -12,6 +21,7 @@ const initialState: CurrentLocationType = {
   long: 0,
   distance: 0,
   angle: 0,
+  position: undefined,
 };
 
 export const CurrentLocationSlice = createSlice({
@@ -40,9 +50,23 @@ export const CurrentLocationSlice = createSlice({
       state.distance = distance;
       state.angle = angle;
     },
+    updateTempPosition: (
+      state,
+      action: PayloadAction<{
+        objectPosition: any;
+        currentPosition: any;
+      }>,
+    ) => {
+      const {objectPosition, currentPosition} = action.payload;
+      const {x, y, z} = position2Viro(objectPosition, currentPosition);
+      state.position = {x, y, z};
+    },
   },
 });
 
 export default CurrentLocationSlice.reducer;
-export const {updateCurrentLocation, updateDistanceAndAngle} =
-  CurrentLocationSlice.actions;
+export const {
+  updateCurrentLocation,
+  updateDistanceAndAngle,
+  updateTempPosition,
+} = CurrentLocationSlice.actions;

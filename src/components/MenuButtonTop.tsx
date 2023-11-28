@@ -15,10 +15,11 @@ type MenuProps = {
   funNavtoPosition: () => void;
 };
 
+const MyDivider = () => (
+  <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+);
+
 const MenuButtonTop = (props: MenuProps) => {
-  const MyDivider = () => (
-    <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-  );
   return (
     <View>
       <Menu name="types">

@@ -20,17 +20,7 @@ const BottomSheetComponent = (props: BottomSheetProps) => {
       index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
-      style={{
-        borderWidth: 0,
-        shadowColor: '#000',
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-        elevation: 10,
-        shadowOffset: {
-          width: 0,
-          height: 3,
-        },
-      }}
+      style={styles.bottomSheetContainer}
       enableContentPanningGesture={false}>
       {_renderButtonBottom(
         props.handleNavigateAR,
@@ -82,6 +72,17 @@ function _renderButtonBottom(
 export default BottomSheetComponent;
 
 const styles = StyleSheet.create({
+  bottomSheetContainer: {
+    borderWidth: 0,
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 10,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+  },
   icon2: {
     marginLeft: 16,
     marginRight: 10,

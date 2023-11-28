@@ -1,5 +1,5 @@
 import {ViroARScene, ViroARSceneNavigator} from '@viro-community/react-viro';
-import {Button, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {listProduct} from '../data/ProductObject';
 import ObjectDetectionList from '../components/ObjectDetectionList';
 import {RootStackParamList} from '../../App';

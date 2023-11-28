@@ -66,9 +66,8 @@ const HomePage = ({navigation}: Props) => {
     dispatch(setSelectedProduct({product: chooseProduct}));
     dispatch(
       initPosition({
-        x: chooseProduct.position.x,
-        y: chooseProduct.position.y,
-        z: chooseProduct.position.z,
+        long: chooseProduct.position.long,
+        lat: chooseProduct.position.lat,
       }),
     );
     navigation.navigate('DeviceDirectionPage');

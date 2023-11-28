@@ -1,18 +1,10 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {accelerometer} from 'react-native-sensors';
-import {useSelector} from 'react-redux';
-import {useAppDispatch, useAppSelector} from '../store/store';
+import {useAppDispatch} from '../store/store';
 import LottieView from 'lottie-react-native';
-import {
-  convertDeg2Rad,
-  getDirection,
-  getStadingArea,
-} from '../utils/get_angle_service';
-import {
-  updateDirection,
-  updatePhoneDirection,
-} from '../store/slices/direction_slice';
+import {getStadingArea} from '../utils/get_angle_service';
+import {updatePhoneDirection} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import CompassHeading from 'react-native-compass-heading';
@@ -32,7 +24,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
     const subscription = accelerometer.subscribe(({x, y, z}) => {
       isStanding = getStadingArea(y);
       if (isStanding) {
-        if (headingapp > 355 || headingapp < 5) {
+        if (headingapp > 359 || headingapp < 1) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
           navigation.navigate('Direction');
           subscription.unsubscribe();

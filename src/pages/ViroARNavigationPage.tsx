@@ -1,10 +1,9 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import {BackHandler, Button, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import ShowNavigation from '../components/ShowNavigation';
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../store/store';
-import {updatePhoneDirection} from '../store/slices/direction_slice';
+import {useAppSelector} from '../store/store';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {StackActions} from '@react-navigation/native';
@@ -14,15 +13,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
 function ViroARNavigationPage({navigation}: Props) {
   const {isDeviceStanding} = useAppSelector(state => state.direction);
-  const handleBackPress = () => {
-    navigation.dispatch(StackActions.popToTop());
-    return true; // true để ngăn người dùng quay lại màn hình trước đó, false nếu không muốn ngăn chặn
-  };
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      handleBackPress,
-    );
     navigation.setOptions({
       headerLeft: () => (
         <MaterialCommunityIcons

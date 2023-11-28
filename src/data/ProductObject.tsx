@@ -6,10 +6,9 @@ import cafe_images from '../utils/cafe_image';
 import bidao_images from '../utils/bidao_image';
 import sting_images from '../utils/sting_images';
 
-export type ProductPosition = {
-  x: number;
-  y: number;
-  z: number;
+export type MapPosition = {
+  long: number;
+  lat: number;
 };
 
 export type ProductCan = {
@@ -22,7 +21,7 @@ export type ProductInfo = {
   name: string;
   canObject: ProductCan[];
   image: any;
-  position: ProductPosition;
+  position: MapPosition;
   url: string;
   brandName: string;
   type: string;
@@ -42,9 +41,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/bohuc/bohuc.png'),
     position: {
-      x: -9.835962051243758,
-      y: 0,
-      z: 16.11033393003231,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/redbull-250ml',
     brandName: 'Redbull (Thái Lan)',
@@ -63,9 +61,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/coca/coca.png'),
     position: {
-      x: 0,
-      y: -2,
-      z: -8,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-coca-cola-320ml',
     brandName: 'Coca Cola (Mỹ)',
@@ -84,9 +81,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/pepsi/pepsi.png'),
     position: {
-      x: 2,
-      y: -1,
-      z: 6,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-pepsi-khong-calo-330ml',
     brandName: 'Pepsi',
@@ -105,9 +101,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/fanta/fanta.png'),
     position: {
-      x: 2,
-      y: -1,
-      z: 9,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-fanta-huong-cam-loc-6-lon',
     brandName: 'Fanta',
@@ -125,9 +120,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/7up/7up.png'),
     position: {
-      x: -2,
-      y: -1,
-      z: 9,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/7up-sleek-330ml',
     brandName: '7 Up (Mỹ)',
@@ -145,9 +139,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/pocari/pocari.jpg'),
     position: {
-      x: 0,
-      y: -1,
-      z: 8,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-bo-sung-ion-pocari-sweat-500ml-chai',
     brandName: 'Pocari Sweat (Nhật Bản)',
@@ -165,9 +158,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/sting/sting.png'),
     position: {
-      x: 0,
-      y: -5,
-      z: 12,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-tang-luc-sting-vi-dau-loc-6-lon-cao-330ml',
     brandName: 'Sting (Việt Nam)',
@@ -186,9 +178,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/mirinda_orange/mirinda_orange.jpg'),
     position: {
-      x: 0,
-      y: -1,
-      z: -11,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/mirinda-cam-330ml-sleek-lon',
     brandName: 'Mirinda (Việt Nam)',
@@ -206,9 +197,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/cafe/cafe.png'),
     position: {
-      x: 0,
-      y: -1,
-      z: -10,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/ca-phe-lon/ca-phe-sua-highlands-lon-235ml',
     brandName: 'Highlands (Việt Nam)',
@@ -227,9 +217,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/bidao/bidao.png'),
     position: {
-      x: 0,
-      y: 5,
-      z: -10,
+      long: 0,
+      lat: 0,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tra/nuoc-tra-bi-dao-lon-310ml',
     brandName: 'Wonderfarm (Việt Nam)',

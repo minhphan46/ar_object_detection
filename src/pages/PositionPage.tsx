@@ -18,7 +18,11 @@ Mapbox.setConnected(true);
 const PositionPage = () => {
   const dispatch = useAppDispatch();
   const {currentPosition} = useAppSelector(state => state.direction);
-  // list location.coords usestate
+  console.log(
+    'updateCurrentPosition',
+    currentPosition.lat,
+    currentPosition.long,
+  );
   const [locationCoords, setLocationCoords] = useState<any>([]);
 
   useEffect(() => {

@@ -32,8 +32,8 @@ const initialState: DirectionState = {
     rad: 0.0,
   },
   currentPosition: {
-    lat: 0,
-    long: 0,
+    lat: 10.851531,
+    long: 106.797488,
   },
   objectMapPosition: {
     lat: 0,
@@ -73,8 +73,8 @@ export const DirectionSlice = createSlice({
       }>,
     ) => {
       const {lat, long} = action.payload;
-      state.objectMapPosition = {
-        ...state.objectMapPosition,
+      state.currentPosition = {
+        ...state.currentPosition,
         lat,
         long,
       };

@@ -37,7 +37,7 @@ export const listProduct: ProductInfo[] = [
     canObject: [
       {
         type: CanType.can250,
-        brandLabel: require('../../assets/images/soft_drink_label/pepsi_label.jpg'),
+        brandLabel: require('../../assets/images/soft_drink_label/redbull_label.png'),
       },
     ],
     image: require('../../assets/images/bohuc/bohuc.png'),
@@ -193,8 +193,8 @@ export const listProduct: ProductInfo[] = [
     name: 'Cà phê sữa Highlands',
     canObject: [
       {
-        type: CanType.can250,
-        brandLabel: require('../../assets/images/soft_drink_label/coca_label.jpg'),
+        type: CanType.can320,
+        brandLabel: require('../../assets/images/soft_drink_label/cafe_label.png'),
       },
     ],
     image: require('../../assets/images/cafe/cafe.png'),
@@ -214,7 +214,7 @@ export const listProduct: ProductInfo[] = [
     canObject: [
       {
         type: CanType.can250,
-        brandLabel: require('../../assets/images/soft_drink_label/coca_label.jpg'),
+        brandLabel: require('../../assets/images/soft_drink_label/bidao_label.png'),
       },
     ],
     image: require('../../assets/images/bidao/bidao.png'),

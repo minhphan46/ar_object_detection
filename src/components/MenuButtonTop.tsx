@@ -12,12 +12,14 @@ import {Divider} from '@rneui/themed/dist/Divider';
 type MenuProps = {
   funNavtoScanObject: () => void;
   funNavtoScanImage: () => void;
+  funNavtoPosition: () => void;
 };
 
+const MyDivider = () => (
+  <Divider subHeaderStyle={styles.dividerBg} width={0.3} />
+);
+
 const MenuButtonTop = (props: MenuProps) => {
-  const MyDivider = () => (
-    <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-  );
   return (
     <View>
       <Menu name="types">
@@ -70,6 +72,23 @@ const MenuButtonTop = (props: MenuProps) => {
             />
             <Text style={styles.text}>{'Detect Images'}</Text>
           </MenuOption>
+          <MyDivider />
+          <MenuOption
+            onSelect={props.funNavtoPosition}
+            customStyles={{
+              optionWrapper: {
+                flexDirection: 'row',
+                alignItems: 'center',
+              },
+            }}>
+            <MaterialCommunityIcons
+              style={styles.icon2}
+              name="map-marker-radius-outline"
+              size={26}
+              color="#000"
+            />
+            <Text style={styles.text}>{'Get Position'}</Text>
+          </MenuOption>
         </MenuOptions>
       </Menu>
     </View>
@@ -103,5 +122,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     margin: 10,
+  },
+  dividerBg: {
+    color: '#878080',
   },
 });

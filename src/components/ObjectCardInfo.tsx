@@ -53,30 +53,9 @@ export default function ObjectCardInfo(props: ObjectCardInfoProps) {
                 scale={[0.1, 0.1, 0.1]}
                 style={styles.textStyle}
               />
-
-              {/* <ViroAnimatedImage
-                height={0.1}
-                width={0.1}
-                loop={true}
-                source={require('../../assets/images/mocks/tweet.gif')}
-              /> */}
             </ViroFlexView>
           </ViroFlexView>
         </ViroNode>
-        {/* <ViroNode
-              opacity={0}
-              position={[0, 0, 0]}
-              animation={{
-                name: 'animateViro',
-                run: runAnimation,
-              }}>
-              <ViroText
-                text="Redbull (Thái Lan)"
-                rotation={[-90, 0, 0]}
-                scale={[0.01, 0.01, 0.01]}
-                style={styles.textStyle}
-              />
-            </ViroNode> */}
       </ViroNode>
     );
   }

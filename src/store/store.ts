@@ -8,7 +8,7 @@ import {DetectObjectSlice} from './slices/detect_object_slice';
 const rootReducer = combineReducers({
   direction: DirectionSlice.reducer,
   listProduct: ListProductSlice.reducer,
-  detectbject: DetectObjectSlice.reducer,
+  detectObject: DetectObjectSlice.reducer,
 });
 
 const store = configureStore({reducer: rootReducer});

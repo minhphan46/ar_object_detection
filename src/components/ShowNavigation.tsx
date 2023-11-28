@@ -19,7 +19,7 @@ type GetArrowModelsProps = {
 };
 
 function ShowNavigation(): JSX.Element {
-  const {objectPosition, isFirstInit} = useAppSelector(
+  const {objectViroPosition, isFirstInit} = useAppSelector(
     state => state.direction,
   );
 
@@ -43,9 +43,9 @@ function ShowNavigation(): JSX.Element {
           rotation={[0, 0, 0]}
           active={isFirstInit}>
           <ShowModels
-            x={objectPosition.x}
-            y={objectPosition.y}
-            z={objectPosition.z}
+            x={objectViroPosition?.x ?? 0}
+            y={objectViroPosition?.y ?? -1}
+            z={objectViroPosition?.z ?? -1}
             rotationX={0}
           />
         </ViroCamera>

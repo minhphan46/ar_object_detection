@@ -26,6 +26,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
+const MyDivider = () => (
+  <Divider subHeaderStyle={styles.dividerBg} width={0.3} />
+);
+
 const HomePage = ({navigation}: Props) => {
   // variables
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -66,9 +70,8 @@ const HomePage = ({navigation}: Props) => {
     dispatch(setSelectedProduct({product: chooseProduct}));
     dispatch(
       initPosition({
-        x: chooseProduct.position.x,
-        y: chooseProduct.position.y,
-        z: chooseProduct.position.z,
+        long: chooseProduct.position.long,
+        lat: chooseProduct.position.lat,
       }),
     );
     navigation.navigate('DeviceDirectionPage');
@@ -87,13 +90,17 @@ const HomePage = ({navigation}: Props) => {
     navigation.navigate('DetectImage');
   };
 
+  const handleNavigateToGetPosition = () => {
+    navigation.navigate('Position');
+  };
+
   const handleNavigateToShow3D = () => {
     dispatch(setSelectedProduct({product: chooseProduct}));
     navigation.navigate('Model3D');
   };
 
   return (
-    <MenuProvider style={{flex: 1}}>
+    <MenuProvider style={styles.root}>
       <View style={styles.container}>
         {_renderSearchPlace()}
         {_renderSearchList()}
@@ -111,12 +118,6 @@ const HomePage = ({navigation}: Props) => {
     return (
       <View style={styles.viewSearchLabel}>
         <View style={styles.searchLabel}>
-          {/* <FontAwsomeIcon
-            style={styles.searchIcon}
-            name="search"
-            size={20}
-            color="#000"
-          /> */}
           <MaterialCommunityIcons
             style={styles.searchIcon}
             name="magnify"
@@ -124,7 +125,7 @@ const HomePage = ({navigation}: Props) => {
             color="#000"
           />
           <TouchableWithoutFeedback
-            style={{flex: 1}}
+            style={styles.root}
             onPress={Keyboard.dismiss}
             accessible={false}>
             <TextInput
@@ -140,15 +141,13 @@ const HomePage = ({navigation}: Props) => {
         <MenuButtonTop
           funNavtoScanObject={handleNavigateToScanObject}
           funNavtoScanImage={handleNavigateToScanImage}
+          funNavtoPosition={handleNavigateToGetPosition}
         />
       </View>
     );
   }
 
   function _renderSearchList() {
-    const MyDivider = () => (
-      <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-    );
     return (
       <ScrollView style={styles.searchTable}>
         {searchedObject.length === 0 ? (
@@ -201,6 +200,9 @@ const HomePage = ({navigation}: Props) => {
 export default HomePage;
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -280,5 +282,8 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     resizeMode: 'stretch',
+  },
+  dividerBg: {
+    color: '#878080',
   },
 });

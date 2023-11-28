@@ -5,11 +5,11 @@ import pepsi_images from '../utils/pepsi_images';
 import cafe_images from '../utils/cafe_image';
 import bidao_images from '../utils/bidao_image';
 import sting_images from '../utils/sting_images';
+import fanta_images from '../utils/fanta_images';
 
-export type ProductPosition = {
-  x: number;
-  y: number;
-  z: number;
+export type MapPosition = {
+  long: number;
+  lat: number;
 };
 
 export type ProductCan = {
@@ -22,7 +22,7 @@ export type ProductInfo = {
   name: string;
   canObject: ProductCan[];
   image: any;
-  position: ProductPosition;
+  position: MapPosition;
   url: string;
   brandName: string;
   type: string;
@@ -42,9 +42,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/bohuc/bohuc.png'),
     position: {
-      x: 0,
-      y: -1,
-      z: -10,
+      long: 106.797441,
+      lat: 10.851753,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/redbull-250ml',
     brandName: 'Redbull (Thái Lan)',
@@ -63,9 +62,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/coca/coca.png'),
     position: {
-      x: 0,
-      y: -2,
-      z: -8,
+      long: 106.797597,
+      lat: 10.851606,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-coca-cola-320ml',
     brandName: 'Coca Cola (Mỹ)',
@@ -84,9 +82,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/pepsi/pepsi.png'),
     position: {
-      x: 2,
-      y: -1,
-      z: 6,
+      long: 106.797522,
+      lat: 10.851565,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-pepsi-khong-calo-330ml',
     brandName: 'Pepsi',
@@ -105,14 +102,14 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/fanta/fanta.png'),
     position: {
-      x: 2,
-      y: -1,
-      z: 9,
+      long: 106.797469,
+      lat: 10.851511,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/nuoc-ngot-fanta-huong-cam-loc-6-lon',
     brandName: 'Fanta',
     type: 'nước ngọt',
     price: '8.000đ',
+    imageDetect: fanta_images,
   },
   {
     id: 5,
@@ -125,9 +122,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/7up/7up.png'),
     position: {
-      x: -2,
-      y: -1,
-      z: 9,
+      long: 106.797436,
+      lat: 10.851619,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/7up-sleek-330ml',
     brandName: '7 Up (Mỹ)',
@@ -145,9 +141,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/pocari/pocari.jpg'),
     position: {
-      x: 0,
-      y: -1,
-      z: 8,
+      long: 106.797376,
+      lat: 10.851672,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-bo-sung-ion-pocari-sweat-500ml-chai',
     brandName: 'Pocari Sweat (Nhật Bản)',
@@ -165,9 +160,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/sting/sting.png'),
     position: {
-      x: 0,
-      y: -5,
-      z: 12,
+      long: 106.797325,
+      lat: 10.851733,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tang-luc/nuoc-tang-luc-sting-vi-dau-loc-6-lon-cao-330ml',
     brandName: 'Sting (Việt Nam)',
@@ -186,9 +180,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/mirinda_orange/mirinda_orange.jpg'),
     position: {
-      x: 0,
-      y: -1,
-      z: -11,
+      long: 106.79715,
+      lat: 10.851546,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-ngot/mirinda-cam-330ml-sleek-lon',
     brandName: 'Mirinda (Việt Nam)',
@@ -206,9 +199,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/cafe/cafe.png'),
     position: {
-      x: 0,
-      y: -1,
-      z: -10,
+      long: 106.797512,
+      lat: 10.851681,
     },
     url: 'https://www.bachhoaxanh.com/ca-phe-lon/ca-phe-sua-highlands-lon-235ml',
     brandName: 'Highlands (Việt Nam)',
@@ -227,9 +219,8 @@ export const listProduct: ProductInfo[] = [
     ],
     image: require('../../assets/images/bidao/bidao.png'),
     position: {
-      x: 0,
-      y: 5,
-      z: -10,
+      long: 106.797463,
+      lat: 10.851439,
     },
     url: 'https://www.bachhoaxanh.com/nuoc-tra/nuoc-tra-bi-dao-lon-310ml',
     brandName: 'Wonderfarm (Việt Nam)',

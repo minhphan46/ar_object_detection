@@ -27,10 +27,6 @@ const initialState: ProductState = {
   }),
 };
 
-function searchFunction(searchText: string, listString: Array<string>) {
-  return listString.find(text => text.match(searchText));
-}
-
 export const ProductSlice = createSlice({
   name: 'person',
   initialState,

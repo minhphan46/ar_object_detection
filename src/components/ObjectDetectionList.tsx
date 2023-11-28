@@ -33,7 +33,7 @@ type ObjectDetectionProps = {
 function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   const dispatch = useAppDispatch();
   const {idObject, indexImageDetected} = useAppSelector(
-    state => state.detectbject,
+    state => state.detectObject,
   );
 
   const [targetDataCreated, setTargetDataCreated] = useState(false);
@@ -103,13 +103,6 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
             target={`${props.modelName}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
-            {/* <ObjectText modelName={props.modelName} color={props.color} /> */}
-            {/* <ObjectCardInfo
-              modelName={props.modelName}
-              color={props.color}
-              image={props.imageLogo}
-              description={props.description}
-            /> */}
             <ObjectInfoCard
               modelName={props.modelName}
               image={props.imageLogo}

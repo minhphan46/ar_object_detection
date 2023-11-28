@@ -16,7 +16,7 @@ type MenuProps = {
 };
 
 const MyDivider = () => (
-  <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
+  <Divider subHeaderStyle={styles.dividerBg} width={0.3} />
 );
 
 const MenuButtonTop = (props: MenuProps) => {
@@ -122,5 +122,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     margin: 10,
+  },
+  dividerBg: {
+    color: '#878080',
   },
 });

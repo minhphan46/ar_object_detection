@@ -26,6 +26,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
+const MyDivider = () => (
+  <Divider subHeaderStyle={styles.dividerBg} width={0.3} />
+);
+
 const HomePage = ({navigation}: Props) => {
   // variables
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -144,9 +148,6 @@ const HomePage = ({navigation}: Props) => {
   }
 
   function _renderSearchList() {
-    const MyDivider = () => (
-      <Divider subHeaderStyle={{color: '#878080'}} width={0.3} />
-    );
     return (
       <ScrollView style={styles.searchTable}>
         {searchedObject.length === 0 ? (
@@ -281,5 +282,8 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     resizeMode: 'stretch',
+  },
+  dividerBg: {
+    color: '#878080',
   },
 });

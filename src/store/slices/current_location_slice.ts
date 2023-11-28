@@ -58,7 +58,7 @@ export const CurrentLocationSlice = createSlice({
       }>,
     ) => {
       const {objectPosition, currentPosition} = action.payload;
-      const {x, y, z} = position2Viro(objectPosition, currentPosition);
+      const {x, y, z} = position2Viro(currentPosition, objectPosition);
       state.position = {x, y, z};
     },
   },

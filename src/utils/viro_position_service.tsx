@@ -8,6 +8,8 @@ function position2Viro(point1: any, point2: any) {
   let x = distance * Math.sin((angle * Math.PI) / 180);
   let y = 0;
 
+  console.log(`x: ${x},y: ${y},z: ${z}`);
+
   return {
     x: x,
     y: y,

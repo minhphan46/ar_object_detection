@@ -13,7 +13,6 @@ import {
   updateDistanceAndAngle,
   updateTempPosition,
 } from '../store/slices/current_location_slice';
-import {Point} from '@turf/turf';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -138,7 +137,7 @@ const PositionPage = () => {
               dispatch(
                 updateTempPosition({
                   currentPosition: turf.point([long, lat]),
-                  objectPosition: turf.point([106.797458, 10.8517096]),
+                  objectPosition: turf.point([106.797441, 10.851754]),
                 }),
               );
               setLocationCoords([

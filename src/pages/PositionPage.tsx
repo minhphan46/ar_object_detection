@@ -120,6 +120,7 @@ const PositionPage = () => {
           {locationCoords.map((item: any, index: number) => {
             return (
               <PointAnnotation
+                key={index.toString()}
                 id="pointAnnotation"
                 coordinate={[item.longitude, item.latitude]}
                 onSelected={() => console.log('onSelected')}>

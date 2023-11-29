@@ -17,4 +17,8 @@ function position2Viro(point1: any, point2: any) {
   };
 }
 
-export {position2Viro};
+function getDistance(point1: any, point2: any) {
+  return turf.distance(point1, point2, {units: 'meters'});
+}
+
+export {position2Viro, getDistance};

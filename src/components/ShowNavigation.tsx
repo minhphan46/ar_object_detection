@@ -10,6 +10,8 @@ import {
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
 import {CanType, getCanSource} from '../data/enum/3DCanEnum';
+import {getDistance} from '../utils/viro_position_service';
+var turf = require('@turf/turf');
 
 type GetArrowModelsProps = {
   x: number;
@@ -101,10 +103,29 @@ export function ShowModels(props: GetArrowModelsProps) {
   );
 }
 
+function GetNumOfArrow(): number {
+  const {currentPosition, objectMapPosition} = useAppSelector(
+    state => state.direction,
+  );
+  const currentPositionPoint = turf.point([
+    currentPosition.long,
+    currentPosition.lat,
+  ]);
+
+  const objectMapPositionPoint = turf.point([
+    objectMapPosition.long,
+    objectMapPosition.lat,
+  ]);
+  // lam tron so
+  return parseFloat(
+    getDistance(currentPositionPoint, objectMapPositionPoint).toFixed(0),
+  );
+}
+
 function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
   const {x, y, z, rotationX} = props;
 
-  const numArrow = 5;
+  const numArrow = GetNumOfArrow();
 
   return (
     <>
@@ -112,9 +133,10 @@ function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
         return (
           <Viro3DObject
             key={i}
-            source={require('../../assets/model/direction_arrow.obj')}
+            source={require('../../assets/model/ball.obj')}
             type="OBJ"
             materials={['blue']}
+            opacity={0.5}
             position={[(x / numArrow) * i, y - 0.2, (z / numArrow) * i]}
             scale={[0.02, 0.02, 0.02]}
             rotation={[rotationX ?? 0, 0, -90]}

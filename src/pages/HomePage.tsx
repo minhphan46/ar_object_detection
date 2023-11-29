@@ -23,6 +23,7 @@ import {MenuProvider} from 'react-native-popup-menu';
 import MenuButtonTop from '../components/MenuButtonTop';
 import BottomSheetComponent from '../components/BottomSheetComponent';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {permissionLocation} from '../utils/permission_service';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -65,16 +66,19 @@ const HomePage = ({navigation}: Props) => {
     });
   };
 
-  const handleNavigateAR = () => {
+  const handleNavigateAR = async () => {
+    const isLocationGranted = await permissionLocation();
+    if (isLocationGranted) {
+      dispatch(setSelectedProduct({product: chooseProduct}));
+      dispatch(
+        initPosition({
+          long: chooseProduct.position.long,
+          lat: chooseProduct.position.lat,
+        }),
+      );
+      navigation.navigate('DeviceDirectionPage');
+    }
     bottomSheetRef.current?.close();
-    dispatch(setSelectedProduct({product: chooseProduct}));
-    dispatch(
-      initPosition({
-        long: chooseProduct.position.long,
-        lat: chooseProduct.position.lat,
-      }),
-    );
-    navigation.navigate('DeviceDirectionPage');
   };
 
   const selectedType = (item: ProductInfo) => {

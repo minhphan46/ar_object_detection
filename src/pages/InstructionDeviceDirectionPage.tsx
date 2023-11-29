@@ -14,7 +14,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 export default function IntructionUserHandlePhone({navigation}: Props) {
   const dispatch = useAppDispatch();
   let isStanding = false;
-  const [headingapp, setHeadingApp] = useState(-100);
+  const [headingapp, setHeadingApp] = useState(100);
   useEffect(() => {
     const degree_update_rate = 1;
     CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {

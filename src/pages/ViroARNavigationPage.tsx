@@ -8,6 +8,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {StackActions} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MapComponent from '../components/MapComponent';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
@@ -42,6 +43,10 @@ function ViroARNavigationPage({navigation}: Props) {
       <View style={styles.fab3DButton}>
         <CompassObject />
       </View>
+
+      <View style={styles.map}>
+        <MapComponent />
+      </View>
     </View>
   );
 }
@@ -71,6 +76,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 20,
     right: 0,
+    bottom: 30,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  map: {
+    position: 'absolute',
+    right: 20,
     bottom: 30,
     alignItems: 'center',
     flexDirection: 'row',

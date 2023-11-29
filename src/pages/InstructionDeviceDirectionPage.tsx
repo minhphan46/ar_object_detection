@@ -1,5 +1,5 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {accelerometer} from 'react-native-sensors';
 import {useAppDispatch} from '../store/store';
 import LottieView from 'lottie-react-native';
@@ -14,7 +14,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 export default function IntructionUserHandlePhone({navigation}: Props) {
   const dispatch = useAppDispatch();
   let isStanding = false;
-  const [headingapp, setHeadingApp] = useState(-100);
+
+  const [headingapp, setHeadingApp] = useState(100);
+
   useEffect(() => {
     const degree_update_rate = 1;
     CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
@@ -23,10 +25,11 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
 
     const subscription = accelerometer.subscribe(({x, y, z}) => {
       isStanding = getStadingArea(y);
+
       if (isStanding) {
         if (headingapp > 359 || headingapp < 1) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
-          navigation.navigate('Direction');
+          navigation.replace('Direction');
           subscription.unsubscribe();
           CompassHeading.stop();
         }
@@ -36,7 +39,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
     return () => {
       subscription.unsubscribe(); // Hủy lắng nghe khi component unmount
     };
-  });
+  }, [headingapp]);
 
   return (
     <View style={styles.container}>

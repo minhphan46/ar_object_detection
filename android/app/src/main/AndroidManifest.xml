@@ -3,6 +3,22 @@ xmlns:tools="http://schemas.android.com/tools">
 
     <queries>
         <package android:name="com.google.ar.core" />
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="http"/>
+        </intent>
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="https"/>
+        </intent>
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="geo" />
+        </intent>
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="google.navigation" />
+        </intent>
     </queries>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />

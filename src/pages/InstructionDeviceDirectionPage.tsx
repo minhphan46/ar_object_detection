@@ -1,13 +1,18 @@
-import {View, Text, StyleSheet, Platform} from 'react-native';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {accelerometer} from 'react-native-sensors';
 import {useAppDispatch} from '../store/store';
 import LottieView from 'lottie-react-native';
 import {getStadingArea} from '../utils/get_angle_service';
-import {updatePhoneDirection} from '../store/slices/direction_slice';
+import {
+  updateCurrentPosition,
+  updatePhoneDirection,
+} from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import CompassHeading from 'react-native-compass-heading';
+import Mapbox, {UserLocationRenderMode} from '@rnmapbox/maps';
+import {Divider} from '@rneui/base';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
@@ -16,6 +21,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
   let isStanding = false;
 
   const [headingapp, setHeadingApp] = useState(100);
+  const [currentLocation, setCurrentLocation] = useState<number[]>([0, 0]);
 
   useEffect(() => {
     const degree_update_rate = 1;
@@ -41,6 +47,16 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
     };
   }, [headingapp]);
 
+  const handleUserLocationUpdate = (location: any) => {
+    setCurrentLocation([location.coords.longitude, location.coords.latitude]);
+    dispatch(
+      updateCurrentPosition({
+        lat: location.coords.latitude,
+        long: location.coords.longitude,
+      }),
+    );
+  };
+
   return (
     <View style={styles.container}>
       <LottieView
@@ -53,8 +69,22 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
       <Text style={styles.titleHeading}>{Math.round(headingapp)}°</Text>
       <Text style={styles.titleDes}>
         Please put the phone upright, the phone's frame is perpendicular to the
-        ground, and heading number is 0°{' '}
+        ground, and heading number is 0°
       </Text>
+      <Divider />
+      <Text style={styles.subTitleDes}>
+        Your current location:
+        {currentLocation[0]} - {currentLocation[1]}
+      </Text>
+      <Mapbox.UserLocation
+        minDisplacement={1}
+        onUpdate={handleUserLocationUpdate}
+        showsUserHeadingIndicator={true}
+        androidRenderMode="gps"
+        renderMode={UserLocationRenderMode.Normal}
+        requestsAlwaysUse={true}
+        visible={true}
+      />
     </View>
   );
 }
@@ -88,7 +118,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginHorizontal: 16,
-    marginBottom: 100,
+    marginBottom: 50,
+    textAlign: 'center',
+  },
+  subTitleDes: {
+    color: 'gray',
+    fontSize: 14,
+    fontWeight: 'semibold',
+    marginBottom: 10,
     textAlign: 'center',
   },
 });

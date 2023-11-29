@@ -1,0 +1,28 @@
+const CafeImages: Record<string, any> = {
+  image1: require('../../../assets/images/cafe/cafe01.jpg'),
+  image2: require('../../../assets/images/cafe/cafe02.jpg'),
+  image3: require('../../../assets/images/cafe/cafe03.jpg'),
+  image4: require('../../../assets/images/cafe/cafe04.jpg'),
+  image5: require('../../../assets/images/cafe/cafe05.jpg'),
+  image6: require('../../../assets/images/cafe/cafe06.jpg'),
+  image7: require('../../../assets/images/cafe/cafe07.jpg'),
+  image8: require('../../../assets/images/cafe/cafe08.jpg'),
+  image9: require('../../../assets/images/cafe/cafe09.jpg'),
+  image10: require('../../../assets/images/cafe/cafe10.jpg'),
+  image11: require('../../../assets/images/cafe/cafe11.jpg'),
+  image12: require('../../../assets/images/cafe/cafe12.jpg'),
+  image13: require('../../../assets/images/cafe/cafe13.jpg'),
+  image14: require('../../../assets/images/cafe/cafe14.jpg'),
+  image15: require('../../../assets/images/cafe/cafe15.jpg'),
+  image16: require('../../../assets/images/cafe/cafe16.jpg'),
+  image17: require('../../../assets/images/cafe/cafe17.jpg'),
+  image18: require('../../../assets/images/cafe/cafe18.jpg'),
+  image19: require('../../../assets/images/cafe/cafe19.jpg'),
+  image20: require('../../../assets/images/cafe/cafe20.jpg'),
+  image21: require('../../../assets/images/cafe/cafe21.jpg'),
+  image22: require('../../../assets/images/cafe/cafe22.jpg'),
+  image23: require('../../../assets/images/cafe/cafe23.jpg'),
+  image24: require('../../../assets/images/cafe/cafe24.jpg'),
+};
+
+export default CafeImages;

@@ -1,0 +1,28 @@
+const PepsiImages: Record<string, any> = {
+  image1: require('../../../assets/images/pepsi/pepsi01.jpg'),
+  image2: require('../../../assets/images/pepsi/pepsi02.jpg'),
+  image3: require('../../../assets/images/pepsi/pepsi03.jpg'),
+  image4: require('../../../assets/images/pepsi/pepsi04.jpg'),
+  image5: require('../../../assets/images/pepsi/pepsi05.jpg'),
+  image6: require('../../../assets/images/pepsi/pepsi06.jpg'),
+  image7: require('../../../assets/images/pepsi/pepsi07.jpg'),
+  image8: require('../../../assets/images/pepsi/pepsi08.jpg'),
+  image9: require('../../../assets/images/pepsi/pepsi09.jpg'),
+  image10: require('../../../assets/images/pepsi/pepsi10.jpg'),
+  image11: require('../../../assets/images/pepsi/pepsi11.jpg'),
+  image12: require('../../../assets/images/pepsi/pepsi12.jpg'),
+  image13: require('../../../assets/images/pepsi/pepsi13.jpg'),
+  image14: require('../../../assets/images/pepsi/pepsi14.jpg'),
+  image15: require('../../../assets/images/pepsi/pepsi15.jpg'),
+  image16: require('../../../assets/images/pepsi/pepsi16.jpg'),
+  image17: require('../../../assets/images/pepsi/pepsi17.jpg'),
+  image18: require('../../../assets/images/pepsi/pepsi18.jpg'),
+  image19: require('../../../assets/images/pepsi/pepsi19.jpg'),
+  image20: require('../../../assets/images/pepsi/pepsi20.jpg'),
+  image21: require('../../../assets/images/pepsi/pepsi21.jpg'),
+  image22: require('../../../assets/images/pepsi/pepsi22.jpg'),
+  image23: require('../../../assets/images/pepsi/pepsi23.jpg'),
+  image24: require('../../../assets/images/pepsi/pepsi24.jpg'),
+};
+
+export default PepsiImages;

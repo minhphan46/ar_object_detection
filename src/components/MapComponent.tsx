@@ -6,6 +6,7 @@ import Mapbox, {
   UserTrackingMode,
 } from '@rnmapbox/maps';
 import {useAppDispatch, useAppSelector} from '../store/store';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -17,6 +18,8 @@ const MapComponent = () => {
   const {direction, objectMapPosition} = useAppSelector(
     state => state.direction,
   );
+
+  const [isShow, setIsShow] = useState(false);
 
   const [latitude, setLatitude] = useState<any>(0);
   const [longitude, setLongitude] = useState<any>(0);
@@ -32,7 +35,7 @@ const MapComponent = () => {
     };
   }, []);
 
-  return (
+  return isShow ? (
     <View style={styles.container}>
       <Mapbox.MapView
         compassEnabled={true}
@@ -62,6 +65,28 @@ const MapComponent = () => {
           <View></View>
         </PointAnnotation>
       </Mapbox.MapView>
+      <View style={styles.minusButton}>
+        <Pressable
+          onPress={() => {
+            setIsShow(false);
+          }}>
+          <MaterialCommunityIcons
+            name={'chevron-down'}
+            size={24}
+            color="black"
+          />
+        </Pressable>
+      </View>
+    </View>
+  ) : (
+    <View style={styles.buttons}>
+      <Pressable
+        style={styles.buttonContainer}
+        onPress={() => {
+          setIsShow(true);
+        }}>
+        <MaterialCommunityIcons name={'map'} size={24} color="#fff" />
+      </Pressable>
     </View>
   );
 };
@@ -80,18 +105,25 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
   },
+  minusButton: {
+    position: 'absolute',
+    flexDirection: 'row',
+    left: 8,
+    top: 3,
+  },
   buttons: {
     position: 'absolute',
     flexDirection: 'row',
-    bottom: 20,
-    right: 20,
+    bottom: 0,
+    right: 0,
   },
   buttonContainer: {
     margin: 8,
     paddingHorizontal: 16,
     paddingVertical: 16,
-    borderRadius: 16,
-    backgroundColor: 'tomato',
+    borderRadius: 50,
+    opacity: 0.5,
+    backgroundColor: 'black',
     color: 'white',
   },
 });

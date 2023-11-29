@@ -1,11 +1,11 @@
 import {CanType} from './enum/3DCanEnum';
-import CocaImages from '../utils/coca_images';
-import Bohuc_images from '../utils/bohuc_images';
-import pepsi_images from '../utils/pepsi_images';
-import cafe_images from '../utils/cafe_image';
-import bidao_images from '../utils/bidao_image';
-import sting_images from '../utils/sting_images';
-import fanta_images from '../utils/fanta_images';
+import CocaImages from './image_object/coca_images';
+import Bohuc_images from './image_object/bohuc_images';
+import pepsi_images from './image_object/pepsi_images';
+import cafe_images from './image_object/cafe_image';
+import bidao_images from './image_object/bidao_image';
+import sting_images from './image_object/sting_images';
+import fanta_images from './image_object/fanta_images';
 
 export type MapPosition = {
   long: number;

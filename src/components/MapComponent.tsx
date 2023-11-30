@@ -1,11 +1,11 @@
-import {View, StyleSheet, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
   PointAnnotation,
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
-import {useAppDispatch, useAppSelector} from '../store/store';
+import {useAppSelector} from '../store/store';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const token =
@@ -19,7 +19,7 @@ const MapComponent = () => {
     state => state.direction,
   );
 
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(true);
 
   const [latitude, setLatitude] = useState<any>(0);
   const [longitude, setLongitude] = useState<any>(0);
@@ -62,7 +62,7 @@ const MapComponent = () => {
         <PointAnnotation
           id="pointAnnotation"
           coordinate={[objectMapPosition.long, objectMapPosition.lat]}>
-          <View></View>
+          <View />
         </PointAnnotation>
       </Mapbox.MapView>
       <View style={styles.minusButton}>

@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
   subTitleDes: {
     color: 'gray',
     fontSize: 14,
-    fontWeight: 'semibold',
     marginBottom: 10,
     textAlign: 'center',
   },

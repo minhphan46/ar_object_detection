@@ -178,7 +178,7 @@ export const listProduct: ProductInfo[] = [
         brandLabel: require('../../assets/images/soft_drink_label/mirinda_orange_label.jpg'),
       },
     ],
-    image: require('../../assets/images/mirinda_orange/mirinda_orange.jpg'),
+    image: require('../../assets/images/mirinda_orange/mirinda.png'),
     position: {
       long: 106.79715,
       lat: 10.851546,

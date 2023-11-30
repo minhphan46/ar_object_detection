@@ -18,7 +18,7 @@ export type ProductCan = {
 };
 
 export type ProductInfo = {
-  id: number;
+  id: string;
   name: string;
   canObject: ProductCan[];
   image: any;
@@ -32,7 +32,7 @@ export type ProductInfo = {
 
 export const listProduct: ProductInfo[] = [
   {
-    id: 1,
+    id: '1',
     name: 'Bò húc',
     canObject: [
       {
@@ -52,7 +52,7 @@ export const listProduct: ProductInfo[] = [
     imageDetect: Bohuc_images,
   },
   {
-    id: 2,
+    id: '2',
     name: 'Coca',
     canObject: [
       {
@@ -72,7 +72,7 @@ export const listProduct: ProductInfo[] = [
     imageDetect: CocaImages,
   },
   {
-    id: 3,
+    id: '3',
     name: 'Pepsi',
     canObject: [
       {
@@ -92,7 +92,7 @@ export const listProduct: ProductInfo[] = [
     imageDetect: pepsi_images,
   },
   {
-    id: 4,
+    id: '4',
     name: 'Fanta',
     canObject: [
       {
@@ -112,7 +112,7 @@ export const listProduct: ProductInfo[] = [
     imageDetect: fanta_images,
   },
   {
-    id: 5,
+    id: '5',
     name: '7Up',
     canObject: [
       {
@@ -131,7 +131,7 @@ export const listProduct: ProductInfo[] = [
     price: '8.000đ',
   },
   {
-    id: 6,
+    id: '6',
     name: 'Pocari Sweet',
     canObject: [
       {
@@ -150,7 +150,7 @@ export const listProduct: ProductInfo[] = [
     price: '12.300đ',
   },
   {
-    id: 7,
+    id: '7',
     name: 'Sting',
     canObject: [
       {
@@ -170,7 +170,7 @@ export const listProduct: ProductInfo[] = [
     imageDetect: sting_images,
   },
   {
-    id: 8,
+    id: '8',
     name: 'Mirinda hương cam',
     canObject: [
       {
@@ -189,7 +189,7 @@ export const listProduct: ProductInfo[] = [
     price: '9.000đ',
   },
   {
-    id: 9,
+    id: '9',
     name: 'Cà phê sữa Highlands',
     canObject: [
       {
@@ -209,7 +209,7 @@ export const listProduct: ProductInfo[] = [
     imageDetect: cafe_images,
   },
   {
-    id: 10,
+    id: '10',
     name: 'Trà bí đao Wonderfarm',
     canObject: [
       {

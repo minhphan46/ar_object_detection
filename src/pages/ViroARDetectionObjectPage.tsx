@@ -62,6 +62,7 @@ export function DetectObjectListPage(): JSX.Element {
           product.imageDetect && (
             <ObjectDetectionList
               key={product.id}
+              id={product.id}
               modelName={product.name}
               description={product.brandName}
               images={product.imageDetect}

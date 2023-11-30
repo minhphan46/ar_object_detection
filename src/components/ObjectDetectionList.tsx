@@ -20,6 +20,7 @@ interface TargetData {
 }
 
 type ObjectDetectionProps = {
+  id: string;
   modelName: string;
   description: string;
   images: Record<string, any>;
@@ -55,14 +56,17 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
     setTargetDataCreated(true);
   }, [props.images, props.modelName]);
 
-  function _onFoundObject(evt: any, id: number) {
+  function _onFoundObject(evt: any, indexImage: number) {
     try {
-      console.log(`Found Object ${props.modelName} ${id} `, evt);
-      if (props.modelName !== idObject && id !== indexImageDetected) {
+      console.log(
+        `Found Object ${idObject} - ${props.id} - ${props.modelName} - ${indexImage} `,
+        evt,
+      );
+      if (props.id !== idObject && indexImage !== indexImageDetected) {
         dispatch(
           updateObjectDetected({
-            id: props.modelName,
-            indexImageDetected: id,
+            id: props.id,
+            indexImageDetected: indexImage,
           }),
         );
       }
@@ -75,7 +79,7 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
 
   function _onLostObject(_: any) {
     console.log(`Lost Object ${props.modelName}`);
-    if (props.modelName === idObject) {
+    if (props.id === idObject) {
       dispatch(removeObjectDetected({}));
     }
   }
@@ -96,7 +100,7 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
         }
       }
 
-      if (indexImageDetected !== -1 && props.modelName === idObject) {
+      if (indexImageDetected !== -1 && props.id === idObject) {
         listItems.push(
           <ViroARImageMarker
             key={`${props.modelName}${indexImageDetected}`}

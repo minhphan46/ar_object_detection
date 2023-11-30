@@ -7,7 +7,7 @@ interface DetectObjectState {
 }
 
 const initialState: DetectObjectState = {
-  idObject: '',
+  idObject: '-1',
   indexImageDetected: -1,
   oldIndexImageDetected: -1,
 };

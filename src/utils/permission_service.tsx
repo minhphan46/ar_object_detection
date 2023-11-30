@@ -11,16 +11,16 @@ export const permissionLocation = async () => {
   const isGranted = await Mapbox.requestAndroidLocationPermissions();
   if (!isGranted) {
     Alert.alert(
-      'Yêu cầu quyền',
-      'Để sử dụng tính năng này, vui lòng mở quyền truy cập vị trí trong cài đặt ứng dụng',
+      'Request location permissions',
+      'To use this feature, please open location permissions in the app settings',
       [
         {
-          text: 'Hủy',
+          text: 'Cancel',
           onPress: () => {},
           style: 'destructive',
         },
         {
-          text: 'Mở cài đặt ứng dụng',
+          text: 'Open App Settings',
           onPress: () => {
             Linking.openSettings();
           },

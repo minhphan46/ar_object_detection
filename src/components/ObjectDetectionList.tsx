@@ -22,11 +22,10 @@ interface TargetData {
 
 type ObjectDetectionProps = {
   product: ProductInfo;
-  handleClick: () => void;
 };
 
 function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
-  const {product, handleClick} = props;
+  const {product} = props;
 
   const dispatch = useAppDispatch();
   const {idObject, indexImageDetected} = useAppSelector(
@@ -55,10 +54,6 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
 
   function _onFoundObject(evt: any, indexImage: number) {
     try {
-      console.log(
-        `Found Object ${idObject} - ${product.id} - ${product.name} - ${indexImage} `,
-        evt,
-      );
       if (product.id !== idObject && indexImage !== indexImageDetected) {
         dispatch(
           updateObjectDetected({
@@ -75,7 +70,6 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   function _onUpdatedObject(_: any) {}
 
   function _onLostObject(_: any) {
-    console.log(`Lost Object ${product.name}`);
     if (product.id === idObject) {
       dispatch(removeObjectDetected({}));
     }
@@ -107,15 +101,7 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
             target={`${product.name}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
-            <ObjectInfoCard
-              modelName={product.name}
-              image={product.image}
-              description={product.brandName}
-              productType={product.type}
-              price={product.price}
-              url={product.url}
-              handleClick={handleClick}
-            />
+            <ObjectInfoCard product={product} />
           </ViroARImageMarker>,
         );
       }

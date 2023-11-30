@@ -120,6 +120,7 @@ const MapComponent = () => {
         style={styles.buttonContainer}
         onPress={() => {
           setIsShow(true);
+          setIsTouch(false);
         }}>
         <MaterialCommunityIcons name={'map'} size={24} color="#fff" />
       </Pressable>

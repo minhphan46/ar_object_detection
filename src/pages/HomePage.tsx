@@ -163,7 +163,10 @@ const HomePage = ({navigation}: Props) => {
           return (
             <View key={item.name}>
               <TouchableOpacity
-                onPress={() => selectedType(item)}
+                onPress={() => {
+                  bottomSheetRef.current?.close();
+                  selectedType(item);
+                }}
                 style={styles.cancleStyle}>
                 {_getProductCard(item)}
                 <MyDivider />

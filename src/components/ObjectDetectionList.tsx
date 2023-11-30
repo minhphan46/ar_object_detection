@@ -10,6 +10,7 @@ import {
   removeObjectDetected,
   updateObjectDetected,
 } from '../store/slices/detect_object_slice';
+import {ProductInfo} from '../data/ProductObject';
 
 interface TargetData {
   [key: string]: {
@@ -20,17 +21,12 @@ interface TargetData {
 }
 
 type ObjectDetectionProps = {
-  modelName: string;
-  description: string;
-  images: Record<string, any>;
-  imageLogo: any;
-  productType: string;
-  price: string;
-  url: string;
-  handleClick: () => void;
+  product: ProductInfo;
 };
 
 function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
+  const {product} = props;
+
   const dispatch = useAppDispatch();
   const {idObject, indexImageDetected} = useAppSelector(
     state => state.detectObject,
@@ -40,29 +36,29 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
 
   useEffect(() => {
     const targetData: TargetData = {};
-    // Sử dụng mảng imagePaths để tạo targetData
-    Object.keys(props.images).forEach((key, i) => {
-      targetData[`${props.modelName}${i + 1}`] = {
-        source: props.images[key],
-        orientation: 'Up',
-        physicalWidth: 0.25, // real-world width in meters
-      };
-    });
+    if (product.imageDetect !== undefined) {
+      // Sử dụng mảng imagePaths để tạo targetData
+      Object.keys(product.imageDetect!).forEach((key, i) => {
+        targetData[`${product.name}${i + 1}`] = {
+          source: product.imageDetect![key],
+          orientation: 'Up',
+          physicalWidth: 0.25, // real-world width in meters
+        };
+      });
 
-    ViroARTrackingTargets.createTargets(targetData);
+      ViroARTrackingTargets.createTargets(targetData);
 
-    // Set the flag to indicate that targetData is created
-    setTargetDataCreated(true);
-  }, [props.images, props.modelName]);
+      setTargetDataCreated(true);
+    }
+  }, [product.imageDetect, product.name]);
 
-  function _onFoundObject(evt: any, id: number) {
+  function _onFoundObject(evt: any, indexImage: number) {
     try {
-      console.log(`Found Object ${props.modelName} ${id} `, evt);
-      if (props.modelName !== idObject && id !== indexImageDetected) {
+      if (product.id !== idObject && indexImage !== indexImageDetected) {
         dispatch(
           updateObjectDetected({
-            id: props.modelName,
-            indexImageDetected: id,
+            id: product.id,
+            indexImageDetected: indexImage,
           }),
         );
       }
@@ -74,44 +70,38 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
   function _onUpdatedObject(_: any) {}
 
   function _onLostObject(_: any) {
-    console.log(`Lost Object ${props.modelName}`);
-    if (props.modelName === idObject) {
+    if (product.id === idObject) {
       dispatch(removeObjectDetected({}));
     }
   }
 
   const renderList = () => {
     const listItems = [];
+    if (product.imageDetect === undefined) {
+      return [];
+    }
     try {
-      for (let i = 0; i < Object.keys(props.images).length; i++) {
+      for (let i = 0; i < Object.keys(product.imageDetect!).length; i++) {
         if (i !== indexImageDetected) {
           listItems.push(
             <ViroARImageMarker
-              key={`${props.modelName}${i}`}
-              target={`${props.modelName}${i + 1}`}
-              onAnchorFound={() => _onFoundObject(props.modelName, i)}
+              key={`${product.name}${i}`}
+              target={`${product.name}${i + 1}`}
+              onAnchorFound={() => _onFoundObject(product.name, i)}
               onAnchorRemoved={_onLostObject}
             />,
           );
         }
       }
 
-      if (indexImageDetected !== -1 && props.modelName === idObject) {
+      if (indexImageDetected !== -1 && product.id === idObject) {
         listItems.push(
           <ViroARImageMarker
-            key={`${props.modelName}${indexImageDetected}`}
-            target={`${props.modelName}${indexImageDetected + 1}`}
+            key={`${product.name}${indexImageDetected}`}
+            target={`${product.name}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
-            <ObjectInfoCard
-              modelName={props.modelName}
-              image={props.imageLogo}
-              description={props.description}
-              productType={props.productType}
-              price={props.price}
-              url={props.url}
-              handleClick={props.handleClick}
-            />
+            <ObjectInfoCard product={product} />
           </ViroARImageMarker>,
         );
       }

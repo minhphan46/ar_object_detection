@@ -1,4 +1,4 @@
-import {View, StyleSheet, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
   LineLayer,
@@ -7,7 +7,7 @@ import Mapbox, {
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
-import {useAppDispatch, useAppSelector} from '../store/store';
+import {useAppSelector} from '../store/store';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const token =
@@ -21,8 +21,8 @@ const MapComponent = () => {
     state => state.direction,
   );
 
-  const [isShow, setIsShow] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
+  const [isShow, setIsShow] = useState<boolean>(true);
+  const [isTouch, setIsTouch] = useState<boolean>(false);
 
   const [latitude, setLatitude] = useState<any>(0);
   const [longitude, setLongitude] = useState<any>(0);
@@ -84,7 +84,7 @@ const MapComponent = () => {
         <PointAnnotation
           id="pointAnnotation"
           coordinate={[objectMapPosition.long, objectMapPosition.lat]}>
-          <View></View>
+          <View />
         </PointAnnotation>
         <Mapbox.ShapeSource
           id="lineSource"

@@ -1,19 +1,21 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import ShowNavigation from '../components/ShowNavigation';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppSelector} from '../store/store';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {StackActions} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MapComponent from '../components/MapComponent';
+import {SplitPane} from 'expo-split-pane';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
 function ViroARNavigationPage({navigation}: Props) {
   const {isDeviceStanding} = useAppSelector(state => state.direction);
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -32,20 +34,26 @@ function ViroARNavigationPage({navigation}: Props) {
 
   return (
     <View style={styles.outer}>
-      <ViroARSceneNavigator
-        autofocus={true}
-        initialScene={{
-          scene: ShowNavigation,
+      <SplitPane
+        dividerStyle={{
+          height: 15,
         }}
-        style={styles.rootContainer}
+        style={{flex: 1}}
+        orientation="horizontal"
+        pane1={
+          <ViroARSceneNavigator
+            autofocus={true}
+            initialScene={{
+              scene: ShowNavigation,
+            }}
+            style={styles.rootContainer}
+          />
+        }
+        pane2={<MapComponent />}
       />
 
       <View style={styles.fab3DButton}>
         <CompassObject />
-      </View>
-
-      <View style={styles.map}>
-        <MapComponent />
       </View>
     </View>
   );
@@ -60,38 +68,14 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
   },
-  buttons: {
-    height: 80,
-    width: 80,
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: '#00000000',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ffffff00',
-  },
   fab3DButton: {
     position: 'absolute',
     left: 20,
     right: 0,
     bottom: 30,
+    width: 80,
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  map: {
-    position: 'absolute',
-    right: 20,
-    bottom: 30,
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  location: {
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
   },
 });

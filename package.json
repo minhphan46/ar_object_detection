@@ -19,6 +19,7 @@
     "@rnmapbox/maps": "^10.0.15",
     "@turf/turf": "^6.5.0",
     "@viro-community/react-viro": "^2.23.0",
+    "expo-split-pane": "^0.4.1",
     "lottie-react-native": "^6.4.1",
     "react": "18.2.0",
     "react-native": "0.72.6",

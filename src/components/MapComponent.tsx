@@ -21,21 +21,27 @@ const MapComponent = () => {
     state => state.direction,
   );
 
-  const [isShow, setIsShow] = useState<boolean>(true);
   const [isTouch, setIsTouch] = useState<boolean>(false);
 
   const [latitude, setLatitude] = useState<any>(0);
   const [longitude, setLongitude] = useState<any>(0);
 
-  const handleUserLocationUpdate = (location: any) => {
-    setLatitude(location.coords.latitude);
-    setLongitude(location.coords.longitude);
-  };
-
-  const lineCoordinates = [
+  let lineCoordinates = [
     [longitude, latitude],
     [objectMapPosition.long, objectMapPosition.lat],
   ];
+
+  const handleUserLocationUpdate = (location: any) => {
+    setLatitude(location.coords.latitude);
+    setLongitude(location.coords.longitude);
+
+    console.log('location', location);
+
+    lineCoordinates = [
+      [longitude, latitude],
+      [objectMapPosition.long, objectMapPosition.lat],
+    ];
+  };
 
   useEffect(() => {
     return () => {
@@ -43,11 +49,15 @@ const MapComponent = () => {
     };
   }, []);
 
-  return isShow ? (
+  return (
     <View style={styles.container}>
       <Mapbox.MapView
         // compassEnabled={true}
         // compassFadeWhenNorth={true}
+        logoEnabled={false}
+        styleURL="https://wsmap.tgdd.vn/vector_style/mwg-map-style/osm_liberty.json"
+        rotateEnabled={true}
+        zoomEnabled={true}
         style={styles.map}
         onTouchMove={() => {
           setIsTouch(true);
@@ -73,7 +83,7 @@ const MapComponent = () => {
         ) : (
           <Mapbox.Camera
             centerCoordinate={[longitude, latitude]}
-            zoomLevel={18}
+            zoomLevel={19}
             heading={direction.heading}
             animationMode={'flyTo'}
             animationDuration={0}
@@ -101,29 +111,6 @@ const MapComponent = () => {
           />
         </Mapbox.ShapeSource>
       </Mapbox.MapView>
-      <View style={styles.minusButton}>
-        <Pressable
-          onPress={() => {
-            setIsShow(false);
-          }}>
-          <MaterialCommunityIcons
-            name={'chevron-down'}
-            size={24}
-            color="black"
-          />
-        </Pressable>
-      </View>
-    </View>
-  ) : (
-    <View style={styles.buttons}>
-      <Pressable
-        style={styles.buttonContainer}
-        onPress={() => {
-          setIsShow(true);
-          setIsTouch(false);
-        }}>
-        <MaterialCommunityIcons name={'map'} size={24} color="#fff" />
-      </Pressable>
     </View>
   );
 };
@@ -132,11 +119,8 @@ export default MapComponent;
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
-    width: 150,
-    borderRadius: 16,
+    flex: 1,
     backgroundColor: 'white',
-    overflow: 'hidden',
   },
   map: {
     flex: 1,
@@ -151,8 +135,8 @@ const styles = StyleSheet.create({
   buttons: {
     position: 'absolute',
     flexDirection: 'row',
-    bottom: 0,
-    right: 0,
+    bottom: 30,
+    right: 20,
   },
   buttonContainer: {
     margin: 8,

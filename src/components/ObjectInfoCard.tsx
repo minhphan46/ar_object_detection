@@ -7,49 +7,64 @@ import {
   ViroText,
 } from '@viro-community/react-viro';
 import {Alert, StyleSheet, Linking} from 'react-native';
+import {ProductInfo} from '../data/ProductObject';
+import {permissionLocation} from '../utils/permission_service';
+import {useAppDispatch} from '../store/store';
+import {setSelectedProduct} from '../store/slices/list_product_slice';
+import {initPosition} from '../store/slices/direction_slice';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../App';
 
 type ObjectCardInfoProps = {
-  modelName: string;
-  image: any;
-  description: string;
-  productType: string;
-  price: string;
-  url: string;
-  handleClick: () => void;
+  product: ProductInfo;
 };
 
 export default function ObjectInfoCard(props: ObjectCardInfoProps) {
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {product} = props;
+
   function handleUrl() {
-    Linking.canOpenURL(props.url).then(supported => {
+    Linking.canOpenURL(product.url).then(supported => {
       if (supported) {
-        Linking.openURL(props.url);
+        Linking.openURL(product.url);
       } else {
-        console.log("Don't know how to open URI: " + props.url);
+        console.log("Don't know how to open URI: " + product.url);
       }
     });
   }
 
-  function handleDirection() {
-    props.handleClick();
-  }
+  const handleDirection = async () => {
+    const isLocationGranted = await permissionLocation();
+    if (isLocationGranted) {
+      dispatch(setSelectedProduct({product}));
+      dispatch(
+        initPosition({
+          long: product.position.long,
+          lat: product.position.lat,
+        }),
+      );
+      navigation.navigate('DeviceDirectionPage');
+    }
+  };
 
   const showAlert = () =>
     Alert.alert(
-      props.modelName,
-      'Bạn muốn xem sản phẩm này ở đâu?',
+      product.name,
+      'Where would you like to see this product?',
       [
         {
-          text: 'Hủy',
+          text: 'Cancel',
           onPress: () => {},
           style: 'destructive',
         },
         {
-          text: 'Tìm đường',
+          text: 'Direction',
           onPress: () => handleDirection(),
           style: 'default',
         },
         {
-          text: 'Bách hóa xanh',
+          text: 'BHX Website',
           onPress: () => handleUrl(),
           style: 'default',
         },
@@ -77,7 +92,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
           <ViroImage
             height={0.15}
             width={0.1}
-            source={props.image}
+            source={product.image}
             style={styles.imageContainer}
           />
           <ViroFlexView style={styles.informationContainer}>
@@ -89,7 +104,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={1}
-                    text={'Tên sản phẩm:'}
+                    text={'Name:'}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -103,7 +118,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={props.modelName}
+                    text={product.name}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -121,7 +136,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={1}
-                    text={'Thương hiệu:'}
+                    text={'Brand name:'}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -135,7 +150,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={props.description}
+                    text={product.brandName}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -153,7 +168,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={1}
-                    text={'Loại sản phẩm:'}
+                    text={'Type:'}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -167,7 +182,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={props.productType}
+                    text={product.type}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -183,7 +198,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={1}
-                    text={'Giá tiền:'}
+                    text={'Price:'}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}
@@ -197,7 +212,7 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
                   style={styles.textContainer}>
                   <ViroText
                     width={2}
-                    text={props.price}
+                    text={product.price}
                     maxLines={2}
                     style={styles.textTitle}
                     textLineBreakMode={'WordWrap'}

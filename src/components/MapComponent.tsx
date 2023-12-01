@@ -1,11 +1,13 @@
-import {View, StyleSheet, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
+  LineLayer,
   PointAnnotation,
+  ShapeSource,
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
-import {useAppDispatch, useAppSelector} from '../store/store';
+import {useAppSelector} from '../store/store';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const token =
@@ -19,7 +21,8 @@ const MapComponent = () => {
     state => state.direction,
   );
 
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState<boolean>(true);
+  const [isTouch, setIsTouch] = useState<boolean>(false);
 
   const [latitude, setLatitude] = useState<any>(0);
   const [longitude, setLongitude] = useState<any>(0);
@@ -28,6 +31,11 @@ const MapComponent = () => {
     setLatitude(location.coords.latitude);
     setLongitude(location.coords.longitude);
   };
+
+  const lineCoordinates = [
+    [longitude, latitude],
+    [objectMapPosition.long, objectMapPosition.lat],
+  ];
 
   useEffect(() => {
     return () => {
@@ -38,32 +46,60 @@ const MapComponent = () => {
   return isShow ? (
     <View style={styles.container}>
       <Mapbox.MapView
-        compassEnabled={true}
-        compassFadeWhenNorth={true}
-        style={styles.map}>
+        // compassEnabled={true}
+        // compassFadeWhenNorth={true}
+        style={styles.map}
+        onTouchMove={() => {
+          setIsTouch(true);
+        }}>
         <Mapbox.UserLocation
-          minDisplacement={1}
+          minDisplacement={10}
           onUpdate={handleUserLocationUpdate}
           showsUserHeadingIndicator={true}
-          androidRenderMode="gps"
-          renderMode={UserLocationRenderMode.Normal}
+          androidRenderMode="compass"
+          renderMode={UserLocationRenderMode.Native}
           requestsAlwaysUse={true}
           visible={true}
         />
-        <Mapbox.Camera
-          centerCoordinate={[longitude, latitude]}
-          zoomLevel={18}
-          heading={direction.heading}
-          animationMode={'flyTo'}
-          animationDuration={0}
-          followUserMode={UserTrackingMode.FollowWithHeading}
-          followHeading={0}
-        />
+        {isTouch ? (
+          <Mapbox.Camera
+            centerCoordinate={[longitude, latitude]}
+            heading={direction.heading}
+            animationMode={'flyTo'}
+            animationDuration={0}
+            followUserMode={UserTrackingMode.FollowWithHeading}
+            followHeading={0}
+          />
+        ) : (
+          <Mapbox.Camera
+            centerCoordinate={[longitude, latitude]}
+            zoomLevel={18}
+            heading={direction.heading}
+            animationMode={'flyTo'}
+            animationDuration={0}
+            followUserMode={UserTrackingMode.FollowWithHeading}
+            followHeading={0}
+          />
+        )}
         <PointAnnotation
           id="pointAnnotation"
           coordinate={[objectMapPosition.long, objectMapPosition.lat]}>
-          <View></View>
+          <View />
         </PointAnnotation>
+        <Mapbox.ShapeSource
+          id="lineSource"
+          shape={{type: 'LineString', coordinates: lineCoordinates}}>
+          <Mapbox.LineLayer
+            id="lineLayer"
+            style={{
+              lineColor: '#6DB9EF',
+              lineWidth: 2,
+              lineCap: 'round',
+              lineJoin: 'round',
+              lineDasharray: [0, 3],
+            }}
+          />
+        </Mapbox.ShapeSource>
       </Mapbox.MapView>
       <View style={styles.minusButton}>
         <Pressable
@@ -84,6 +120,7 @@ const MapComponent = () => {
         style={styles.buttonContainer}
         onPress={() => {
           setIsShow(true);
+          setIsTouch(false);
         }}>
         <MaterialCommunityIcons name={'map'} size={24} color="#fff" />
       </Pressable>

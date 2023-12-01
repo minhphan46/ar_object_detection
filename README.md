@@ -3,8 +3,8 @@ We use [**Viro library**](https://github.com/viromedia/viro) that detects and di
 
 # Video Preview
 
-<img align="center" width="200" alt="UIApp" src="./assets/videos/detect_object.gif">
-<img align="center" width="200" alt="direction" src="./assets/videos/direction.gif">
+<!-- <img align="center" width="200" alt="UIApp" src="./assets/videos/detect_object.gif">
+<img align="center" width="200" alt="direction" src="./assets/videos/direction.gif"> -->
 <img align="center" width="200" alt="card" src="./assets/images/mocks/bohuc_card.jpg">
 
 # Getting Started

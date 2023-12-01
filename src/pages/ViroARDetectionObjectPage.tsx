@@ -59,20 +59,8 @@ export function DetectObjectListPage(): JSX.Element {
     <ViroARScene>
       {listProduct.map(
         product =>
-          product.imageDetect && (
-            <ObjectDetectionList
-              key={product.id}
-              modelName={product.name}
-              description={product.brandName}
-              images={product.imageDetect}
-              imageLogo={product.image}
-              productType={product.type}
-              price={product.price}
-              url={product.url}
-              handleClick={() => {
-                console.log('Click Model');
-              }}
-            />
+          product.imageDetect !== undefined && (
+            <ObjectDetectionList key={product.id} product={product} />
           ),
       )}
     </ViroARScene>

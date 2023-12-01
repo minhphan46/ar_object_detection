@@ -1,6 +1,7 @@
 import {View, StyleSheet, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
+  CircleLayer,
   PointAnnotation,
   UserLocationRenderMode,
   UserTrackingMode,
@@ -60,12 +61,13 @@ const PositionPage = () => {
           }}>
           <Mapbox.UserLocation
             minDisplacement={1}
+            visible={true}
             onUpdate={handleUserLocationUpdate}
             showsUserHeadingIndicator={true}
-            androidRenderMode="gps"
-            renderMode={UserLocationRenderMode.Normal}
+            animated={true}
+            androidRenderMode="compass"
             requestsAlwaysUse={true}
-            visible={true}
+            renderMode={UserLocationRenderMode.Native}
           />
           <Mapbox.Camera
             centerCoordinate={[currentPosition.long, currentPosition.lat]}

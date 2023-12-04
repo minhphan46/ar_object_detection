@@ -23,6 +23,7 @@ interface DirectionState {
   currentPosition: MapPosition;
   isFirstInit: boolean;
   isDeviceStanding: boolean;
+  listShortestPoint: number[][];
 }
 
 const initialState: DirectionState = {
@@ -46,6 +47,7 @@ const initialState: DirectionState = {
   },
   isFirstInit: true,
   isDeviceStanding: false,
+  listShortestPoint: [],
 };
 
 export const DirectionSlice = createSlice({
@@ -95,6 +97,7 @@ export const DirectionSlice = createSlice({
         state.objectMapPosition.long,
         state.objectMapPosition.lat,
       ]);
+
       const rad = convertDeg2Rad(heading);
       if (state.isFirstInit) {
         const {x, y, z} = position2Viro(

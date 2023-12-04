@@ -9,7 +9,7 @@ import Mapbox, {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updateCurrentPosition} from '../store/slices/direction_slice';
-import {handleShortestPoint} from '../utils/dijisktra_author';
+import {handleShortestPoint} from '../utils/find_shortest_service';
 import * as turf from '@turf/turf';
 import {listLeft, listRight} from '../data/building_point/BuildingPoint';
 import {getTimeMeasureUtils} from '@reduxjs/toolkit/dist/utils';
@@ -170,6 +170,14 @@ const PositionPage = () => {
               </PointAnnotation>
             );
           })}
+          <PointAnnotation
+            id="pointAnnotation"
+            coordinate={[106.7975374, 10.8516619]}
+            onSelected={() => console.log('onSelected')}>
+            <View>
+              <Text>e</Text>
+            </View>
+          </PointAnnotation>
           {Object.keys(listRight).map((e: string) => {
             return (
               <PointAnnotation

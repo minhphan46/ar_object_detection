@@ -1,4 +1,4 @@
-import {Graph} from '../../utils/dijisktra_author';
+import {Graph} from '../../utils/find_shortest_service';
 
 const left1 = [106.79740800634846, 10.851751818086441];
 const left2 = [106.79734286696959, 10.851688596216562];

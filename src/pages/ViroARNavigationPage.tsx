@@ -40,6 +40,7 @@ function ViroARNavigationPage({navigation}: Props) {
         }}
         style={{flex: 1}}
         orientation="horizontal"
+        pane2InitialSize={250}
         pane1={
           <ViroARSceneNavigator
             autofocus={true}

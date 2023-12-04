@@ -18,7 +18,6 @@ const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
 Mapbox.setWellKnownTileServer('Mapbox');
 Mapbox.setAccessToken(token);
-Mapbox.setConnected(true);
 
 const PositionPage = () => {
   const sheet1: number[][] = [
@@ -94,8 +93,12 @@ const PositionPage = () => {
     <View style={styles.page}>
       <View style={styles.container}>
         <Mapbox.MapView
+          logoEnabled={false}
+          styleURL="https://wsmap.tgdd.vn/vector_style/mwg-map-style/osm_liberty.json"
           compassEnabled={true}
           compassFadeWhenNorth={true}
+          rotateEnabled={true}
+          zoomEnabled={true}
           style={styles.map}
           onPress={(feature: any) => {
             const {coordinates} = feature.geometry;
@@ -103,13 +106,13 @@ const PositionPage = () => {
               addNewLocation(coordinates[1], coordinates[0]);
             }
           }}>
-          <Mapbox.UserLocation
+          {/* <Mapbox.UserLocation
             minDisplacement={1}
             visible={true}
             onUpdate={handleUserLocationUpdate}
             showsUserHeadingIndicator={true}
             animated={true}
-            androidRenderMode="compass"
+            androidRenderMode="gps"
             requestsAlwaysUse={true}
             renderMode={UserLocationRenderMode.Native}
           />

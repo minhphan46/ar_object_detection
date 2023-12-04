@@ -12,6 +12,7 @@ import {updateCurrentPosition} from '../store/slices/direction_slice';
 import {handleShortestPoint} from '../utils/dijisktra_author';
 import * as turf from '@turf/turf';
 import {listLeft, listRight} from '../data/building_point/BuildingPoint';
+import {getTimeMeasureUtils} from '@reduxjs/toolkit/dist/utils';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -53,6 +54,7 @@ const PositionPage = () => {
   const [listPoint, setListPoint] = useState<any>([]);
 
   const [isIniteCamera, setInitCamera] = useState(true);
+  const [locationCoord, setLocationCoord] = useState<any>([]);
 
   useEffect(() => {
     return () => {
@@ -61,6 +63,14 @@ const PositionPage = () => {
   }, []);
 
   const handleUserLocationUpdate = (location: any) => {
+    console.log(locationCoord);
+    if (locationCoord.length !== 0) {
+      const shortestPath = handleShortestPoint(
+        [locationCoord[0], locationCoord[1]],
+        [location.coords.longitude, location.coords.latitude],
+      );
+      setListPoint(shortestPath);
+    }
     dispatch(
       updateCurrentPosition({
         lat: location.coords.latitude,
@@ -70,11 +80,7 @@ const PositionPage = () => {
   };
 
   const addNewLocation = (latitude: number, longitude: number) => {
-    const shortestPath = handleShortestPoint(
-      [longitude, latitude],
-      [currentPosition.long, currentPosition.lat],
-    );
-    setListPoint(shortestPath);
+    setLocationCoord([longitude, latitude]);
     setLocationCoords([
       ...locationCoords,
       {
@@ -105,7 +111,7 @@ const PositionPage = () => {
             animated={true}
             androidRenderMode="compass"
             requestsAlwaysUse={true}
-            renderMode={UserLocationRenderMode.Normal}
+            renderMode={UserLocationRenderMode.Native}
           />
 
           {listSheet.map(e => {
@@ -135,10 +141,12 @@ const PositionPage = () => {
               centerCoordinate={[currentPosition.long, currentPosition.lat]}
               zoomLevel={20}
               animationMode={'flyTo'}
-              animationDuration={0}
+              animationDuration={1}
               followUserMode={UserTrackingMode.FollowWithHeading}
               followHeading={0}
-              onUserTrackingModeChange={_ => setInitCamera(false)}
+              onUserTrackingModeChange={_ => {
+                setInitCamera(true);
+              }}
             />
           )}
           {Object.keys(listLeft).map((e: string) => {

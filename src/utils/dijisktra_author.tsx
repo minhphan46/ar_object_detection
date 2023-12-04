@@ -134,6 +134,13 @@ function _handleGraphStatusPoint(
 }
 
 function handleShortestPoint(object: number[], currentPos: number[]) {
+  const distance = turf.distance(object, currentPos, {units: 'meters'});
+  if (distance <= 6) {
+    let listShortestPoint: number[][] = [];
+    listShortestPoint.push(currentPos);
+    listShortestPoint.push(object);
+    return listShortestPoint;
+  }
   //find shortest way from current position to target
   let objectGraphStatus: Graph = _handleGraphStatusPoint(
     dataGraph,

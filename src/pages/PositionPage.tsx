@@ -106,7 +106,7 @@ const PositionPage = () => {
               addNewLocation(coordinates[1], coordinates[0]);
             }
           }}>
-          {/* <Mapbox.UserLocation
+          <Mapbox.UserLocation
             minDisplacement={1}
             visible={true}
             onUpdate={handleUserLocationUpdate}

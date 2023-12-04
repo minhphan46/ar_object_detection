@@ -155,7 +155,7 @@ function handleShortestPoint(object: number[], currentPos: number[]) {
 
   //handle dijkstra
   const shortestPath = _dijkstra(currentPosGraphStatus, 'currentPos', 'object');
-  console.log('Đường đi ngắn nhất:', shortestPath.join(' -> '));
+  // console.log('Đường đi ngắn nhất:', shortestPath.join(' -> '));
   let listShortestPoint: number[][] = [];
   shortestPath.forEach(e => {
     switch (e) {
@@ -170,7 +170,7 @@ function handleShortestPoint(object: number[], currentPos: number[]) {
         break;
     }
   });
-  console.log(listShortestPoint);
+  // console.log(listShortestPoint);
   return listShortestPoint;
 }
 

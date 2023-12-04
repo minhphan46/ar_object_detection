@@ -1,4 +1,4 @@
-import {View, StyleSheet, Pressable} from 'react-native';
+import {View, StyleSheet, Pressable, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
   CircleLayer,
@@ -9,6 +9,10 @@ import Mapbox, {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updateCurrentPosition} from '../store/slices/direction_slice';
+import {handleShortestPoint} from '../utils/dijisktra_author';
+import * as turf from '@turf/turf';
+import {listLeft, listRight} from '../data/building_point/BuildingPoint';
+import {getTimeMeasureUtils} from '@reduxjs/toolkit/dist/utils';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -16,9 +20,40 @@ Mapbox.setWellKnownTileServer('Mapbox');
 Mapbox.setAccessToken(token);
 
 const PositionPage = () => {
+  const sheet1: number[][] = [
+    [106.79740457502515, 10.85172355871687],
+    [106.79757869674495, 10.851595661527526],
+    [106.79755570636263, 10.851576845471499],
+    [106.79738519450387, 10.851710063039576],
+    // Thêm các tọa độ khác nếu cần
+  ];
+  const sheet2: number[][] = [
+    [106.79733822269765, 10.85164741024289],
+    [106.79749775749605, 10.851544990039613],
+    [106.79746745153324, 10.851516471090179],
+    [106.79731341611216, 10.851620711977247],
+  ];
+  const sheet3: number[][] = [
+    [106.79727888665269, 10.851569548403674],
+    [106.79725299153813, 10.851552043927725],
+    [106.79739803464855, 10.851465951511756],
+    [106.79743520237588, 10.851487025489277],
+  ];
+  const sheet4: number[][] = [
+    [106.79719966628062, 10.851480016655785],
+    [106.79732345543505, 10.85140667337869],
+    [106.79735099285693, 10.851429210870506],
+    [106.79722535336106, 10.851497386843036],
+  ];
+  const listSheet: number[][][] = [sheet1, sheet2, sheet3, sheet4];
+
   const dispatch = useAppDispatch();
   const {currentPosition} = useAppSelector(state => state.direction);
   const [locationCoords, setLocationCoords] = useState<any>([]);
+  const [listPoint, setListPoint] = useState<any>([]);
+
+  const [isIniteCamera, setInitCamera] = useState(true);
+  const [locationCoord, setLocationCoord] = useState<any>([]);
 
   useEffect(() => {
     return () => {
@@ -27,6 +62,14 @@ const PositionPage = () => {
   }, []);
 
   const handleUserLocationUpdate = (location: any) => {
+    console.log(locationCoord);
+    if (locationCoord.length !== 0) {
+      const shortestPath = handleShortestPoint(
+        [locationCoord[0], locationCoord[1]],
+        [location.coords.longitude, location.coords.latitude],
+      );
+      setListPoint(shortestPath);
+    }
     dispatch(
       updateCurrentPosition({
         lat: location.coords.latitude,
@@ -36,6 +79,7 @@ const PositionPage = () => {
   };
 
   const addNewLocation = (latitude: number, longitude: number) => {
+    setLocationCoord([longitude, latitude]);
     setLocationCoords([
       ...locationCoords,
       {
@@ -62,7 +106,7 @@ const PositionPage = () => {
               addNewLocation(coordinates[1], coordinates[0]);
             }
           }}>
-          {/* <Mapbox.UserLocation
+          <Mapbox.UserLocation
             minDisplacement={1}
             visible={true}
             onUpdate={handleUserLocationUpdate}
@@ -71,30 +115,69 @@ const PositionPage = () => {
             androidRenderMode="gps"
             requestsAlwaysUse={true}
             renderMode={UserLocationRenderMode.Native}
-          /> */}
-          <Mapbox.UserLocation
-            minDisplacement={10}
-            visible={true}
-            onUpdate={handleUserLocationUpdate}
-            showsUserHeadingIndicator={true}
-            animated={true}
-            androidRenderMode="gps"
-            requestsAlwaysUse={true}
-            renderMode={UserLocationRenderMode.Native}>
-            <CircleLayer
-              key="customer-user-location-children-red"
-              id="customer-user-location-children-red"
-              style={{circleColor: 'red', circleRadius: 8}}
-            />
-          </Mapbox.UserLocation>
-          <Mapbox.Camera
-            centerCoordinate={[currentPosition.long, currentPosition.lat]}
-            zoomLevel={20}
-            animationMode={'flyTo'}
-            animationDuration={0}
-            followUserMode={UserTrackingMode.FollowWithHeading}
-            followHeading={0}
           />
+
+          {listSheet.map(e => {
+            return (
+              <Mapbox.ShapeSource
+                key={e[0].toString()}
+                id={e[0].toString()}
+                shape={{type: 'LineString', coordinates: e}}>
+                <Mapbox.FillLayer
+                  id={e[0].toString()}
+                  style={{lineColor: '#3700FF', lineWidth: 3}}
+                />
+              </Mapbox.ShapeSource>
+            );
+          })}
+          <Mapbox.ShapeSource
+            id="online"
+            shape={{type: 'LineString', coordinates: listPoint}}>
+            <Mapbox.LineLayer
+              id="line"
+              style={{lineColor: '#3700FF', lineWidth: 3}}
+            />
+          </Mapbox.ShapeSource>
+
+          {isIniteCamera && (
+            <Mapbox.Camera
+              centerCoordinate={[currentPosition.long, currentPosition.lat]}
+              zoomLevel={20}
+              animationMode={'flyTo'}
+              animationDuration={1}
+              followUserMode={UserTrackingMode.FollowWithHeading}
+              followHeading={0}
+              onUserTrackingModeChange={_ => {
+                setInitCamera(true);
+              }}
+            />
+          )}
+          {Object.keys(listLeft).map((e: string) => {
+            return (
+              <PointAnnotation
+                key={e}
+                id="pointAnnotation"
+                coordinate={[listLeft[e][0], listLeft[e][1]]}
+                onSelected={() => console.log('onSelected')}>
+                <View>
+                  <Text>{e}</Text>
+                </View>
+              </PointAnnotation>
+            );
+          })}
+          {Object.keys(listRight).map((e: string) => {
+            return (
+              <PointAnnotation
+                key={e}
+                id="pointAnnotation"
+                coordinate={[listRight[e][0], listRight[e][1]]}
+                onSelected={() => console.log('onSelected')}>
+                <View>
+                  <Text>{e}</Text>
+                </View>
+              </PointAnnotation>
+            );
+          })}
           {locationCoords.map((item: any, index: number) => {
             return (
               <PointAnnotation

@@ -32,15 +32,23 @@ function ViroARNavigationPage({navigation}: Props) {
     });
   }, [navigation, isDeviceStanding]);
 
+  const [isShowMap, setIsShowMap] = useState<boolean>(false);
+
   return (
     <View style={styles.outer}>
       <SplitPane
         dividerStyle={{
           height: 15,
         }}
+        min={0.1}
         style={{flex: 1}}
         orientation="horizontal"
         pane2InitialSize={250}
+        onChange={size => {
+          console.log('size', size);
+          if (size && size.pane2Size !== undefined && size.pane2Size < 1) setIsShowMap(true);
+          else setIsShowMap(false);
+        }}
         pane1={
           <ViroARSceneNavigator
             autofocus={true}
@@ -56,6 +64,11 @@ function ViroARNavigationPage({navigation}: Props) {
       <View style={styles.fab3DButton}>
         <CompassObject />
       </View>
+      {isShowMap && (
+        <View style={styles.map}>
+          <MapComponent />
+        </View>
+      )}
     </View>
   );
 }
@@ -68,6 +81,19 @@ const styles = StyleSheet.create({
   },
   rootContainer: {
     flex: 1,
+  },
+  map: {
+    position: 'absolute',
+    right: 20,
+    bottom: 30,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    height: 200,
+    width: 150,
+    borderRadius: 16,
+    backgroundColor: 'white',
+    overflow: 'hidden',
   },
   fab3DButton: {
     position: 'absolute',

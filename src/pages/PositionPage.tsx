@@ -1,4 +1,4 @@
-import {View, StyleSheet, Pressable} from 'react-native';
+import {View, StyleSheet, Pressable, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
   CircleLayer,
@@ -9,8 +9,9 @@ import Mapbox, {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updateCurrentPosition} from '../store/slices/direction_slice';
-import {Graph, dijkstra, get2ClosetPoint} from '../utils/dijisktra_author';
+import {handleShortestPoint} from '../utils/dijisktra_author';
 import * as turf from '@turf/turf';
+import {listLeft, listRight} from '../data/building_point/BuildingPoint';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -49,6 +50,9 @@ const PositionPage = () => {
   const dispatch = useAppDispatch();
   const {currentPosition} = useAppSelector(state => state.direction);
   const [locationCoords, setLocationCoords] = useState<any>([]);
+  const [listPoint, setListPoint] = useState<any>([]);
+
+  const [isIniteCamera, setInitCamera] = useState(true);
 
   useEffect(() => {
     return () => {
@@ -66,25 +70,11 @@ const PositionPage = () => {
   };
 
   const addNewLocation = (latitude: number, longitude: number) => {
-    // console.log('--------------');
-    // console.log(
-    //   turf.distance([longitude, latitude], right3, {units: 'meters'}),
-    // );
-    // console.log(turf.distance([longitude, latitude], left3, {units: 'meters'}));
-    // console.log(turf.distance(right1, right3, {units: 'meters'}));
-    // console.log(turf.distance(right2, right3, {units: 'meters'}));
-    // console.log(turf.distance(right4, right3, {units: 'meters'}));
-
-    // console.log(turf.distance(left3, left2, {units: 'meters'}));
-    // console.log(turf.distance(left2, left3, {units: 'meters'}));
-    // console.log(turf.distance(left3, left4, {units: 'meters'}));
-    // console.log(turf.distance(left4, left5, {units: 'meters'}));
-
-    // console.log(turf.distance(right1, right2, {units: 'meters'}));
-    // console.log(turf.distance(right2, right3, {units: 'meters'}));
-    // console.log(turf.distance(right3, right4, {units: 'meters'}));
-    // console.log(turf.distance(right4, right5, {units: 'meters'}));
-    // console.log(get2ClosetPoint([longitude, latitude], listLeft, listRight));
+    const shortestPath = handleShortestPoint(
+      [longitude, latitude],
+      [currentPosition.long, currentPosition.lat],
+    );
+    setListPoint(shortestPath);
     setLocationCoords([
       ...locationCoords,
       {
@@ -92,10 +82,6 @@ const PositionPage = () => {
         longitude,
       },
     ]);
-
-    const shortestPath = dijkstra('left1', 'object');
-    console.log('Đường đi ngắn nhất:', shortestPath.join(' -> '));
-    // console.log(longitude, latitude);
   };
 
   return (
@@ -119,8 +105,9 @@ const PositionPage = () => {
             animated={true}
             androidRenderMode="compass"
             requestsAlwaysUse={true}
-            renderMode={UserLocationRenderMode.Native}
+            renderMode={UserLocationRenderMode.Normal}
           />
+
           {listSheet.map(e => {
             return (
               <Mapbox.ShapeSource
@@ -134,33 +121,52 @@ const PositionPage = () => {
               </Mapbox.ShapeSource>
             );
           })}
+          <Mapbox.ShapeSource
+            id="online"
+            shape={{type: 'LineString', coordinates: listPoint}}>
+            <Mapbox.LineLayer
+              id="line"
+              style={{lineColor: '#3700FF', lineWidth: 3}}
+            />
+          </Mapbox.ShapeSource>
 
-          <Mapbox.Camera
-            centerCoordinate={[currentPosition.long, currentPosition.lat]}
-            zoomLevel={20}
-            animationMode={'flyTo'}
-            animationDuration={0}
-            followUserMode={UserTrackingMode.FollowWithHeading}
-            followHeading={0}
-          />
-          {/* {listRight.map(e => {
+          {isIniteCamera && (
+            <Mapbox.Camera
+              centerCoordinate={[currentPosition.long, currentPosition.lat]}
+              zoomLevel={20}
+              animationMode={'flyTo'}
+              animationDuration={0}
+              followUserMode={UserTrackingMode.FollowWithHeading}
+              followHeading={0}
+              onUserTrackingModeChange={_ => setInitCamera(false)}
+            />
+          )}
+          {Object.keys(listLeft).map((e: string) => {
             return (
               <PointAnnotation
-                key={e[0].toString()}
+                key={e}
                 id="pointAnnotation"
-                coordinate={[e[0], e[1]]}
-                onSelected={() => console.log('onSelected')}></PointAnnotation>
+                coordinate={[listLeft[e][0], listLeft[e][1]]}
+                onSelected={() => console.log('onSelected')}>
+                <View>
+                  <Text>{e}</Text>
+                </View>
+              </PointAnnotation>
             );
           })}
-          {listLeft.map(e => {
+          {Object.keys(listRight).map((e: string) => {
             return (
               <PointAnnotation
-                key={e[0].toString()}
+                key={e}
                 id="pointAnnotation"
-                coordinate={[e[0], e[1]]}
-                onSelected={() => console.log('onSelected')}></PointAnnotation>
+                coordinate={[listRight[e][0], listRight[e][1]]}
+                onSelected={() => console.log('onSelected')}>
+                <View>
+                  <Text>{e}</Text>
+                </View>
+              </PointAnnotation>
             );
-          })} */}
+          })}
           {locationCoords.map((item: any, index: number) => {
             return (
               <PointAnnotation

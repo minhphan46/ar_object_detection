@@ -79,6 +79,11 @@ const PositionPage = () => {
   };
 
   const addNewLocation = (latitude: number, longitude: number) => {
+    const shortestPath = handleShortestPoint(
+      [longitude, latitude],
+      [currentPosition.long, currentPosition.lat],
+    );
+    setListPoint(shortestPath);
     setLocationCoord([longitude, latitude]);
     setLocationCoords([
       ...locationCoords,
@@ -112,7 +117,7 @@ const PositionPage = () => {
             onUpdate={handleUserLocationUpdate}
             showsUserHeadingIndicator={true}
             animated={true}
-            androidRenderMode="gps"
+            androidRenderMode="compass"
             requestsAlwaysUse={true}
             renderMode={UserLocationRenderMode.Native}
           />

@@ -6,6 +6,7 @@ import cafe_images from './image_object/cafe_image';
 import bidao_images from './image_object/bidao_image';
 import sting_images from './image_object/sting_images';
 import fanta_images from './image_object/fanta_images';
+import seven_images from './image_object/sevenup_images';
 
 export type MapPosition = {
   long: number;
@@ -129,6 +130,7 @@ export const listProduct: ProductInfo[] = [
     brandName: '7 Up (Mỹ)',
     type: 'nước ngọt',
     price: '8.000đ',
+    imageDetect: seven_images,
   },
   {
     id: '6',

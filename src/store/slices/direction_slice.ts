@@ -2,6 +2,7 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {convertDeg2Rad, getObjectPosition} from '../../utils/get_angle_service';
 import {position2Viro} from '../../utils/viro_position_service';
 import {MapPosition} from '../../data/ProductObject';
+import {handleShortestPoint} from '../../utils/find_shortest_service';
 var turf = require('@turf/turf');
 
 export type Direction = {
@@ -23,7 +24,7 @@ interface DirectionState {
   currentPosition: MapPosition;
   isFirstInit: boolean;
   isDeviceStanding: boolean;
-  listShortestPoint: number[][];
+  listShortestPoint: ViroPosition[];
 }
 
 const initialState: DirectionState = {
@@ -100,6 +101,19 @@ export const DirectionSlice = createSlice({
 
       const rad = convertDeg2Rad(heading);
       if (state.isFirstInit) {
+        //handle list shortest point
+        const listService = handleShortestPoint(
+          [state.currentPosition.long, state.currentPosition.lat],
+          [state.objectMapPosition.long, state.objectMapPosition.lat],
+        );
+        listService.forEach(e => {
+          const dotPosition = turf.point(e);
+          const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
+
+          state.listShortestPoint.push({x, y, z});
+          console.log(state.listShortestPoint);
+        });
+        //handle object
         const {x, y, z} = position2Viro(
           currentPositionPoint,
           objectPositionPoint,

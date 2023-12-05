@@ -109,8 +109,16 @@ export const DirectionSlice = createSlice({
         listService.forEach(e => {
           const dotPosition = turf.point(e);
           const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
-
-          state.listShortestPoint.push({x, y, z});
+          const newDotPos = getObjectPosition(
+            {
+              x,
+              y,
+              z,
+            },
+            heading,
+            rad,
+          );
+          state.listShortestPoint.push(newDotPos);
           console.log(state.listShortestPoint);
         });
         //handle object

@@ -14,8 +14,9 @@ type Graph = {
 function _dijkstra(graph: Graph, start: string, end: string | null): string[] {
   const distances: {[key: string]: number} = {};
   const previous: {[key: string]: string | null} = {};
-  const visited: string[] = [];
+  const visited: {[key: string]: boolean} = {};
   const queue = Object.keys(graph);
+
   queue.forEach(node => {
     distances[node] = node === start ? 0 : Infinity;
     previous[node] = null;
@@ -27,21 +28,22 @@ function _dijkstra(graph: Graph, start: string, end: string | null): string[] {
     );
 
     queue.splice(queue.indexOf(current), 1);
-    visited.push(current);
+
+    visited[current] = true;
 
     if (current === end) break;
 
-    for (const neighbor in graph[current]) {
+    Object.keys(graph[current]).forEach(neighbor => {
       const alt = distances[current] + graph[current][neighbor];
       if (alt < distances[neighbor]) {
         distances[neighbor] = alt;
         previous[neighbor] = current;
       }
-    }
+    });
   }
 
   const path: string[] = [];
-  let node = end;
+  let node: string | null = end;
   while (node !== null) {
     path.unshift(node);
     node = previous[node];
@@ -134,8 +136,16 @@ function _handleGraphStatusPoint(
 }
 
 function handleShortestPoint(object: number[], currentPos: number[]) {
-  const distance = turf.distance(object, currentPos, {units: 'meters'});
-  if (distance <= 6) {
+  const closestLeftPosPoint = _get2ClosetPoint(currentPos, listLeft, listRight)[
+    'leftPoint'
+  ];
+  const closestLeftObjPoint = _get2ClosetPoint(object, listLeft, listRight)[
+    'leftPoint'
+  ];
+  const queuePos = Object.keys(closestLeftPosPoint);
+  const queueObj = Object.keys(closestLeftObjPoint);
+  console.log(queuePos[0], queueObj[0]);
+  if (queuePos[0] === queueObj[0]) {
     let listShortestPoint: number[][] = [];
     listShortestPoint.push(currentPos);
     listShortestPoint.push(object);

@@ -102,11 +102,11 @@ export const DirectionSlice = createSlice({
       const rad = convertDeg2Rad(heading);
       if (state.isFirstInit) {
         //handle list shortest point
-        const listService = handleShortestPoint(
+        state.listShortestPoint = [];
+        handleShortestPoint(
           [state.currentPosition.long, state.currentPosition.lat],
           [state.objectMapPosition.long, state.objectMapPosition.lat],
-        );
-        listService.forEach(e => {
+        ).forEach(e => {
           const dotPosition = turf.point(e);
           const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
           const newDotPos = getObjectPosition(

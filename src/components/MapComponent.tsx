@@ -9,6 +9,7 @@ import Mapbox, {
 } from '@rnmapbox/maps';
 import {useAppSelector} from '../store/store';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {handleShortestPoint} from '../utils/find_shortest_service';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -17,6 +18,14 @@ Mapbox.setAccessToken(token);
 Mapbox.setConnected(true);
 
 const MapComponent = () => {
+  // draw poly line
+  const {currentPosition} = useAppSelector(state => state.direction);
+  const [locationCoords, setLocationCoords] = useState<any>([]);
+  const [listPoint, setListPoint] = useState<any>([]);
+
+  const [isIniteCamera, setInitCamera] = useState(true);
+  const [locationCoord, setLocationCoord] = useState<any>([]);
+
   const {direction, objectMapPosition} = useAppSelector(
     state => state.direction,
   );
@@ -35,7 +44,11 @@ const MapComponent = () => {
     setLatitude(location.coords.latitude);
     setLongitude(location.coords.longitude);
 
-    //console.log('location', location);
+    const shortestPath = handleShortestPoint(
+      [objectMapPosition.long, objectMapPosition.lat],
+      [location.coords.longitude, location.coords.latitude],
+    );
+    setListPoint(shortestPath);
 
     lineCoordinates = [
       [longitude, latitude],
@@ -67,7 +80,7 @@ const MapComponent = () => {
           onUpdate={handleUserLocationUpdate}
           showsUserHeadingIndicator={true}
           androidRenderMode="compass"
-          renderMode={UserLocationRenderMode.Native}
+          renderMode={UserLocationRenderMode.Normal}
           requestsAlwaysUse={true}
           visible={true}
         />
@@ -101,6 +114,21 @@ const MapComponent = () => {
           shape={{type: 'LineString', coordinates: lineCoordinates}}>
           <Mapbox.LineLayer
             id="lineLayer"
+            style={{
+              lineColor: '#6DB9EF',
+              lineWidth: 2,
+              lineCap: 'round',
+              lineJoin: 'round',
+              lineDasharray: [0, 3],
+            }}
+          />
+        </Mapbox.ShapeSource>
+
+        <Mapbox.ShapeSource
+          id="online"
+          shape={{type: 'LineString', coordinates: listPoint}}>
+          <Mapbox.LineLayer
+            id="line"
             style={{
               lineColor: '#6DB9EF',
               lineWidth: 2,

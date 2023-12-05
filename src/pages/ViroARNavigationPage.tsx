@@ -8,8 +8,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {StackActions} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MapComponent from '../components/MapComponent';
 import {SplitPane} from 'expo-split-pane';
+import MapComponent from '../components/MapComponent';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
@@ -45,7 +45,8 @@ function ViroARNavigationPage({navigation}: Props) {
         orientation="horizontal"
         pane2InitialSize={250}
         onChange={size => {
-          if (size && size.pane2Size !== undefined && size.pane2Size < 1) setIsShowMap(true);
+          if (size && size.pane2Size !== undefined && size.pane2Size < 1)
+            setIsShowMap(true);
           else setIsShowMap(false);
         }}
         pane1={

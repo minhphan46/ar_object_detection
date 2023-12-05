@@ -104,20 +104,6 @@ const MapComponent = () => {
           coordinate={[objectMapPosition.long, objectMapPosition.lat]}>
           <View />
         </PointAnnotation>
-        <Mapbox.ShapeSource
-          id="lineSource"
-          shape={{type: 'LineString', coordinates: lineCoordinates}}>
-          <Mapbox.LineLayer
-            id="lineLayer"
-            style={{
-              lineColor: '#6DB9EF',
-              lineWidth: 2,
-              lineCap: 'round',
-              lineJoin: 'round',
-              lineDasharray: [0, 3],
-            }}
-          />
-        </Mapbox.ShapeSource>
 
         <Mapbox.ShapeSource
           id="online"

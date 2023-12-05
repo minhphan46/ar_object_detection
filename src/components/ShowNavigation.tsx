@@ -11,6 +11,7 @@ import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
 import {CanType, getCanSource} from '../data/enum/3DCanEnum';
 import {getDistance} from '../utils/viro_position_service';
+import {ViroPosition} from '../store/slices/direction_slice';
 var turf = require('@turf/turf');
 
 type GetArrowModelsProps = {
@@ -20,8 +21,13 @@ type GetArrowModelsProps = {
   rotationX?: number;
 };
 
+type GetLineProps = {
+  point1: ViroPosition;
+  point2: ViroPosition;
+};
+
 function ShowNavigation(): JSX.Element {
-  const {objectViroPosition, isFirstInit, listShortestPoint} = useAppSelector(
+  const {objectViroPosition, isFirstInit} = useAppSelector(
     state => state.direction,
   );
 
@@ -84,8 +90,8 @@ export function ShowModels(props: GetArrowModelsProps) {
 
   return (
     <>
-      <GetArrowModels x={x} y={y} z={z} rotationX={rotationX} />
-
+      {/* <GetArrowModels x={x} y={y} z={z} rotationX={rotationX} /> */}
+      <DrawDirection />
       <ViroNode
         position={[x, y, z]}
         onClickState={(stateValue, position, source) => {
@@ -103,7 +109,67 @@ export function ShowModels(props: GetArrowModelsProps) {
   );
 }
 
-function GetNumOfArrow(): number {
+function GetListLines(): ViroPosition[][] {
+  const {listShortestPoint} = useAppSelector(state => state.direction);
+  // cứ hai điểm trong list, tách thành một cặp
+  let listLine: ViroPosition[][] = [];
+
+  for (let i = 0; i < listShortestPoint.length - 1; i++) {
+    listLine.push([listShortestPoint[i], listShortestPoint[i + 1]]);
+  }
+
+  return listLine;
+}
+
+function DrawDirection(): JSX.Element {
+  const listLine = GetListLines();
+
+  return (
+    <>
+      {listLine.map((line, index) => {
+        return <DrawDirectionModel point1={line[0]} point2={line[1]} />;
+      })}
+    </>
+  );
+}
+
+function DrawDirectionModel(props: GetLineProps): JSX.Element {
+  const numOfPoint = GetNumOfModelDraw(props.point1, props.point2);
+
+  return (
+    <>
+      {[...Array(numOfPoint)].map((_, i) => {
+        const t = i / numOfPoint;
+        const x = props.point1.x + (props.point2.x - props.point1.x) * t;
+        const z = props.point1.z + (props.point2.z - props.point1.z) * t;
+        return (
+          <Viro3DObject
+            key={i}
+            source={require('../../assets/model/ball.obj')}
+            type="OBJ"
+            materials={['blue']}
+            opacity={0.5}
+            position={[x, 0, z]}
+            scale={[0.02, 0.02, 0.02]}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+function GetNumOfModelDraw(point1: ViroPosition, point2: ViroPosition): number {
+  // can (point1.x - point2.x) * (point1.x - point2.x) + (point1.z - point2.z) * (point1.z - point2.z)
+  const direction = Math.sqrt(
+    (point1.x - point2.x) * (point1.x - point2.x) +
+      (point1.z - point2.z) * (point1.z - point2.z),
+  ).toFixed(0);
+  console.log('direction', direction);
+  // lam tron so
+  return parseFloat(direction);
+}
+
+function GetNumOfBall(): number {
   const {currentPosition, objectMapPosition} = useAppSelector(
     state => state.direction,
   );
@@ -125,7 +191,7 @@ function GetNumOfArrow(): number {
 function GetArrowModels(props: GetArrowModelsProps): JSX.Element {
   const {x, y, z, rotationX} = props;
 
-  const numArrow = GetNumOfArrow();
+  const numArrow = GetNumOfBall();
 
   return (
     <>

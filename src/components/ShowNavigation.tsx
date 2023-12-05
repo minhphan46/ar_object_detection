@@ -21,7 +21,7 @@ type GetArrowModelsProps = {
 };
 
 function ShowNavigation(): JSX.Element {
-  const {objectViroPosition, isFirstInit} = useAppSelector(
+  const {objectViroPosition, isFirstInit, listShortestPoint} = useAppSelector(
     state => state.direction,
   );
 

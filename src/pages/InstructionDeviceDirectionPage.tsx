@@ -6,6 +6,7 @@ import LottieView from 'lottie-react-native';
 import {getStadingArea} from '../utils/get_angle_service';
 import {
   updateCurrentPosition,
+  updateDirection,
   updatePhoneDirection,
 } from '../store/slices/direction_slice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -22,10 +23,14 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
 
   const [headingapp, setHeadingApp] = useState(100);
   const [currentLocation, setCurrentLocation] = useState<number[]>([0, 0]);
+  let headingCur = 0;
+  let accuracyCur = 0;
 
   useEffect(() => {
     const degree_update_rate = 1;
     CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
+      headingCur = heading;
+      accuracyCur = accuracy;
       setHeadingApp(heading);
     });
 
@@ -35,6 +40,9 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
       if (isStanding) {
         if (headingapp > 355 || headingapp < 5) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
+          dispatch(
+            updateDirection({heading: headingCur, accuracy: accuracyCur}),
+          );
           navigation.replace('Direction');
           subscription.unsubscribe();
           CompassHeading.stop();

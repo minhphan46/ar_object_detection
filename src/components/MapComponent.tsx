@@ -19,12 +19,7 @@ Mapbox.setConnected(true);
 
 const MapComponent = () => {
   // draw poly line
-  const {currentPosition} = useAppSelector(state => state.direction);
-  const [locationCoords, setLocationCoords] = useState<any>([]);
   const [listPoint, setListPoint] = useState<any>([]);
-
-  const [isIniteCamera, setInitCamera] = useState(true);
-  const [locationCoord, setLocationCoord] = useState<any>([]);
 
   const {direction, objectMapPosition} = useAppSelector(
     state => state.direction,

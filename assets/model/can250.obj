@@ -1,6 +1,6 @@
 # Blender v2.83.4 OBJ File: 'SodaCan.blend'
 # www.blender.org
-mtllib SodaCan.mtl
+
 o SodaCan_Cylinder.001
 v -0.802775 1.663576 0.219004
 v -0.820376 1.663576 0.139264

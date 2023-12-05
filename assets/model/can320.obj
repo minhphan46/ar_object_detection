@@ -1,6 +1,5 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib Canmodel_obj.mtl
 g default
 v 1.050993 0.041476 -0.341489
 v 0.894028 0.041476 -0.649550

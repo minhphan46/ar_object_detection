@@ -95,7 +95,7 @@ export function ShowModels(props: GetArrowModelsProps) {
           source={getCanSource(CanType.can250)}
           materials={['label']}
           type="OBJ"
-          scale={[0.5, 0.5, 0.5]}
+          scale={[0.2, 0.2, 0.2]}
           rotation={[0, 0, 0]}
         />
       </ViroNode>

@@ -1,4 +1,8 @@
-import {ProductPosition} from '../data/ProductObject';
+export type ProductPosition = {
+  x: number;
+  y: number;
+  z: number;
+};
 
 // Define a function that converts radians to degrees
 function getRad2deg(rad: number): number {
@@ -48,9 +52,9 @@ function getObjectPosition(
   angle: number,
 ): ProductPosition {
   let newPosition = oldPosition;
-  console.log('heading tinh toan', heading);
-  console.log('angle tinh toan', angle);
-  console.log('old position tinh toan', oldPosition);
+  // console.log('heading tinh toan', heading);
+  // console.log('angle tinh toan', angle);
+  // console.log('old position tinh toan', oldPosition);
 
   newPosition.x =
     oldPosition.x * Math.cos(angle) + oldPosition.z * Math.sin(angle);
@@ -58,7 +62,7 @@ function getObjectPosition(
   newPosition.z =
     -oldPosition.x * Math.sin(angle) + oldPosition.z * Math.cos(angle);
 
-  console.log('new postion tinh toan', newPosition);
+  //console.log('new postion tinh toan', newPosition);
 
   return newPosition;
 }

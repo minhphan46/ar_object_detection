@@ -1,8 +1,6 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 08.09.2021 15:39:52
 
-mtllib wooden_sphere.mtl
-
 #
 # object wooden_sphere
 #
@@ -4738,7 +4736,6 @@ vt 0.154429 0.409661 0.000000
 vt 0.154298 0.393124 0.000000
 # 1649 texture coords
 
-g wooden_sphere
 usemtl wood_Mat
 s 1
 f -1538/-1649/-1538 -1537/-1648/-1537 -1536/-1647/-1536 -1535/-1646/-1535 

@@ -35,7 +35,7 @@ const MapComponent = () => {
     setLatitude(location.coords.latitude);
     setLongitude(location.coords.longitude);
 
-    console.log('location', location);
+    //console.log('location', location);
 
     lineCoordinates = [
       [longitude, latitude],

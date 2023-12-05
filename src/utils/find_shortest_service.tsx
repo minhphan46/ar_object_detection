@@ -144,7 +144,7 @@ function handleShortestPoint(object: number[], currentPos: number[]) {
   ];
   const queuePos = Object.keys(closestLeftPosPoint);
   const queueObj = Object.keys(closestLeftObjPoint);
-  console.log(queuePos[0], queueObj[0]);
+  //console.log(queuePos[0], queueObj[0]);
   if (queuePos[0] === queueObj[0]) {
     let listShortestPoint: number[][] = [];
     listShortestPoint.push(currentPos);

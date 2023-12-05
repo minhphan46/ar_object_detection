@@ -45,7 +45,6 @@ function ViroARNavigationPage({navigation}: Props) {
         orientation="horizontal"
         pane2InitialSize={250}
         onChange={size => {
-          console.log('size', size);
           if (size && size.pane2Size !== undefined && size.pane2Size < 1) setIsShowMap(true);
           else setIsShowMap(false);
         }}

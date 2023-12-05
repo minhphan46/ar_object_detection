@@ -62,7 +62,7 @@ const PositionPage = () => {
   }, []);
 
   const handleUserLocationUpdate = (location: any) => {
-    console.log(locationCoord);
+    //console.log(locationCoord);
     if (locationCoord.length !== 0) {
       const shortestPath = handleShortestPoint(
         [locationCoord[0], locationCoord[1]],

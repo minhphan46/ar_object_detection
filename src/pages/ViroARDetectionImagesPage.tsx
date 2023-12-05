@@ -34,10 +34,10 @@ export function ImageDetectPage(): JSX.Element {
   });
 
   function _onFoundObject(evt: any) {
-    console.log(
-      `Ban dang dung o vi tri: ${evt.position[0]} ${evt.position[1]} ${evt.position[2]}`,
-      evt,
-    );
+    // console.log(
+    //   `Ban dang dung o vi tri: ${evt.position[0]} ${evt.position[1]} ${evt.position[2]}`,
+    //   evt,
+    // );
   }
 
   return (

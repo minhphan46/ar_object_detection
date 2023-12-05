@@ -33,7 +33,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
       isStanding = getStadingArea(y);
 
       if (isStanding) {
-        if (headingapp > 359 || headingapp < 1) {
+        if (headingapp > 355 || headingapp < 5) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
           navigation.replace('Direction');
           subscription.unsubscribe();

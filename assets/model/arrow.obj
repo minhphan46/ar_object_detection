@@ -1,6 +1,5 @@
 # Blender v2.79 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib arrow.mtl
 o arrow.001
 v 0.000001 -0.381003 3.079760
 v 0.000000 0.381000 3.079760

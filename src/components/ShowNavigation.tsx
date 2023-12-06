@@ -27,6 +27,7 @@ type GetArrowModelsProps = {
 type GetLineProps = {
   point1: ViroPosition;
   point2: ViroPosition;
+  angle: number;
   isLastLine: boolean;
 };
 
@@ -84,7 +85,7 @@ export function ShowModels(props: GetArrowModelsProps) {
       diffuseColor: 'rgba(11, 127, 171, 1)',
     },
     red: {
-      diffuseColor: 'rgba(171, 11, 11, 1)',
+      diffuseColor: '#3081D0',
     },
     label: {
       diffuseColor: 'rgba(171,171,171,1)',
@@ -130,6 +131,7 @@ function GetListLines(): ViroPosition[][] {
 
 function DrawDirection(): JSX.Element {
   const listLine = GetListLines();
+  const {listAngleDirection} = useAppSelector(state => state.direction);
 
   return (
     <>
@@ -140,6 +142,7 @@ function DrawDirection(): JSX.Element {
             point1={line[0]}
             point2={line[1]}
             isLastLine={index === listLine.length - 1}
+            angle={listAngleDirection[index]}
           />
         );
       })}
@@ -156,16 +159,18 @@ function DrawDirectionModel(props: GetLineProps): JSX.Element {
         const t = i / numOfPoint;
         const x = props.point1.x + (props.point2.x - props.point1.x) * t;
         const z = props.point1.z + (props.point2.z - props.point1.z) * t;
+        if (i === numOfPoint - 1) console.log('angle: ', props.angle);
         //const angle = angleBetweenTwoPoint(props.point1, props.point2);
-        return i === numOfPoint - 1 ? (
+        return i === numOfPoint - 1 && !props.isLastLine ? (
           <Viro3DObject
             key={i}
             source={require('../../assets/model/arrow.obj')}
             type="OBJ"
             materials={['red']}
+            opacity={0.7}
             position={[x, -1, z]}
             scale={[0.1, 0.1, 0.1]}
-            rotation={[0, 0, 90]}
+            rotation={[props.angle, 180, 90]}
           />
         ) : (
           <Viro3DObject

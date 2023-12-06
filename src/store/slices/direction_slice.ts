@@ -129,7 +129,7 @@ export const DirectionSlice = createSlice({
           );
 
           console.log('length', listShortest.length);
-          if (index !== 0 && index !== listShortest.length - 1) {
+          if (index !== listShortest.length - 1) {
             console.log('index', index);
             const angleBetweenDotAndObject = angleBetweenTwoPoint(
               dotPosition,

@@ -108,13 +108,13 @@ function _handleGraphStatusPoint(
     switch (element) {
       case leftPoint:
         if (compare) {
-          console.log('true at distance');
+          //console.log('true at distance');
           handleGraph[element][`${pointName}`] = leftDistanceData[leftPoint];
         } else handleGraph[element][`${pointName}`] = 9999;
         break;
       case rightPoint:
         if (!compare) {
-          console.log('false at distance');
+          //console.log('false at distance');
           handleGraph[element][`${pointName}`] = rightDistanceData[rightPoint];
         } else handleGraph[element][`${pointName}`] = 9999;
         break;
@@ -129,13 +129,13 @@ function _handleGraphStatusPoint(
     switch (key) {
       case leftPoint:
         if (compare) {
-          console.log('true at distance');
+          //console.log('true at distance');
           handleGraph[`${pointName}`][leftPoint] = leftDistanceData[leftPoint];
         } else handleGraph[`${pointName}`][key] = 9999;
         break;
       case rightPoint:
         if (compare) {
-          console.log('true at distance');
+          //console.log('true at distance');
           handleGraph[`${pointName}`][rightPoint] =
             rightDistanceData[rightPoint];
         } else handleGraph[`${pointName}`][key] = 9999;

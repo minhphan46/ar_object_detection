@@ -119,7 +119,6 @@ export const DirectionSlice = createSlice({
             rad,
           );
           state.listShortestPoint.push(newDotPos);
-          console.log(state.listShortestPoint);
         });
         //handle object
         const {x, y, z} = position2Viro(

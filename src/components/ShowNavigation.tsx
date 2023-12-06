@@ -24,6 +24,7 @@ type GetArrowModelsProps = {
 type GetLineProps = {
   point1: ViroPosition;
   point2: ViroPosition;
+  isLastLine: boolean;
 };
 
 function ShowNavigation(): JSX.Element {
@@ -52,7 +53,7 @@ function ShowNavigation(): JSX.Element {
           active={isFirstInit}>
           <ShowModels
             x={objectViroPosition?.x ?? 0}
-            y={objectViroPosition?.y ?? -1}
+            y={-1}
             z={objectViroPosition?.z ?? -1}
             rotationX={0}
           />
@@ -78,6 +79,9 @@ export function ShowModels(props: GetArrowModelsProps) {
   ViroMaterials.createMaterials({
     blue: {
       diffuseColor: 'rgba(11, 127, 171, 1)',
+    },
+    red: {
+      diffuseColor: 'rgba(171, 11, 11, 1)',
     },
     label: {
       diffuseColor: 'rgba(171,171,171,1)',
@@ -127,7 +131,14 @@ function DrawDirection(): JSX.Element {
   return (
     <>
       {listLine.map((line, index) => {
-        return <DrawDirectionModel point1={line[0]} point2={line[1]} />;
+        return (
+          <DrawDirectionModel
+            key={index}
+            point1={line[0]}
+            point2={line[1]}
+            isLastLine={index === listLine.length - 1}
+          />
+        );
       })}
     </>
   );
@@ -142,14 +153,24 @@ function DrawDirectionModel(props: GetLineProps): JSX.Element {
         const t = i / numOfPoint;
         const x = props.point1.x + (props.point2.x - props.point1.x) * t;
         const z = props.point1.z + (props.point2.z - props.point1.z) * t;
-        return (
+        return i === 0 && props.isLastLine ? (
+          <Viro3DObject
+            key={i}
+            source={require('../../assets/model/arrow.obj')}
+            type="OBJ"
+            materials={['red']}
+            position={[x, -1, z]}
+            scale={[0.1, 0.1, 0.1]}
+            rotation={[0, 0, 90]}
+          />
+        ) : (
           <Viro3DObject
             key={i}
             source={require('../../assets/model/ball.obj')}
             type="OBJ"
             materials={['blue']}
             opacity={0.5}
-            position={[x, 0, z]}
+            position={[x, -1, z]}
             scale={[0.02, 0.02, 0.02]}
           />
         );
@@ -164,7 +185,6 @@ function GetNumOfModelDraw(point1: ViroPosition, point2: ViroPosition): number {
     (point1.x - point2.x) * (point1.x - point2.x) +
       (point1.z - point2.z) * (point1.z - point2.z),
   ).toFixed(0);
-  console.log('direction', direction);
   // lam tron so
   return parseFloat(direction);
 }

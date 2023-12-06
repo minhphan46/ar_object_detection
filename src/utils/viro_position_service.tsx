@@ -17,8 +17,14 @@ function position2Viro(point1: any, point2: any) {
   };
 }
 
+function angleBetweenTwoPoint(point1: any, point2: any) {
+  const angle = turf.bearing(point1, point2);
+
+  return angle;
+}
+
 function getDistance(point1: any, point2: any) {
   return turf.distance(point1, point2, {units: 'meters'});
 }
 
-export {position2Viro, getDistance};
+export {position2Viro, getDistance, angleBetweenTwoPoint};

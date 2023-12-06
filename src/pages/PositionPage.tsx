@@ -21,10 +21,11 @@ Mapbox.setAccessToken(token);
 
 const PositionPage = () => {
   const sheet1: number[][] = [
-    [106.79740457502515, 10.85172355871687],
-    [106.79757869674495, 10.851595661527526],
-    [106.79755570636263, 10.851576845471499],
-    [106.79738519450387, 10.851710063039576],
+    [106.797522, 10.8516194],
+    [106.79754673544875, 10.851600225217368],
+    [106.7974473, 10.851505],
+    [106.79742564511571, 10.851522919259551],
+
     // Thêm các tọa độ khác nếu cần
   ];
   const sheet2: number[][] = [
@@ -45,7 +46,7 @@ const PositionPage = () => {
     [106.79735099285693, 10.851429210870506],
     [106.79722535336106, 10.851497386843036],
   ];
-  const listSheet: number[][][] = [sheet1, sheet2, sheet3, sheet4];
+  const listSheet: number[][][] = [sheet1];
 
   const dispatch = useAppDispatch();
   const {currentPosition} = useAppSelector(state => state.direction);
@@ -85,6 +86,18 @@ const PositionPage = () => {
     );
     setListPoint(shortestPath);
     setLocationCoord([longitude, latitude]);
+    // const distancepl = turf.distance(listRight['right1'], listLeft['left1'], {
+    //   units: 'meters',
+    // });
+    // // const distancepr = turf.distance(
+    // //   [currentPosition.long, currentPosition.lat],
+    // //   listRight['right1'],
+    // //   {
+    // //     units: 'meters',
+    // //   },
+    // // );
+    // console.log(`left: ${distancepl}, `);
+
     setLocationCoords([
       ...locationCoords,
       {

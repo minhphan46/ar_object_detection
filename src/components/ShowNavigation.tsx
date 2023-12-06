@@ -127,7 +127,9 @@ function DrawDirection(): JSX.Element {
   return (
     <>
       {listLine.map((line, index) => {
-        return <DrawDirectionModel point1={line[0]} point2={line[1]} />;
+        return (
+          <DrawDirectionModel key={index} point1={line[0]} point2={line[1]} />
+        );
       })}
     </>
   );

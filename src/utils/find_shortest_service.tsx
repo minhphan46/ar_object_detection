@@ -84,7 +84,6 @@ function _get2ClosetPoint(
     leftPoint: {[leftPoint]: closetLeft},
     rightPoint: {[rightPoint]: closetRight},
   };
-
   return closetData;
 }
 
@@ -95,12 +94,17 @@ function _handleGraphStatusPoint(
 ) {
   //Handle object graph status
   const closet = _get2ClosetPoint([object[0], object[1]], listLeft, listRight);
+
   const leftDistanceData = closet['leftPoint'];
   const rightDistanceData = closet['rightPoint'];
   const leftPoint = Object.keys(leftDistanceData)[0];
   const rightPoint = Object.keys(rightDistanceData)[0];
+  console.log('-----------------------------------------------------');
+  console.log(`${pointName}:${leftPoint} ${leftDistanceData[leftPoint]}`);
+  console.log(`${pointName}:${rightPoint} ${rightDistanceData[rightPoint]}`);
   let handleGraph: Graph = graph;
   const compare = leftDistanceData[leftPoint] < rightDistanceData[rightPoint];
+  console.log(compare);
   //input closetData to graph
   const queue = Object.keys(handleGraph);
   //handle distance to object distance
@@ -108,20 +112,24 @@ function _handleGraphStatusPoint(
     switch (element) {
       case leftPoint:
         if (compare) {
-          //console.log('true at distance');
+          console.log('true at distance');
           handleGraph[element][`${pointName}`] = leftDistanceData[leftPoint];
-        } else handleGraph[element][`${pointName}`] = 9999;
+        }
         break;
       case rightPoint:
         if (!compare) {
-          //console.log('false at distance');
+          console.log('false at distance');
+          // console.log(`left ${pointName} ${leftDistanceData[leftPoint]}`);
           handleGraph[element][`${pointName}`] = rightDistanceData[rightPoint];
-        } else handleGraph[element][`${pointName}`] = 9999;
+        }
         break;
       default:
         handleGraph[element][`${pointName}`] = 9999;
         break;
     }
+  });
+  queue.forEach(e => {
+    console.log(handleGraph[`${e}`]);
   });
   //handle graph pointName distance data
   const queueHandleGraph = Object.keys(handleGraph[`${pointName}`]);
@@ -130,36 +138,42 @@ function _handleGraphStatusPoint(
       case leftPoint:
         if (compare) {
           //console.log('true at distance');
+          console.log('true at distance');
           handleGraph[`${pointName}`][leftPoint] = leftDistanceData[leftPoint];
-        } else handleGraph[`${pointName}`][key] = 9999;
+        }
         break;
       case rightPoint:
-        if (compare) {
+        if (!compare) {
           //console.log('true at distance');
           handleGraph[`${pointName}`][rightPoint] =
             rightDistanceData[rightPoint];
-        } else handleGraph[`${pointName}`][key] = 9999;
+        }
         break;
       default:
         handleGraph[`${pointName}`][key] = 9999;
         break;
     }
   });
+  console.log(`${pointName}: ${handleGraph}`);
 
   return handleGraph;
 }
+function _compare2Direction(pos: number[]) {
+  //logic unstable according left right point
+  const closet = _get2ClosetPoint(pos, listLeft, listRight);
+  const leftDistanceData = closet['leftPoint'];
+  const rightDistanceData = closet['rightPoint'];
+  const leftPoint = Object.keys(leftDistanceData)[0];
+  const rightPoint = Object.keys(rightDistanceData)[0];
+  const compare = leftDistanceData[leftPoint] < rightDistanceData[rightPoint];
+  return compare;
+}
 
 function handleShortestPoint(object: number[], currentPos: number[]) {
-  const closestLeftPosPoint = _get2ClosetPoint(currentPos, listLeft, listRight)[
-    'leftPoint'
-  ];
-  const closestLeftObjPoint = _get2ClosetPoint(object, listLeft, listRight)[
-    'leftPoint'
-  ];
-  const queuePos = Object.keys(closestLeftPosPoint);
-  const queueObj = Object.keys(closestLeftObjPoint);
+  const compareObj = _compare2Direction(object);
+  const comparePos = _compare2Direction(currentPos);
   //console.log(queuePos[0], queueObj[0]);
-  if (queuePos[0] === queueObj[0]) {
+  if (compareObj === comparePos) {
     let listShortestPoint: number[][] = [];
     listShortestPoint.push(currentPos);
     listShortestPoint.push(object);
@@ -194,7 +208,7 @@ function handleShortestPoint(object: number[], currentPos: number[]) {
         break;
     }
   });
-  console.log(`listShortestPoint in serviec: ${listShortestPoint}`);
+  // console.log(`listShortestPoint in serviec: ${listShortestPoint}`);
   return listShortestPoint;
 }
 

@@ -25,6 +25,14 @@ const MapComponent = () => {
     state => state.direction,
   );
 
+  const sheet1: number[][] = [
+    [106.797522, 10.8516194],
+    [106.79754673544875, 10.851600225217368],
+    [106.7974473, 10.851505],
+    [106.79742564511571, 10.851522919259551],
+  ];
+  const listSheet: number[][][] = [sheet1];
+
   const [isTouch, setIsTouch] = useState<boolean>(false);
 
   const [latitude, setLatitude] = useState<any>(0);
@@ -79,6 +87,22 @@ const MapComponent = () => {
           requestsAlwaysUse={true}
           visible={true}
         />
+        {listSheet.map(e => {
+          return (
+            <Mapbox.ShapeSource
+              key={e[0].toString()}
+              id={e[0].toString()}
+              shape={{type: 'LineString', coordinates: e}}>
+              <Mapbox.FillLayer
+                id={e[0].toString()}
+                style={{
+                  fillColor: '#527853',
+                }}
+              />
+            </Mapbox.ShapeSource>
+          );
+        })}
+
         {isTouch ? (
           <Mapbox.Camera
             centerCoordinate={[longitude, latitude]}

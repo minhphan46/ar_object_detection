@@ -10,7 +10,10 @@ import {
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
 import {CanType, getCanSource} from '../data/enum/3DCanEnum';
-import {getDistance} from '../utils/viro_position_service';
+import {
+  angleBetweenTwoPoint,
+  getDistance,
+} from '../utils/viro_position_service';
 import {ViroPosition} from '../store/slices/direction_slice';
 var turf = require('@turf/turf');
 
@@ -153,7 +156,8 @@ function DrawDirectionModel(props: GetLineProps): JSX.Element {
         const t = i / numOfPoint;
         const x = props.point1.x + (props.point2.x - props.point1.x) * t;
         const z = props.point1.z + (props.point2.z - props.point1.z) * t;
-        return i === 0 && props.isLastLine ? (
+        //const angle = angleBetweenTwoPoint(props.point1, props.point2);
+        return i === numOfPoint - 1 ? (
           <Viro3DObject
             key={i}
             source={require('../../assets/model/arrow.obj')}

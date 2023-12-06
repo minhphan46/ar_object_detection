@@ -1,6 +1,9 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {convertDeg2Rad, getObjectPosition} from '../../utils/get_angle_service';
-import {position2Viro} from '../../utils/viro_position_service';
+import {
+  angleBetweenTwoPoint,
+  position2Viro,
+} from '../../utils/viro_position_service';
 import {MapPosition} from '../../data/ProductObject';
 import {handleShortestPoint} from '../../utils/find_shortest_service';
 var turf = require('@turf/turf');
@@ -25,6 +28,7 @@ interface DirectionState {
   isFirstInit: boolean;
   isDeviceStanding: boolean;
   listShortestPoint: ViroPosition[];
+  listAngleDirection: number[];
 }
 
 const initialState: DirectionState = {
@@ -49,6 +53,7 @@ const initialState: DirectionState = {
   isFirstInit: true,
   isDeviceStanding: false,
   listShortestPoint: [],
+  listAngleDirection: [],
 };
 
 export const DirectionSlice = createSlice({
@@ -103,12 +108,14 @@ export const DirectionSlice = createSlice({
       if (state.isFirstInit) {
         //handle list shortest point
         state.listShortestPoint = [];
+        state.listAngleDirection = [];
+
         const listShortest = handleShortestPoint(
           [state.objectMapPosition.long, state.objectMapPosition.lat],
           [state.currentPosition.long, state.currentPosition.lat],
         );
         console.log(`listShortest in slice: ${listShortest}`);
-        listShortest.forEach(e => {
+        listShortest.forEach((e, index) => {
           const dotPosition = turf.point(e);
           const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
           const newDotPos = getObjectPosition(
@@ -120,6 +127,19 @@ export const DirectionSlice = createSlice({
             heading,
             rad,
           );
+
+          console.log('length', listShortest.length);
+          if (index !== 0 && index !== listShortest.length - 1) {
+            console.log('index', index);
+            const angleBetweenDotAndObject = angleBetweenTwoPoint(
+              dotPosition,
+              objectPositionPoint,
+            );
+
+            state.listAngleDirection.push(angleBetweenDotAndObject);
+            console.log('list angle', [...state.listAngleDirection]);
+          }
+
           state.listShortestPoint.push(newDotPos);
         });
         //handle object

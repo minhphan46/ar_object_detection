@@ -18,7 +18,11 @@ function position2Viro(point1: any, point2: any) {
 }
 
 function angleBetweenTwoPoint(point1: any, point2: any) {
-  const angle = turf.bearing(point1, point2);
+  let angle = turf.bearing(point1, point2);
+
+  if (angle < 0 && angle > -180) {
+    angle += 360;
+  }
 
   return angle;
 }

@@ -38,7 +38,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
       isStanding = getStadingArea(y);
 
       if (isStanding) {
-        if (headingapp > 355 || headingapp < 5) {
+        if (headingapp === 0) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
           dispatch(
             updateDirection({heading: headingCur, accuracy: accuracyCur}),

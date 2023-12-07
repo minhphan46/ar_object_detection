@@ -35,10 +35,10 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
     });
 
     const subscription = accelerometer.subscribe(({x, y, z}) => {
-      isStanding = getStadingArea(y);
+      isStanding = getStadingArea(x, y, z);
 
       if (isStanding) {
-        if (headingapp === 0) {
+        if (headingapp > 358 || headingapp < 1) {
           dispatch(updatePhoneDirection({isStading: isStanding}));
           dispatch(
             updateDirection({heading: headingCur, accuracy: accuracyCur}),

@@ -67,15 +67,19 @@ function getObjectPosition(
   return newPosition;
 }
 
-function getStadingArea(axis: number) {
+function getStadingArea(axisX: number, axisY: number, axisZ: number) {
+  console.log(axisX);
+  console.log(axisY);
+  console.log(axisZ);
   const gravity = 9.81; // Gia tốc trọng trường, g = 9.81 m/s²
   // Kiểm tra nếu gia tốc trục Z gần bằng gia tốc trọng trường
-  const tolerance = 0.1; // Độ lệch cho phép
-  const isStanding =
-    Math.abs(axis) > gravity - tolerance &&
-    Math.abs(axis) < gravity + tolerance;
-
-  return isStanding;
+  const tolerance = 0.3; // Độ lệch cho phép
+  const isStandingY =
+    Math.abs(axisY) > gravity - tolerance && Math.abs(axisY) < gravity;
+  const isStandingX =
+    Math.abs(axisX) > -tolerance && Math.abs(axisX) < tolerance;
+  const isStandingZ = Math.abs(axisZ) > 1 && Math.abs(axisX) < 2;
+  return isStandingY && isStandingX && isStandingZ;
 }
 
 export {

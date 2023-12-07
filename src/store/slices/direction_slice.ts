@@ -2,11 +2,20 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {convertDeg2Rad, getObjectPosition} from '../../utils/get_angle_service';
 import {
   angleBetweenTwoPoint,
+  getDistance,
   position2Viro,
 } from '../../utils/viro_position_service';
 import {MapPosition} from '../../data/ProductObject';
 import {handleShortestPoint} from '../../utils/find_shortest_service';
+import {useToast} from 'react-native-toast-notifications';
+
 var turf = require('@turf/turf');
+
+export enum ShowToastType {
+  reject,
+  pending,
+  success,
+}
 
 export type Direction = {
   heading: number;
@@ -25,10 +34,12 @@ interface DirectionState {
   objectViroPosition: ViroPosition;
   objectMapPosition: MapPosition;
   currentPosition: MapPosition;
+  distance: string;
   isFirstInit: boolean;
   isDeviceStanding: boolean;
   listShortestPoint: ViroPosition[];
   listAngleDirection: number[];
+  mustShowToast: ShowToastType;
 }
 
 const initialState: DirectionState = {
@@ -45,6 +56,7 @@ const initialState: DirectionState = {
     lat: 0,
     long: 0,
   },
+  distance: '0',
   objectViroPosition: {
     x: 0,
     y: 0,
@@ -54,6 +66,7 @@ const initialState: DirectionState = {
   isDeviceStanding: false,
   listShortestPoint: [],
   listAngleDirection: [],
+  mustShowToast: ShowToastType.reject,
 };
 
 export const DirectionSlice = createSlice({
@@ -72,6 +85,7 @@ export const DirectionSlice = createSlice({
       };
       state.isFirstInit = true;
       state.isDeviceStanding = false;
+      state.mustShowToast = ShowToastType.reject;
     },
     updateCurrentPosition: (
       state,
@@ -86,6 +100,24 @@ export const DirectionSlice = createSlice({
         lat,
         long,
       };
+      const currentPositionPoint = turf.point([long, lat]);
+      const objectPositionPoint = turf.point([
+        state.objectMapPosition.long,
+        state.objectMapPosition.lat,
+      ]);
+      const distance = getDistance(currentPositionPoint, objectPositionPoint);
+
+      if (distance >= 5) {
+        state.mustShowToast = ShowToastType.reject;
+      }
+
+      if (distance <= 2 && state.mustShowToast === ShowToastType.reject) {
+        state.mustShowToast = ShowToastType.pending;
+      }
+
+      state.distance = distance.toFixed(1);
+
+      console.log('distance', state.distance);
     },
     updateDirection: (
       state,
@@ -114,7 +146,7 @@ export const DirectionSlice = createSlice({
           [state.objectMapPosition.long, state.objectMapPosition.lat],
           [state.currentPosition.long, state.currentPosition.lat],
         );
-        console.log(`listShortest in slice: ${listShortest}`);
+
         listShortest.forEach((e, index) => {
           const dotPosition = turf.point(e);
           const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
@@ -128,16 +160,13 @@ export const DirectionSlice = createSlice({
             rad,
           );
 
-          console.log('length', listShortest.length);
           if (index !== listShortest.length - 1) {
-            console.log('index', index);
             const angleBetweenDotAndObject = angleBetweenTwoPoint(
               dotPosition,
               objectPositionPoint,
             );
 
             state.listAngleDirection.push(angleBetweenDotAndObject);
-            console.log('list angle', [...state.listAngleDirection]);
           }
 
           state.listShortestPoint.push(newDotPos);
@@ -171,6 +200,9 @@ export const DirectionSlice = createSlice({
       const {isStading} = action.payload;
       state.isDeviceStanding = isStading;
     },
+    showToastSuccess: (state, _) => {
+      state.mustShowToast = ShowToastType.success;
+    },
   },
 });
 
@@ -180,4 +212,5 @@ export const {
   updateDirection,
   updatePhoneDirection,
   updateCurrentPosition,
+  showToastSuccess,
 } = DirectionSlice.actions;

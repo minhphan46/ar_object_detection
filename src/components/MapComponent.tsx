@@ -7,9 +7,10 @@ import Mapbox, {
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
-import {useAppSelector} from '../store/store';
+import {useAppDispatch, useAppSelector} from '../store/store';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {handleShortestPoint} from '../utils/find_shortest_service';
+import {updateCurrentPosition} from '../store/slices/direction_slice';
 
 const token =
   'pk.eyJ1IjoicXVhbmduaGF0MjIiLCJhIjoiY2xvaTJ3aTZ0MGN6czJycWhwMXZkdzh3aiJ9.rVhMy3XyQ9ilcYGjMFFtLw';
@@ -18,6 +19,8 @@ Mapbox.setAccessToken(token);
 Mapbox.setConnected(true);
 
 const MapComponent = () => {
+  const dispatch = useAppDispatch();
+
   // draw poly line
   const [listPoint, setListPoint] = useState<any>([]);
 
@@ -52,6 +55,13 @@ const MapComponent = () => {
       [location.coords.longitude, location.coords.latitude],
     );
     setListPoint(shortestPath);
+
+    dispatch(
+      updateCurrentPosition({
+        lat: location.coords.latitude,
+        long: location.coords.longitude,
+      }),
+    );
 
     lineCoordinates = [
       [longitude, latitude],

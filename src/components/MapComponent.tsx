@@ -93,7 +93,7 @@ const MapComponent = () => {
           onUpdate={handleUserLocationUpdate}
           showsUserHeadingIndicator={true}
           androidRenderMode="compass"
-          renderMode={UserLocationRenderMode.Normal}
+          renderMode={UserLocationRenderMode.Native}
           requestsAlwaysUse={true}
           visible={true}
         />

@@ -85,7 +85,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
         {currentLocation[0]} - {currentLocation[1]}
       </Text>
       <Mapbox.UserLocation
-        minDisplacement={1}
+        minDisplacement={0.5}
         onUpdate={handleUserLocationUpdate}
         showsUserHeadingIndicator={true}
         androidRenderMode="gps"

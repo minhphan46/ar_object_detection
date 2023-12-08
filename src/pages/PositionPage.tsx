@@ -125,7 +125,7 @@ const PositionPage = () => {
             }
           }}>
           <Mapbox.UserLocation
-            minDisplacement={1}
+            minDisplacement={0.5}
             visible={true}
             onUpdate={handleUserLocationUpdate}
             showsUserHeadingIndicator={true}

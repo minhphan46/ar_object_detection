@@ -89,11 +89,11 @@ const MapComponent = () => {
           setIsTouch(true);
         }}>
         <Mapbox.UserLocation
-          minDisplacement={10}
+          minDisplacement={0.5}
           onUpdate={handleUserLocationUpdate}
           showsUserHeadingIndicator={true}
           androidRenderMode="compass"
-          renderMode={UserLocationRenderMode.Normal}
+          renderMode={UserLocationRenderMode.Native}
           requestsAlwaysUse={true}
           visible={true}
         />

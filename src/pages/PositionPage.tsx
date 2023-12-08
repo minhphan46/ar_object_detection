@@ -86,9 +86,9 @@ const PositionPage = () => {
     );
     setListPoint(shortestPath);
     setLocationCoord([longitude, latitude]);
-    // const distancepl = turf.distance(listRight['right1'], listLeft['left1'], {
-    //   units: 'meters',
-    // });
+    const distancepl = turf.distance(listRight['right1'], listLeft['left1'], {
+      units: 'meters',
+    });
     // // const distancepr = turf.distance(
     // //   [currentPosition.long, currentPosition.lat],
     // //   listRight['right1'],
@@ -96,8 +96,8 @@ const PositionPage = () => {
     // //     units: 'meters',
     // //   },
     // // );
-    // console.log(`left: ${distancepl}, `);
-
+    console.log(`left: ${distancepl}, `);
+    // console.log(`${longitude}, ${latitude}`);
     setLocationCoords([
       ...locationCoords,
       {

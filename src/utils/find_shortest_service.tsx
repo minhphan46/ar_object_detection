@@ -99,12 +99,12 @@ function _handleGraphStatusPoint(
   const rightDistanceData = closet['rightPoint'];
   const leftPoint = Object.keys(leftDistanceData)[0];
   const rightPoint = Object.keys(rightDistanceData)[0];
-  console.log('-----------------------------------------------------');
-  console.log(`${pointName}:${leftPoint} ${leftDistanceData[leftPoint]}`);
-  console.log(`${pointName}:${rightPoint} ${rightDistanceData[rightPoint]}`);
+  // console.log('-----------------------------------------------------');
+  // console.log(`${pointName}:${leftPoint} ${leftDistanceData[leftPoint]}`);
+  // console.log(`${pointName}:${rightPoint} ${rightDistanceData[rightPoint]}`);
   let handleGraph: Graph = graph;
   const compare = leftDistanceData[leftPoint] < rightDistanceData[rightPoint];
-  console.log(compare);
+  // console.log(compare);
   //input closetData to graph
   const queue = Object.keys(handleGraph);
   //handle distance to object distance
@@ -112,13 +112,13 @@ function _handleGraphStatusPoint(
     switch (element) {
       case leftPoint:
         if (compare) {
-          console.log('true at distance');
+          // console.log('true at distance');
           handleGraph[element][`${pointName}`] = leftDistanceData[leftPoint];
         }
         break;
       case rightPoint:
         if (!compare) {
-          console.log('false at distance');
+          // console.log('false at distance');
           // console.log(`left ${pointName} ${leftDistanceData[leftPoint]}`);
           handleGraph[element][`${pointName}`] = rightDistanceData[rightPoint];
         }
@@ -128,9 +128,7 @@ function _handleGraphStatusPoint(
         break;
     }
   });
-  queue.forEach(e => {
-    console.log(handleGraph[`${e}`]);
-  });
+
   //handle graph pointName distance data
   const queueHandleGraph = Object.keys(handleGraph[`${pointName}`]);
   queueHandleGraph.forEach(key => {
@@ -138,7 +136,7 @@ function _handleGraphStatusPoint(
       case leftPoint:
         if (compare) {
           //console.log('true at distance');
-          console.log('true at distance');
+          // console.log('true at distance');
           handleGraph[`${pointName}`][leftPoint] = leftDistanceData[leftPoint];
         }
         break;
@@ -154,7 +152,7 @@ function _handleGraphStatusPoint(
         break;
     }
   });
-  console.log(`${pointName}: ${handleGraph}`);
+  // console.log(`${pointName}: ${handleGraph}`);
 
   return handleGraph;
 }

@@ -152,15 +152,15 @@ export const DirectionSlice = createSlice({
         listShortest.forEach((e, index) => {
           const dotPosition = turf.point(e);
           const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
-          const newDotPos = getObjectPosition(
-            {
-              x,
-              y,
-              z,
-            },
-            heading,
-            rad,
-          );
+          // const newDotPos = getObjectPosition(
+          //   {
+          //     x,
+          //     y,
+          //     z,
+          //   },
+          //   heading,
+          //   rad,
+          // );
 
           if (index !== listShortest.length - 1) {
             const angleBetweenDotAndObject = angleBetweenTwoPoint(
@@ -171,29 +171,29 @@ export const DirectionSlice = createSlice({
             state.listAngleDirection.push(angleBetweenDotAndObject);
           }
 
-          state.listShortestPoint.push(newDotPos);
+          state.listShortestPoint.push({x, y, z});
         });
         //handle object
         const {x, y, z} = position2Viro(
           currentPositionPoint,
           objectPositionPoint,
         );
-        const newObjectPosition = getObjectPosition(
-          {
-            x,
-            y,
-            z,
-          },
-          heading,
-          rad,
-        );
+        // const newObjectPosition = getObjectPosition(
+        //   {
+        //     x,
+        //     y,
+        //     z,
+        //   },
+        //   heading,
+        //   rad,
+        // );
         state.objectViroPosition = {
           ...state.objectViroPosition,
-          ...newObjectPosition,
+          ...{x, y, z},
         };
         state.isFirstInit = false;
+        state.direction = {...state.direction, heading, accuracy, rad};
       }
-      state.direction = {...state.direction, heading, accuracy, rad};
     },
     updatePhoneDirection: (
       state,

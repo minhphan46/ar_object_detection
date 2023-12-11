@@ -32,7 +32,7 @@ type GetLineProps = {
 };
 
 function ShowNavigation(): JSX.Element {
-  const {objectViroPosition, isFirstInit} = useAppSelector(
+  const {objectViroPosition, isFirstInit, direction} = useAppSelector(
     state => state.direction,
   );
 
@@ -53,7 +53,7 @@ function ShowNavigation(): JSX.Element {
       {camera ? (
         <ViroCamera
           position={[0, 0, 0]}
-          rotation={[0, 0, 0]}
+          rotation={[0, direction.heading, 0]}
           active={isFirstInit}>
           <ShowModels
             x={objectViroPosition?.x ?? 0}

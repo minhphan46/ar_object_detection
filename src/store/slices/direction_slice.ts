@@ -127,6 +127,7 @@ export const DirectionSlice = createSlice({
       }>,
     ) => {
       const {heading, accuracy} = action.payload;
+
       const currentPositionPoint = turf.point([
         state.currentPosition.long,
         state.currentPosition.lat,
@@ -137,6 +138,7 @@ export const DirectionSlice = createSlice({
       ]);
 
       const rad = convertDeg2Rad(heading);
+
       if (state.isFirstInit) {
         //handle list shortest point
         state.listShortestPoint = [];

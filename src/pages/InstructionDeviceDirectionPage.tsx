@@ -12,7 +12,10 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import CompassHeading from 'react-native-compass-heading';
-import Mapbox, {UserLocationRenderMode} from '@rnmapbox/maps';
+import Mapbox, {
+  UserLocationRenderMode,
+  removeCustomHeader,
+} from '@rnmapbox/maps';
 import {Divider} from '@rneui/base';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
@@ -23,37 +26,30 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
 
   const [headingapp, setHeadingApp] = useState(100);
   const [currentLocation, setCurrentLocation] = useState<number[]>([0, 0]);
-  let headingCur = 0;
-  let accuracyCur = 0;
+  const [headingCur, setHeadingCur] = useState<number>(0);
+  const [accuracyCur, setAccuracyCur] = useState<number>(0);
 
   useEffect(() => {
     const degree_update_rate = 1;
     CompassHeading.start(degree_update_rate, ({heading, accuracy}) => {
-      headingCur = heading;
-      accuracyCur = accuracy;
+      setHeadingCur(heading);
+      setAccuracyCur(accuracy);
       setHeadingApp(heading);
     });
 
-    const subscription = accelerometer.subscribe(({x, y, z}) => {
-      isStanding = getStadingArea(x, y, z);
-
-      if (isStanding) {
-        if (headingapp > 358 || headingapp < 1) {
-          dispatch(updatePhoneDirection({isStading: isStanding}));
-          dispatch(
-            updateDirection({heading: headingCur, accuracy: accuracyCur}),
-          );
-          navigation.replace('Direction');
-          subscription.unsubscribe();
-          CompassHeading.stop();
-        }
-      }
-    });
+    const timeout = setTimeout(() => {
+      dispatch(updateDirection({heading: headingCur, accuracy: accuracyCur}));
+      navigation.replace('Direction');
+      // subscription.unsubscribe();
+      CompassHeading.stop();
+    }, 1000);
 
     return () => {
-      subscription.unsubscribe(); // Hủy lắng nghe khi component unmount
+      clearTimeout(timeout);
+      CompassHeading.stop();
+      //subscription.unsubscribe(); // Hủy lắng nghe khi component unmount
     };
-  }, [headingapp]);
+  }, [headingapp, headingCur, accuracyCur]);
 
   const handleUserLocationUpdate = (location: any) => {
     setCurrentLocation([location.coords.longitude, location.coords.latitude]);

@@ -52,9 +52,9 @@ function getObjectPosition(
   angle: number,
 ): ProductPosition {
   let newPosition = oldPosition;
-  // console.log('heading tinh toan', heading);
-  // console.log('angle tinh toan', angle);
-  // console.log('old position tinh toan', oldPosition);
+  console.log('heading tinh toan', heading);
+  console.log('angle tinh toan', angle);
+  console.log('old position tinh toan', oldPosition);
 
   newPosition.x =
     oldPosition.x * Math.cos(angle) + oldPosition.z * Math.sin(angle);

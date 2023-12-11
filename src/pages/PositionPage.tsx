@@ -23,8 +23,10 @@ const PositionPage = () => {
   const sheet1: number[][] = [
     [106.797522, 10.8516194],
     [106.79754673544875, 10.851600225217368],
-    [106.7974473, 10.851505],
-    [106.79742564511571, 10.851522919259551],
+    [106.79742286306043, 10.851474773759378],
+    //106.7974473, 10.851505
+    [106.7973972947866, 10.85149518882065],
+    //106.79742564511571, 10.851522919259551
 
     // Thêm các tọa độ khác nếu cần
   ];
@@ -96,8 +98,8 @@ const PositionPage = () => {
     // //     units: 'meters',
     // //   },
     // // );
-    console.log(`left: ${distancepl}, `);
-    // console.log(`${longitude}, ${latitude}`);
+    // console.log(`left: ${distancepl}, `);
+    console.log(`${longitude}, ${latitude}`);
     setLocationCoords([
       ...locationCoords,
       {

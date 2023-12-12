@@ -72,8 +72,7 @@ export default function IntructionUserHandlePhone({navigation}: Props) {
       <Text style={styles.title}>Your Device Heading</Text>
       <Text style={styles.titleHeading}>{Math.round(headingapp)}°</Text>
       <Text style={styles.titleDes}>
-        Please put the phone upright, the phone's frame is perpendicular to the
-        ground, and heading number is 0°
+        Please hold the phone stay still untill heading stop changing
       </Text>
       <Divider />
       <Text style={styles.subTitleDes}>

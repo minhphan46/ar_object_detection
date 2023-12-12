@@ -117,7 +117,7 @@ export const DirectionSlice = createSlice({
 
       state.distance = distance.toFixed(1);
 
-      console.log('distance', state.distance);
+      // console.log('distance', state.distance);
     },
     updateDirection: (
       state,

@@ -101,7 +101,7 @@ function ObjectDetectionList(props: ObjectDetectionProps): JSX.Element {
             target={`${product.name}${indexImageDetected + 1}`}
             onAnchorRemoved={_onLostObject}
             onAnchorUpdated={_onUpdatedObject}>
-            <ObjectInfoCard product={product} />
+            <ObjectInfoCard product={product} isShowPreviewImage={true} />
           </ViroARImageMarker>,
         );
       }

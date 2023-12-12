@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   Viro3DObject,
   ViroARScene,
+  ViroAnimations,
   ViroCamera,
   ViroMaterials,
   ViroNode,
@@ -68,11 +69,20 @@ function ShowNavigation(): JSX.Element {
 }
 
 export function ShowModels(props: GetArrowModelsProps) {
+  const [isRotate, setRotate] = useState(true);
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
   const [showInformation, setShowInformation] = useState<boolean>(false);
 
   const {selectedProduct} = useAppSelector(state => state.listProduct);
+  ViroAnimations.registerAnimations({
+    loopRotate: {
+      properties: {
+        rotateY: '+=45',
+      },
+      duration: 500,
+    },
+  });
 
   useEffect(() => {
     const rad = Math.atan2(x, z);
@@ -93,6 +103,11 @@ export function ShowModels(props: GetArrowModelsProps) {
       diffuseTexture: selectedProduct?.canObject[0].brandLabel,
       specularTexture: selectedProduct?.canObject[0].brandLabel,
     },
+    pointer_label: {
+      diffuseColor: 'rgba(194,48,48,1)',
+      writesToDepthBuffer: true,
+      readsFromDepthBuffer: true,
+    },
   });
 
   return (
@@ -108,6 +123,17 @@ export function ShowModels(props: GetArrowModelsProps) {
           console.log(position);
           setShowInformation(!showInformation);
         }}>
+        <ViroNode>
+          <Viro3DObject
+            position={[0, 3, 0]}
+            source={require('../../assets/model/map_pointer.obj')}
+            materials={['pointer_label']}
+            type="OBJ"
+            scale={[0.8, 0.8, 0.8]}
+            rotation={[0, 0, 0]}
+            animation={{name: 'loopRotate', run: true, loop: isRotate}}
+          />
+        </ViroNode>
         <Viro3DObject
           source={getCanSource(CanType.can250)}
           materials={['label']}
@@ -117,10 +143,13 @@ export function ShowModels(props: GetArrowModelsProps) {
         />
         {showInformation && selectedProduct && (
           <ViroNode
-            position={[1, 0.6, 0]}
+            position={[0, -0.5, -1.5]}
             rotation={[90, 90, 0]}
             scale={[2, 2, 2]}>
-            <ObjectInfoCard product={selectedProduct} />
+            <ObjectInfoCard
+              product={selectedProduct}
+              isShowPreviewImage={false}
+            />
           </ViroNode>
         )}
       </ViroNode>

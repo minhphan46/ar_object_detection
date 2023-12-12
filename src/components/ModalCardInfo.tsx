@@ -1,4 +1,4 @@
-import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {ProductInfo} from '../data/ProductObject';
 import {useAppDispatch, useAppSelector} from '../store/store';
@@ -6,14 +6,40 @@ import {toggleShowModal} from '../store/slices/direction_slice';
 
 const ModalCardInfo = () => {
   const {isShowModal} = useAppSelector(state => state.direction);
+  const {selectedProduct} = useAppSelector(state => state.listProduct);
 
   const dispatch = useAppDispatch();
 
   return (
-    <Modal animationType="slide" transparent={true} visible={isShowModal}>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isShowModal}
+      onRequestClose={() => {
+        dispatch(toggleShowModal({}));
+      }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Hello World!</Text>
+          <Image
+            style={styles.buttonImageIconStyle}
+            source={selectedProduct?.image}
+          />
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.modalText}>Name: </Text>
+            <Text style={styles.modalText}>{selectedProduct?.name}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.modalText}>Brand name: </Text>
+            <Text style={styles.modalText}>{selectedProduct?.brandName}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.modalText}>Type: </Text>
+            <Text style={styles.modalText}>{selectedProduct?.type}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.modalText}>Price: </Text>
+            <Text style={styles.modalText}>{selectedProduct?.price}</Text>
+          </View>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => dispatch(toggleShowModal({}))}>
@@ -34,12 +60,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
   },
+  buttonImageIconStyle: {
+    alignSelf: 'center',
+    height: 100,
+    width: 100,
+  },
   modalView: {
-    margin: 20,
+    margin: 10,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
+    justifyContent: 'flex-start',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -50,12 +81,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 10,
     elevation: 2,
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#711DB0',
   },
   textStyle: {
     color: 'white',
@@ -65,5 +96,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 16,
   },
 });

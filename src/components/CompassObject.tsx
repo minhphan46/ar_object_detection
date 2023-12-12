@@ -23,8 +23,8 @@ const CompassObject = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.angle}>{Math.round(direction.heading)}°</Text>
-      <Text style={styles.direction}>Distance: {distance}</Text>
+      {/* <Text style={styles.angle}>{Math.round(direction.heading)}°</Text> */}
+      <Text style={styles.direction}>Distance:</Text>
     </View>
   );
 };

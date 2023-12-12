@@ -10,6 +10,7 @@ import {SplitPane} from 'expo-split-pane';
 import MapComponent from '../components/MapComponent';
 import {showToastSuccess, ShowToastType} from '../store/slices/direction_slice';
 import {useToast} from 'react-native-toast-notifications';
+import ProgressComponent from '../components/ProgressComponent';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
@@ -18,7 +19,7 @@ function ViroARNavigationPage({navigation}: Props) {
   const toast = useToast();
   const dispatch = useAppDispatch();
 
-  const [isShowMap, setIsShowMap] = useState<boolean>(false);
+  const [isShowMap, setIsShowMap] = useState<boolean>(true);
 
   if (mustShowToast === ShowToastType.pending) {
     toast.hideAll();
@@ -40,7 +41,8 @@ function ViroARNavigationPage({navigation}: Props) {
         min={0.1}
         style={{flex: 1}}
         orientation="horizontal"
-        pane2InitialSize={250}
+        //pane2InitialSize={250}
+        pane2InitialSize={0.1}
         onChange={size => {
           if (size && size.pane2Size !== undefined && size.pane2Size < 1) {
             setIsShowMap(true);
@@ -59,15 +61,19 @@ function ViroARNavigationPage({navigation}: Props) {
         }
         pane2={<MapComponent />}
       />
-
-      <View style={styles.fab3DButton}>
-        <CompassObject />
-      </View>
       {isShowMap && (
         <View style={styles.map}>
           <MapComponent />
         </View>
       )}
+
+      <View style={styles.fab3DButton}>
+        <CompassObject />
+      </View>
+
+      <View style={styles.direction}>
+        <ProgressComponent />
+      </View>
     </View>
   );
 }
@@ -95,6 +101,16 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   fab3DButton: {
+    position: 'absolute',
+    left: 20,
+    right: 0,
+    bottom: 50,
+    width: 200,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  direction: {
     position: 'absolute',
     left: 20,
     right: 0,

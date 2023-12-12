@@ -17,6 +17,7 @@ import {RootStackParamList} from '../../App';
 
 type ObjectCardInfoProps = {
   product: ProductInfo;
+  isShowPreviewImage?: boolean;
 };
 
 export default function ObjectInfoCard(props: ObjectCardInfoProps) {
@@ -89,12 +90,14 @@ export default function ObjectInfoCard(props: ObjectCardInfoProps) {
           width={0.8}
           height={0.4}
           rotation={[-90, 0, 0]}>
-          <ViroImage
-            height={0.15}
-            width={0.1}
-            source={product.image}
-            style={styles.imageContainer}
-          />
+          {props.isShowPreviewImage === true && (
+            <ViroImage
+              height={0.15}
+              width={0.1}
+              source={product.image}
+              style={styles.imageContainer}
+            />
+          )}
           <ViroFlexView style={styles.informationContainer}>
             {/* product name */}
             <ViroFlexView style={styles.rowInfoContainer}>

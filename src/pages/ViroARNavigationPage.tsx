@@ -20,8 +20,6 @@ function ViroARNavigationPage({navigation}: Props) {
   const toast = useToast();
   const dispatch = useAppDispatch();
 
-  const [isShowModal, setIsShowModal] = useState<boolean>(false);
-
   const [isShowMap, setIsShowMap] = useState<boolean>(true);
 
   if (mustShowToast === ShowToastType.pending) {
@@ -33,10 +31,6 @@ function ViroARNavigationPage({navigation}: Props) {
       animationType: 'slide-in',
     });
     dispatch(showToastSuccess({}));
-  }
-
-  function setISShowModal(isShow: boolean) {
-    setIsShowModal(isShow);
   }
 
   return (

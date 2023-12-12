@@ -1,5 +1,5 @@
 import {ViroARSceneNavigator} from '@viro-community/react-viro';
-import {StyleSheet, View} from 'react-native';
+import {Modal, StyleSheet, View} from 'react-native';
 import CompassObject from '../components/CompassObject';
 import ShowNavigation from '../components/ShowNavigation';
 import React, {useState} from 'react';
@@ -11,6 +11,7 @@ import MapComponent from '../components/MapComponent';
 import {showToastSuccess, ShowToastType} from '../store/slices/direction_slice';
 import {useToast} from 'react-native-toast-notifications';
 import ProgressComponent from '../components/ProgressComponent';
+import ModalCardInfo from '../components/ModalCardInfo';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeviceDirectionPage'>;
 
@@ -18,6 +19,8 @@ function ViroARNavigationPage({navigation}: Props) {
   const {mustShowToast} = useAppSelector(state => state.direction);
   const toast = useToast();
   const dispatch = useAppDispatch();
+
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const [isShowMap, setIsShowMap] = useState<boolean>(true);
 
@@ -30,6 +33,10 @@ function ViroARNavigationPage({navigation}: Props) {
       animationType: 'slide-in',
     });
     dispatch(showToastSuccess({}));
+  }
+
+  function setISShowModal(isShow: boolean) {
+    setIsShowModal(isShow);
   }
 
   return (
@@ -74,6 +81,8 @@ function ViroARNavigationPage({navigation}: Props) {
       <View style={styles.direction}>
         <ProgressComponent />
       </View>
+
+      <ModalCardInfo />
     </View>
   );
 }

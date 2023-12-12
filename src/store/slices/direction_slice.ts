@@ -40,6 +40,7 @@ interface DirectionState {
   listShortestPoint: ViroPosition[];
   listAngleDirection: number[];
   mustShowToast: ShowToastType;
+  isShowModal: boolean;
 }
 
 const initialState: DirectionState = {
@@ -67,6 +68,7 @@ const initialState: DirectionState = {
   listShortestPoint: [],
   listAngleDirection: [],
   mustShowToast: ShowToastType.reject,
+  isShowModal: false,
 };
 
 export const DirectionSlice = createSlice({
@@ -205,6 +207,9 @@ export const DirectionSlice = createSlice({
     showToastSuccess: (state, _) => {
       state.mustShowToast = ShowToastType.success;
     },
+    toggleShowModal: (state, _) => {
+      state.isShowModal = !state.isShowModal;
+    },
   },
 });
 
@@ -215,4 +220,5 @@ export const {
   updatePhoneDirection,
   updateCurrentPosition,
   showToastSuccess,
+  toggleShowModal,
 } = DirectionSlice.actions;

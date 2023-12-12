@@ -8,11 +8,11 @@ import {
   ViroNode,
   ViroSpinner,
 } from '@viro-community/react-viro';
-import {useAppSelector} from '../store/store';
+import {useAppDispatch, useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
 import {CanType, getCanSource} from '../data/enum/3DCanEnum';
 import {getDistance} from '../utils/viro_position_service';
-import {ViroPosition} from '../store/slices/direction_slice';
+import {ViroPosition, toggleShowModal} from '../store/slices/direction_slice';
 import ObjectInfoCard from './ObjectInfoCard';
 var turf = require('@turf/turf');
 
@@ -69,10 +69,11 @@ function ShowNavigation(): JSX.Element {
 }
 
 export function ShowModels(props: GetArrowModelsProps) {
+  const dispatch = useAppDispatch();
   const [isRotate, setRotate] = useState(true);
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
-  const [showInformation, setShowInformation] = useState<boolean>(false);
+  //const [showInformation, setShowInformation] = useState<boolean>(false);
 
   const {selectedProduct} = useAppSelector(state => state.listProduct);
   ViroAnimations.registerAnimations({
@@ -121,7 +122,8 @@ export function ShowModels(props: GetArrowModelsProps) {
         }}
         onClick={(position, _) => {
           console.log(position);
-          setShowInformation(!showInformation);
+          //setShowInformation(!showInformation);
+          dispatch(toggleShowModal({}));
         }}>
         <ViroNode>
           <Viro3DObject
@@ -141,7 +143,7 @@ export function ShowModels(props: GetArrowModelsProps) {
           scale={[0.5, 0.5, 0.5]}
           rotation={[0, 0, 0]}
         />
-        {showInformation && selectedProduct && (
+        {/* {showInformation && selectedProduct && (
           <ViroNode
             position={[0, -0.5, -1.5]}
             rotation={[90, 90, 0]}
@@ -151,7 +153,7 @@ export function ShowModels(props: GetArrowModelsProps) {
               isShowPreviewImage={false}
             />
           </ViroNode>
-        )}
+        )} */}
       </ViroNode>
     </>
   );

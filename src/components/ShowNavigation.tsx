@@ -10,11 +10,9 @@ import {
 import {useAppSelector} from '../store/store';
 import {getRad2deg} from '../utils/get_angle_service';
 import {CanType, getCanSource} from '../data/enum/3DCanEnum';
-import {
-  angleBetweenTwoPoint,
-  getDistance,
-} from '../utils/viro_position_service';
+import {getDistance} from '../utils/viro_position_service';
 import {ViroPosition} from '../store/slices/direction_slice';
+import ObjectInfoCard from './ObjectInfoCard';
 var turf = require('@turf/turf');
 
 type GetArrowModelsProps = {
@@ -72,6 +70,7 @@ function ShowNavigation(): JSX.Element {
 export function ShowModels(props: GetArrowModelsProps) {
   const {x, y, z} = props;
   const [rotationX, setRotationX] = useState<number>(0);
+  const [showInformation, setShowInformation] = useState<boolean>(false);
 
   const {selectedProduct} = useAppSelector(state => state.listProduct);
 
@@ -104,14 +103,26 @@ export function ShowModels(props: GetArrowModelsProps) {
         position={[x, y, z]}
         onClickState={(stateValue, position, source) => {
           console.log('ClickState', stateValue, position, source);
+        }}
+        onClick={(position, _) => {
+          console.log(position);
+          setShowInformation(!showInformation);
         }}>
         <Viro3DObject
           source={getCanSource(CanType.can250)}
           materials={['label']}
           type="OBJ"
-          scale={[0.2, 0.2, 0.2]}
+          scale={[0.5, 0.5, 0.5]}
           rotation={[0, 0, 0]}
         />
+        {showInformation && selectedProduct && (
+          <ViroNode
+            position={[1, 0.6, 0]}
+            rotation={[90, 90, 0]}
+            scale={[2, 2, 2]}>
+            <ObjectInfoCard product={selectedProduct} />
+          </ViroNode>
+        )}
       </ViroNode>
     </>
   );

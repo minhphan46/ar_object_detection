@@ -1,6 +1,5 @@
 # Blender 3.3.1
 # www.blender.org
-mtllib map.mtl
 o lp
 v 0.411709 -2.061802 -0.000000
 v 0.693400 -1.798031 -0.000000

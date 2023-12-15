@@ -10,7 +10,6 @@ export default function ProgressComponent() {
 
   // caculate progress
   function caculateProgress(distance: number) {
-    console.log('distance: ' + distance);
     if (distance > maxDistance) {
       maxDistance = distance;
     }
@@ -20,7 +19,6 @@ export default function ProgressComponent() {
     } else {
       progress = 1 - distance / maxDistance;
     }
-    console.log('progress: ' + progress);
     return progress;
   }
 

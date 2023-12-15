@@ -75,13 +75,13 @@ function App(): JSX.Element {
                 }}
                 component={IntructionUserHandlePhone}
               />
-              <Stack.Screen
+              {/* <Stack.Screen
                 name={'Position' as never}
                 options={{
                   title: 'Get Position',
                 }}
                 component={PositionPage}
-              />
+              /> */}
             </Stack.Navigator>
           </NavigationContainer>
         </Provider>

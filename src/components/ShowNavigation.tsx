@@ -95,7 +95,7 @@ export function ShowModels(props: GetArrowModelsProps) {
       diffuseColor: 'rgba(11, 127, 171, 1)',
     },
     red: {
-      diffuseColor: '#3081D0',
+      diffuseColor: '#FFA533',
     },
     label: {
       diffuseColor: 'rgba(171,171,171,1)',
@@ -201,7 +201,7 @@ function DrawDirectionModel(props: GetLineProps): JSX.Element {
         const t = i / numOfPoint;
         const x = props.point1.x + (props.point2.x - props.point1.x) * t;
         const z = props.point1.z + (props.point2.z - props.point1.z) * t;
-        if (i === numOfPoint - 1) console.log('angle: ', props.angle);
+
         //const angle = angleBetweenTwoPoint(props.point1, props.point2);
         return i === numOfPoint - 1 && !props.isLastLine ? (
           <Viro3DObject
@@ -209,9 +209,9 @@ function DrawDirectionModel(props: GetLineProps): JSX.Element {
             source={require('../../assets/model/arrow.obj')}
             type="OBJ"
             materials={['red']}
-            opacity={0.7}
+            opacity={1}
             position={[x, -1, z]}
-            scale={[0.1, 0.1, 0.1]}
+            scale={[0.3, 0.3, 0.3]}
             rotation={[props.angle, 180, 90]}
           />
         ) : (
@@ -220,9 +220,9 @@ function DrawDirectionModel(props: GetLineProps): JSX.Element {
             source={require('../../assets/model/ball.obj')}
             type="OBJ"
             materials={['blue']}
-            opacity={0.5}
+            opacity={0.8}
             position={[x, -1, z]}
-            scale={[0.02, 0.02, 0.02]}
+            scale={[0.06, 0.06, 0.06]}
           />
         );
       })}

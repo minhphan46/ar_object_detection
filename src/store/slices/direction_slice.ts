@@ -69,6 +69,7 @@ const initialState: DirectionState = {
   listAngleDirection: [],
   mustShowToast: ShowToastType.reject,
   isShowModal: false,
+  headingRealtime: 0,
 };
 
 export const DirectionSlice = createSlice({

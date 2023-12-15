@@ -1,5 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {convertDeg2Rad, getObjectPosition} from '../../utils/get_angle_service';
+import {convertDeg2Rad} from '../../utils/get_angle_service';
 import {
   angleBetweenTwoPoint,
   getDistance,
@@ -7,7 +7,6 @@ import {
 } from '../../utils/viro_position_service';
 import {MapPosition} from '../../data/ProductObject';
 import {handleShortestPoint} from '../../utils/find_shortest_service';
-import {useToast} from 'react-native-toast-notifications';
 
 var turf = require('@turf/turf');
 
@@ -41,6 +40,7 @@ interface DirectionState {
   listAngleDirection: number[];
   mustShowToast: ShowToastType;
   isShowModal: boolean;
+  headingRealtime: number;
 }
 
 const initialState: DirectionState = {
@@ -130,6 +130,8 @@ export const DirectionSlice = createSlice({
     ) => {
       const {heading, accuracy} = action.payload;
 
+      state.headingRealtime = heading;
+
       const currentPositionPoint = turf.point([
         state.currentPosition.long,
         state.currentPosition.lat,
@@ -154,15 +156,6 @@ export const DirectionSlice = createSlice({
         listShortest.forEach((e, index) => {
           const dotPosition = turf.point(e);
           const {x, y, z} = position2Viro(currentPositionPoint, dotPosition);
-          // const newDotPos = getObjectPosition(
-          //   {
-          //     x,
-          //     y,
-          //     z,
-          //   },
-          //   heading,
-          //   rad,
-          // );
 
           if (index !== listShortest.length - 1) {
             const angleBetweenDotAndObject = angleBetweenTwoPoint(
@@ -180,15 +173,7 @@ export const DirectionSlice = createSlice({
           currentPositionPoint,
           objectPositionPoint,
         );
-        // const newObjectPosition = getObjectPosition(
-        //   {
-        //     x,
-        //     y,
-        //     z,
-        //   },
-        //   heading,
-        //   rad,
-        // );
+
         state.objectViroPosition = {
           ...state.objectViroPosition,
           ...{x, y, z},

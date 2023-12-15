@@ -1,13 +1,12 @@
 // Import React and React Native components
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {getDirection} from '../utils/get_angle_service';
 import CompassHeading from 'react-native-compass-heading';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {updateDirection} from '../store/slices/direction_slice';
 
 const CompassObject = () => {
-  const {direction, distance} = useAppSelector(state => state.direction);
+  const {headingRealtime} = useAppSelector(state => state.direction);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const CompassObject = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.angle}>{Math.round(direction.heading)}°</Text>
+      <Text style={styles.angle}>{Math.round(headingRealtime)}°</Text>
       <Text style={styles.direction}>Distance:</Text>
     </View>
   );

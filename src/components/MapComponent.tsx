@@ -1,14 +1,11 @@
-import {View, StyleSheet, Pressable} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Mapbox, {
-  LineLayer,
   PointAnnotation,
-  ShapeSource,
   UserLocationRenderMode,
   UserTrackingMode,
 } from '@rnmapbox/maps';
 import {useAppDispatch, useAppSelector} from '../store/store';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {handleShortestPoint} from '../utils/find_shortest_service';
 import {updateCurrentPosition} from '../store/slices/direction_slice';
 
@@ -24,7 +21,7 @@ const MapComponent = () => {
   // draw poly line
   const [listPoint, setListPoint] = useState<any>([]);
 
-  const {direction, objectMapPosition} = useAppSelector(
+  const {headingRealtime, objectMapPosition} = useAppSelector(
     state => state.direction,
   );
 
@@ -43,11 +40,6 @@ const MapComponent = () => {
   const [latitude, setLatitude] = useState<any>(0);
   const [longitude, setLongitude] = useState<any>(0);
 
-  let lineCoordinates = [
-    [longitude, latitude],
-    [objectMapPosition.long, objectMapPosition.lat],
-  ];
-
   const handleUserLocationUpdate = (location: any) => {
     setLatitude(location.coords.latitude);
     setLongitude(location.coords.longitude);
@@ -64,11 +56,6 @@ const MapComponent = () => {
         long: location.coords.longitude,
       }),
     );
-
-    lineCoordinates = [
-      [longitude, latitude],
-      [objectMapPosition.long, objectMapPosition.lat],
-    ];
   };
 
   useEffect(() => {
@@ -118,7 +105,7 @@ const MapComponent = () => {
         {isTouch ? (
           <Mapbox.Camera
             centerCoordinate={[longitude, latitude]}
-            heading={direction.heading}
+            heading={headingRealtime}
             animationMode={'flyTo'}
             animationDuration={0}
             followUserMode={UserTrackingMode.FollowWithHeading}
@@ -128,7 +115,7 @@ const MapComponent = () => {
           <Mapbox.Camera
             centerCoordinate={[longitude, latitude]}
             zoomLevel={19}
-            heading={direction.heading}
+            heading={headingRealtime}
             animationMode={'flyTo'}
             animationDuration={0}
             followUserMode={UserTrackingMode.FollowWithHeading}

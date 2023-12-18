@@ -1,17 +1,20 @@
 import {View, Text, Dimensions} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import * as Progress from 'react-native-progress';
 import {useAppSelector} from '../store/store';
 
-let maxDistance = 1;
 export default function ProgressComponent() {
   let progress = 0;
+
+  const [maxDistance, setMaxDistance] = useState<number>(1);
+
   const {distance} = useAppSelector(state => state.direction);
 
   // caculate progress
   function caculateProgress(distance: number) {
     if (distance > maxDistance) {
-      maxDistance = distance;
+      //maxDistance = distance;
+      setMaxDistance(distance);
     }
 
     if (distance <= 2) {

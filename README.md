@@ -14,10 +14,12 @@ We use [**Viro library**](https://github.com/viromedia/viro) that detects and di
 - **Mobile Sensors**
 
 # Video Preview
+<p align="center">
+  <img width="200" alt="detect object" src="./assets/videos/detect_object.gif">
+  <img width="200" alt="direction" src="./assets/videos/navigator.gif">
+  <img width="200" alt="card" src="./assets/images/mocks/bohuc_card.jpg">
+</p>
 
-<img align="center" width="200" alt="detect object" src="./assets/videos/detect_object.gif">
-<img align="center" width="200" alt="direction" src="./assets/videos/navigator.gif">
-<img align="center" width="200" alt="card" src="./assets/images/mocks/bohuc_card.jpg">
 
 # Getting Started
 

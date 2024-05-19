@@ -56,7 +56,7 @@ const MenuButtonTop = (props: MenuProps) => {
             <Text style={styles.text}>{'Detect Objects'}</Text>
           </MenuOption>
           <MyDivider />
-          {/* <MenuOption
+          <MenuOption
             onSelect={props.funNavtoScanImage}
             customStyles={{
               optionWrapper: {
@@ -88,7 +88,7 @@ const MenuButtonTop = (props: MenuProps) => {
               color="#000"
             />
             <Text style={styles.text}>{'Get Position'}</Text>
-          </MenuOption> */}
+          </MenuOption>
         </MenuOptions>
       </Menu>
     </View>

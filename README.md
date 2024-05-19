@@ -1,5 +1,17 @@
+# AR App with React Native 😎
+
+This project is an AR (Augmented Reality) application developed using React Native, designed to integrate AR into navigation and product detection. The app provides an immersive experience by allowing users to detect products and navigate to them using both 2D maps and 3D AR visualizations.
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).\
 We use [**Viro library**](https://github.com/viromedia/viro) that detects and displays images and objects in real-time, presenting lifelike 3D models through augmented reality (AR)🕶️
+
+## Technologies
+
+- **React Native**
+- **Viro - AR**
+- **Mapbox**
+- **Redux Toolkit**
+- **Mobile Sensors**
 
 # Video Preview
 
@@ -20,7 +32,7 @@ npm install
 # OR using Yarn
 yarn install
 
-# if you cant install, try:
+# if you can't install, try:
 npm install --legacy-peer-deps
 ```
 
@@ -36,22 +48,43 @@ npm start
 yarn start
 ```
 
-## Step 3: Add models to project
+## Step 3: Open the App on Your Device:
 
-To add new model to project:
+- For iOS: Use Xcode to open the project and run on a simulator or device.
+- For Android: Use Android Studio or a connected device.
 
-1. Create new folder in `assets/images` folder. Example: `assets/images/bohuc`
-2. Add labels images of your model in this folder. Example: `assets/images/bohuc/bohuc1.jpg`
-3. Create file: `{your_model}_images.tsx` in `utils` folder to define your model's images url. Example: `src/utils/bohuc_images.tsx`\
-   I recommend you use chatGpt to generate url, you can follow my format in this file.
-4. In `DetectObject.tsx` file, import your `{your_model}_images.tsx` file.
-5. Add your model's infomations and images inside `utils/object_map` file.
+## Main Features
 
-Rebuild your project to see the result.
+### Detect Products in AR
 
-If app detect model successfully, it will show a text "Found Object {your_model}..." on screen.\
-Expamle Log:
+- **Product Recognition and Information Display**: The app can scan and recognize products, displaying relevant information in AR.
+- **Navigation Using AR**: Users can navigate to the products using both 2D maps and AR 3D paths.
 
-```bash
-[LOG] Found Object bohuc {"anchorId": "49264808", "position": [-0.01319042220711708, -0.3073541224002838, -0.43637239933013916], "rotation": [36.71136178875351, -13.227428870237672, 24.101736335548186], "scale": [1, 1, 1], "trackingMethod": "tracking", "type": "image"}
-```
+## Detailed Functionality
+
+### Product Recognition and Information Display
+
+- **Product Image Recognition**: Utilizing Viro, the app recognizes product images.
+- **Image Dataset Creation**: A dataset of product images is created for recognition.
+- **AR Information Card Display**: Once a product is recognized, an information card about the product is displayed in AR.
+
+### Navigation Using AR
+
+- **3D Model Display**: AR models are displayed using Viro.
+- **Coordinate Transformation**: Real-world coordinates are converted into AR reference frames.
+- **Mapbox Integration in AR**: Mapbox is integrated to provide navigation routes within the AR environment.
+
+### Steps for Shortest Path Navigation to a Product
+
+1. **Data Initialization**: Collect product data and initialize it on Mapbox.
+2. **Shortest Path Calculation**: Use Dijkstra's algorithm to find the shortest path from the current location to the product.
+3. **Path Visualization**: Draw the navigation path in Viro.
+
+## Challenges
+
+- **Mobile Sensor Optimization**: The current mobile sensors are not fully optimized for AR navigation.
+- **Indoor Positioning**: Accurate indoor positioning remains a significant challenge.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
